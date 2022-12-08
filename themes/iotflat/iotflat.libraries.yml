@@ -1,0 +1,40 @@
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+
+global-css:
+  css:
+    theme:
+      css/bootstrap.min.css: {}
+      css/style.css: {}
+      css/job.css: {}
+
+global-js:
+  js:
+    js/masonry.pkgd.min.js: {}
+    js/scrollreveal.min.js: {}
+    js/imagesloaded.pkgd.min.js: {}
+  dependencies:
+    - core/jquery
+
+owl-carousel:
+  js:
+    js/owl.carousel.min.js: {}
+    js/custom.js: {}
+  css:
+    theme:
+      css/owl.carousel.css: {}
+      css/owl.theme.css: {}
+  dependencies:
+    - core/jquery
+
+project-js:
+  js:
+    js/custom-project.js: {}
+  dependencies:
+    - core/jquery
+
+prefix-free:
+  js:
+    js/prefixfree.min.js: {}

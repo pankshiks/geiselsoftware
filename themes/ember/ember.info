@@ -1,0 +1,37 @@
+name = Ember
+description = A responsive administration theme.
+package = Core
+version = VERSION
+core = 8.x
+
+; Stylesheets
+stylesheets[screen][] = css/normalize.css
+stylesheets[screen][] = css/style.css
+
+; Override the contextual.theme.css file with our version in the ./css subdirectory:
+stylesheets-override[] = css/contextual.theme.css
+
+; Settings
+settings[shortcut_module_link] = 1
+
+; Regions
+regions[content] = Content
+regions[help] = Help
+regions[messages] = Messages
+regions[page_top] = Page top
+regions[page_bottom] = Page bottom
+regions[sidebar_first] = First sidebar
+regions_hidden[] = sidebar_first
+
+; Information added by drupal.org packaging script on 2011-12-05
+version = "8.0"
+project = "drupal"
+datestamp = "1323125439"
+
+
+; Information added by drupal.org packaging script on 2013-09-30
+version = "8.x-1.x-dev"
+core = "8.x"
+project = "ember"
+datestamp = "1380576713"
+

@@ -1,0 +1,36 @@
+{
+  "name": "drupal/superfish",
+  "description": "Adds jQuery Superfish plugin to menu blocks.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/superfish",
+  "authors": [
+    {
+      "name": "mehrpadin",
+      "homepage": "https://www.drupal.org/u/mehrpadin",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/superfish",
+    "source": "https://cgit.drupalcode.org/superfish"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "Superfish-for-Drupal/superfish",
+        "version": "2",
+        "type": "drupal-library",
+        "dist": {
+          "url": "https://github.com/mehrpadin/Superfish-for-Drupal/archive/2.x.zip",
+          "type": "zip"
+        }
+      }
+    }
+  ],
+  "require": {
+    "Superfish-for-Drupal/superfish": "2"
+  }
+}

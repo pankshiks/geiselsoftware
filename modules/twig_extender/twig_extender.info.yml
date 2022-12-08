@@ -1,0 +1,10 @@
+name: Twig Extender
+type: module
+description: Add new extensions to twig template engine
+core: 8.x
+package: Twig
+
+# Information added by Drupal.org packaging script on 2020-01-13
+version: '8.x-2.4'
+project: 'twig_extender'
+datestamp: 1578910987

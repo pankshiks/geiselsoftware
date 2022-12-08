@@ -1,0 +1,226 @@
+{#
+/**
+ * @file
+ * Default theme implementation for the basic structure of a single Drupal page.
+ *
+ * Variables:
+ * - logged_in: A flag indicating if user is logged in.
+ * - root_path: The root path of the current page (e.g., node, admin, user).
+ * - node_type: The content type for the current node, if the page is a node.
+ * - head_title: List of text elements that make up the head_title variable.
+ *   May contain one or more of the following:
+ *   - title: The title of the page.
+ *   - name: The name of the site.
+ *   - slogan: The slogan of the site.
+ * - page_top: Initial rendered markup. This should be printed before 'page'.
+ * - page: The rendered page markup.
+ * - page_bottom: Closing rendered markup. This variable should be printed after
+ *   'page'.
+ * - db_offline: A flag indicating if the database is offline.
+ * - placeholder_token: The token for generating head, css, js and js-bottom
+ *   placeholders.
+ *
+ * @see template_preprocess_html()
+ *
+ * @ingroup themeable
+ */
+#}
+<!DOCTYPE html>
+<html{{ html_attributes }}>
+  <head>
+    <head-placeholder token="{{ placeholder_token }}">
+{# We manually insert favicon links to make them resonsive #}
+    <link rel="shortcut icon" href="/themes/iotflat/img/fav/favicon.ico">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="/themes/iotflat/img/fav/favicon.ico">
+    <link rel="icon" type="image/png" sizes="196x196" href="/themes/iotflat/img/fav/favicon-192.png">
+    <link rel="icon" type="image/png" sizes="160x160" href="/themes/iotflat/img/fav/favicon-160.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/themes/iotflat/img/fav/favicon-96.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/themes/iotflat/img/fav/favicon-64.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/themes/iotflat/img/fav/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/themes/iotflat/img/fav/favicon-16.png">
+    <link rel="apple-touch-icon" href="/themes/iotflat/img/fav/favicon-57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/themes/iotflat/img/fav/favicon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/themes/iotflat/img/fav/favicon-72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/themes/iotflat/img/fav/favicon-144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/themes/iotflat/img/fav/favicon-60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/themes/iotflat/img/fav/favicon-120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/themes/iotflat/img/fav/favicon-76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/themes/iotflat/img/fav/favicon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/themes/iotflat/img/fav/favicon-180.png">
+    <link rel="alternate" type="application/rss+xml" title="IoT RSS Feed for Geisel Software" href="/blog/rss.xml" />
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="/themes/iotflat/img/fav/favicon-144.png">
+    <meta name="msapplication-config" content="/themes/iotflat/img/fav/browserconfig.xml">
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Corporation",
+    "name": "Geisel Software",
+    "url": "http://geisel.software",
+    "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"],
+    "location": {
+        "@type": "Place",
+        "name": "Geisel Software",
+        "url": "http://geisel.software",
+        "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"] 
+    } 
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Geisel Software",
+    "description": "360 Degree Software Development for IoT Devices. Developing Embedded, Cloud and Mobile Software for a Connected World.",
+    "url": "http://geisel.software/",
+    "image": "http://geisel.software/themes/iotflat/img/logo-geisel-software.png",
+    "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"],
+    "copyrightHolder": {
+        "@type": "Corporation",
+        "name": "Geisel Software",
+        "url": "http://geisel.software",
+        "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"],
+        "location": {
+            "@type": "Place",
+            "name": "Geisel Software",
+            "url": "https://geisel.software",
+            "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"] 
+        } 
+    },
+    "author": {
+        "@type": "Corporation",
+        "name": "Geisel Software",
+        "url": "https://geisel.software",
+        "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"],
+        "location": {
+            "@type": "Place",
+            "name": "Geisel Software",
+            "url": "https://geisel.software",
+            "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"] 
+        } 
+    },
+    "creator": {
+        "@type": "Organization" 
+    } 
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebPage",
+    "name": "Internet of Things Software Development - Embedded, Cloud & Mobile",
+    "description": "",
+    "url": "http://geisel.software/",
+    "mainEntityOfPage": "http://geisel.software/",
+    "inLanguage": "en_us",
+    "headline": "Internet of Things Software Development - Embedded, Cloud, Mobile",
+    "keywords": "IoT Software",
+    "dateCreated": "2017-06-06T22:11:03+0000",
+    "dateModified": "2017-06-16T20:12:36+0000",
+    "datePublished": "2017-06-16T21:34:26+0000",
+    "copyrightYear": "2017",
+    "author": {
+        "@type": "Corporation",
+        "name": "Geisel Software",
+        "url": "https://geisel.software",
+        "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"],
+        "location": {
+            "@type": "Place",
+            "name": "Geisel Software",
+            "url": "https://geisel.software",
+            "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"] 
+        } 
+    },
+    "publisher": {
+        "@type": "Corporation",
+        "name": "Geisel Software",
+        "url": "https://geisel.software",
+        "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"],
+        "location": {
+            "@type": "Place",
+            "name": "Geisel Software",
+            "url": "https://geisel.software",
+            "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"] 
+        } 
+    },
+    "copyrightHolder": {
+        "@type": "Corporation",
+        "name": "Geisel Software",
+        "url": "https://geisel.software",
+        "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"],
+        "location": {
+            "@type": "Place",
+            "name": "Geisel Software",
+            "url": "https://geisel.software",
+            "sameAs": ["https://twitter.com/@geiselsoftware","https://www.facebook.com/geiselsoftware","https://www.linkedin.com/company/geisel-software-inc-"] 
+        } 
+    },
+    "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": "1",
+                "item": {
+                    "@id": "https://geisel.software/",
+                    "name": "Homepage" 
+                } 
+            }
+        ] 
+    } 
+}
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": "1",
+            "item": {
+                "@id": "http://geisel.software/",
+                "name": "Homepage" 
+            } 
+        }
+    ] 
+}
+</script>
+
+
+    <title>{{ head_title|safe_join(' | ') }}</title>
+    <css-placeholder token="{{ placeholder_token }}">
+    <js-placeholder token="{{ placeholder_token }}">
+  </head>
+{% set body_classes = [
+    logged_in ? 'user-logged-in',
+    not root_path ? 'path-frontpage' : 'path-' ~ root_path|clean_class,
+    node_type ? 'page-node-type-' ~ node_type|clean_class,
+    db_offline ? 'db-offline',
+    theme.settings.navbar_position ? 'navbar-is-' ~ theme.settings.navbar_position,
+    theme.has_glyphicons ? 'has-glyphicons',
+    path_info.args ? 'path-' ~ path_info.args,
+    ]
+    %}
+
+    {% if node_type != 'project' %}
+    {% set body_classes = body_classes|merge(['limitedwidth']) %}
+    {% endif %}
+  <body{{ attributes.addClass(body_classes) }}>
+    {#
+      Keyboard navigation/accessibility link to main content section in
+      page.html.twig.
+    #}
+    <a href="#main-content" class="visually-hidden focusable">
+      {{ 'Skip to main content'|t }}
+    </a>
+    {{ page_top }}
+    {{ page }}
+    {{ page_bottom }}
+    <js-bottom-placeholder token="{{ placeholder_token }}">
+  </body>
+</html>

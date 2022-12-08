@@ -1,0 +1,22 @@
+name: Goverment
+type: theme
+description: 'Custom Theme for Goverment Pages.'
+# version: VERSION
+core: 8.x
+# base theme: bootstrap
+
+libraries:
+  - goverment/global-styling
+
+regions:
+  header: Header
+  highlighted: Highlighted
+  content: Content
+  branding: Branding
+  content_bottom: Content Bottom
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  sidebar_first: 'Sidebar first'
+  footer: 'Footer'
+  
+

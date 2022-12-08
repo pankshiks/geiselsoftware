@@ -1,0 +1,291 @@
+<?php
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+use Drupal\Component\Utility\Html;
+use Drupal\taxonomy\Entity\Term;
+
+function iotflat_preprocess_html(&$variables) {
+  $variables['path_info']['args'] = FALSE;
+  $path = \Drupal::service('path.current')->getPath();
+  $path_args = explode('/', $path);
+  if(count($path_args) >= 3) {
+    $variables['path_info']['args'] = Html::cleanCssIdentifier(ltrim($path, '/'));
+  }
+  //$path = \Drupal::request()->getPathInfo();
+  //$path_args = explode('/', $path);
+  if(isset($path_args[1]) && $path_args[1] == 'news'){
+    $variables['attributes']['class'][] = 'path-press';
+  }
+  //echo "<pre>";print_r($path_args);echo "</pre>";exit;
+
+  $viewport = array(
+// '#type' => 'html_tag',
+    '#tag' => 'meta',
+    '#attributes' => array(
+      'name' => 'viewport',
+      'content' => 'width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no',
+      ),
+    );
+    $variables['page']['#attached']['html_head'][] = [$viewport, 'viewport',];
+
+    
+}
+
+function iotflat_preprocess_page(&$variables) {
+
+  try {
+    $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+  }
+  catch (Exception $e) {
+    $variables['is_front'] = FALSE;
+  }
+
+
+  if (isset($variables['node'])) {
+    $node = $variables['node'];
+     $variables['node_title'] = $node->getTitle();
+  }
+
+  // exit;
+ $site_config = \Drupal::config('system.site');
+// $variables['site_name'] = $site_config->get('name');
+// $variables['site_slogan'] = $site_config->get('slogan');
+$variables['logopath'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    //$variables['#attached']['library'][] = 'iotflat/owl-carousel';
+  }
+
+  $variables['#attached']['library'][] = 'iotflat/global-css';
+  $variables['#attached']['library'][] = 'iotflat/global-js';
+  // XXX add this when not debugging
+  //$variables['#attached']['library'][] = 'iotflat/prefix-free';
+
+  $node = null;
+  if (isset($variables['node'])) {
+    $node = $variables['node'];
+  }
+  if ($node != null && $node->getType() == "blog") {
+    $video = $node->field_video->view(
+      array(
+        'type' => 'video_embed_field_video',
+        'label' => 'hidden',
+      )
+      );
+    $variables['video'] = $video;
+
+    $term = Term::load($node->get('field_blog_category')->target_id);
+    $term_name = "Business & Technology"; // good default
+    if ($term != null) {
+      $term_name = $term->getName();
+    }
+
+    $variables['category_name'] = $term_name;
+  }
+}
+
+function iotflat_preprocess_region(&$variables) {
+  $node = Drupal::request()->attributes->get('node');
+  if (isset ($node)) {
+    //error_log("Node: " . $node->id());
+    //error_log("vars region: " . $variables['region']);
+  }
+  if (isset($node->type) && $variables['region'] == 'content') {
+    $variables['theme_hook_suggestions'][] = 'region__content__' . $node->getType();
+    $variables['attributes_array']['class'][] = 'region-content-' . $node->getType();
+    //error_log("Hook suggestions: " . print_r($variables['theme_hook_suggestions'], true));
+  }
+}
+
+function iotflat_preprocess_views_view(&$variables) {
+  $view = $variables['view'];
+
+  $variables['title'] = $view->getTitle();
+
+}
+
+function iotflat_preprocess_node(&$vars) {
+  $node = $vars['node'];
+  if ($node->getType() == "project") {
+    $nid = $node->id();
+
+    // This gets term names, but doesn't seem to be passed out anywhere
+    $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getNodeTerms(array($nid));
+
+if(isset($terms[$nid])){
+    $my_terms = $terms[$nid];
+    $term_names = array();
+    if (is_array($my_terms)) {
+    foreach ($my_terms as $term) {
+      $term_names[] = $term->getName();
+    }
+  }
+}
+
+    $next_nid = $nid;
+    $prev_nid = $nid;
+    $fat_nids = \Drupal::entityQuery('node')->condition('type', "project")
+      ->condition('status', NODE_PUBLISHED)->execute();
+    // $fat_nids is in the format '181' => '181'. We need to flatten this.
+    $nids = array();
+    foreach($fat_nids as $value) {
+      $nids[] = $value;
+    }
+    $offset = array_search($nid, $nids);
+    // Note this `if` structure does not support only a single entry
+    // If we're the first entry
+    if ($offset == 0) {
+      $next_nid = $nids[$offset + 1];
+      $prev_nid = $nids[count($nids) - 1];
+    } elseif ($offset == count($nids) - 1) {
+      // last entry
+      $next_nid = $nids[0];
+      $prev_nid = $nids[$offset - 1];
+    } else {
+      // anyone in the middle gets what we expect
+      $next_nid = $nids[$offset + 1];
+      $prev_nid = $nids[$offset - 1];
+    }
+
+    // Now get prev/next nodes
+    $next_node = \Drupal\node\Entity\Node::load($next_nid);
+    $vars['next_node'] = $next_node;
+
+    $prev_node = \Drupal\node\Entity\Node::load($prev_nid);
+    $vars['prev_node'] = $prev_node;
+
+  } elseif ($node->getType() == "blog") {
+    $cv = $vars['content']['field_video'];
+
+  } else {
+    // Not project content type
+    //error_log("node type: " . $node->getType());
+  }
+}
+
+function iotflat_preprocess_taxonomy_term(&$vars) {
+  $term = $vars['term'];
+  $name = $term->getName();
+  $trans = '';
+  $link = '';
+
+  $icon_trans = array(
+    'Internet of Things' => 'iot',
+    'Mobile Apps' => 'mobileapps',
+    'Web Development' => 'webapps',
+    'Security' => 'security',
+    );
+  $links_trans = array(
+    'Internet of Things' => '/technology/embedded',
+    'Mobile Apps' => '/technology/mobile',
+    'Web Development' => '/technology/webapps',
+    'Security' => '/security',
+    );
+  if(array_key_exists($name, $icon_trans)) {
+    $trans = $icon_trans[$name];
+    $link = $links_trans[$name];
+  } else {
+    error_log("Could not find icon name lookup for Tax Term '$name'.");
+  }
+
+  $vars['li_class'] = "spec-" . $trans;
+  $vars['i_class'] = "icon-" . $trans;
+  $vars['name_raw'] = $name;
+  $vars['new_url'] = $link;
+}
+
+function iotflat_theme_suggestions_page_alter(array &$suggestions, 
+  array $variables) {
+
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $content_type = $node->bundle();
+    $suggestions[] = 'page__' . $content_type;
+  }
+}
+
+function iotflat_theme_suggestions_html_alter(array &$suggestions, 
+  array $variables) {
+
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $content_type = $node->bundle();
+    $suggestions[] = 'html__' . $content_type;
+  }
+}
+
+function iotflat_theme_suggestions_taxonomy_term_alter(array &$suggestions,
+  array $variables) {
+  $vm = $variables['elements']['#view_mode'];
+  $tt = $variables['elements']['#taxonomy_term'];
+  $vid = $tt->getVocabularyId();
+
+  // Add a suggestion of taxonomy_term__vocabulary_name__display_name
+  $suggestions[] = 'taxonomy_term__' . $vid . '__' . $vm;
+}
+
+
+function iotflat_theme_suggestions_field_alter(array &$suggestions,
+  array $variables) {
+
+  //error_log("Suggestions: " . print_r($suggestions, true));
+
+  /*
+  foreach ($variables as $key => $v) {
+    error_log("key: $key");
+  }
+   */
+}
+
+function iotflat_form_alter(&$form, $form_state, $form_id) {
+  // Mailchimp forms
+  if ($form_id == "mailchimp_signup_subscribe_block_e_book_signup_form"){
+    // $form['#prefix'] = "";
+    $form['#suffix'] = "<a href='/privacy-policy' target='_blank'><span>Privacy Policy</span></a>";
+  }
+  // \Drupal::logger('my_module')->notice('<pre>' .print_r($form). '</pre>');
+
+
+  if ($form_id == "mailchimp_signup_subscribe_block_e_book_signup_form" || $form_id == "mailchimp_signup_subscribe_block_e_book_signup_alt_form" || $form_id == "mailchimp_signup_subscribe_block_newsletter_signup_form") {
+    $f = $form;
+    $form['#attributes']['class'][] = "form-free";
+    $form['#attributes']['class'][] = "form-inline";
+    $form['submit']['#attributes']['class'] = array();
+    $form['submit']['#attributes']['class'][] = "btn-white btn";
+    $form['mergevars']['EMAIL']['#attributes']['placeholder'] = "Email address";
+    $form['mergevars']['EMAIL']['#attributes']['class'][] = "form-control";
+    $form['mergevars']['EMAIL']['#weight'] = 2;
+    $form['mergevars']['FNAME']['#attributes']['placeholder'] = "First name";
+    $form['mergevars']['FNAME']['#attributes']['class'][] = "form-control";
+    $form['mergevars']['FNAME']['#weight'] = 1;
+    $form['mergevars']['MMERGE4']['#type'] = 'hidden';
+    $form['mergevars']['MMERGE4']['#default_value'] = 'Internet of Things';
+    foreach($form['mergevars'] as $key => &$field) {
+      if ($key[0] == '#') continue;  // skip non form elements
+      $field['#prefix'] = "<div class=\"form-group\">";
+      $field['#suffix'] = "</div";
+    }
+  } elseif ($form_id == "contact_message_website_feedback_form") {
+    // Change the form classes for the contact page
+    $form['#attributes']['class'][] = "form-lined";
+    $form['#attributes']['class'][] = "form-contact";
+    $form['#attributes']['class'][] = "form";
+    $form['#attributes']['class'][] = "animated";
+    $form['name']['#attributes']['placeholder'] = 'Your name';
+    $form['mail']['#attributes']['placeholder'] = 'Email address';
+    $form['message']['#attributes']['class'][] = 'form-area';
+    $form['actions']['submit']['#attributes']['class'][] = 'btn-outline';
+    unset($form['actions']['preview']);
+  } else {
+    error_log("form_id: " . $form_id);
+  }
+}
+function iotflat_theme_suggestions_block_alter(&$suggestions, $variables) {
+  $content = $variables['elements']['content'];
+  if (isset($content['#block_content']) && $content['#block_content'] instanceof \Drupal\block_content\BlockContentInterface) {
+    $suggestions[] = 'block__' . $content['#block_content']->bundle();
+  }
+}
+
+// vim: set filetype=php expandtab tabstop=2 shiftwidth=2 autoindent smartindent:

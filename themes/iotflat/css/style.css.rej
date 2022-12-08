@@ -1,0 +1,48 @@
+--- v/geisel/css/style.css	2016-08-14 13:53:08.000000000 -0400
++++ style.css	2017-01-28 13:38:17.308787457 -0500
+@@ -2111,6 +2108,10 @@
+       .testimonials .quote p.author {
+         font-size: 13px; } }
+ @media only screen and (min-width: 1200px) {
++  .limitedwidth .contentblock {
++    max-width: 1300px;
++    margin: 0 auto; }
++
+   .container {
+     width: auto;
+     max-width: 1300px; }
+@@ -2177,6 +2178,22 @@
+   .block-iot .block-msg,
+   .block-mobileapps .block-msg {
+     padding: 10px 15px; } }
++@media only screen and (min-width: 1025px) {
++  .bpost.double {
++    display: flex;
++    width: calc(66.6666% - 30px); }
++    .bpost.double .imgbox {
++      width: 65%;
++      padding-top: 0; }
++      .bpost.double .imgbox img {
++        position: static; }
++    .bpost.double .blogintro {
++      width: 35%;
++      margin-top: 0;
++      padding: 35px 25px;
++      position: relative; }
++  .bpost.quote blockquote p {
++    font-size: 22px; } }
+ @media only screen and (max-width: 992px) {
+   .container {
+     width: 90%; }
+@@ -2517,7 +2541,10 @@
+     .list-clients > li {
+       flex: 1 0 auto;
+       width: 50%;
+-      margin-bottom: 12px; } }
++      margin-bottom: 12px; }
++
++  .bpost {
++    margin-bottom: 15px; } }
+ @media only screen and (min-width: 768px) {
+   .projectblock .projintro {
+     padding: 50px 60px;

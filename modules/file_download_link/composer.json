@@ -1,0 +1,10 @@
+{
+  "name": "drupal/file_download_link",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "description": "Adds field formatter to render file field as configurable download link.",
+  "homepage": "https://drupal.org/project/file_download_link",
+  "require-dev": {
+    "drupal/token": "^1.0"
+  }
+}

@@ -1,0 +1,20 @@
+# Schema for the configuration for field_download_link_media
+
+field.formatter.settings.file_download_link_media:
+  type: mapping
+  mapping:
+    link_text:
+      type: label
+      label: 'Link Text'
+    link_title:
+      type: label
+      label: 'Link Text'
+    new_tab:
+      type: boolean
+      label: "Open in new tab"
+    force_download:
+      type: boolean
+      label: "Force download"
+    custom_classes:
+      type: string
+      label: "Custom classes"

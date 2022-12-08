@@ -1,0 +1,56 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ *
+ * @ingroup themeable
+ */
+#}
+{#
+{% if title %}
+  <h5>{{ title }}</h5>
+{% endif %}
+#}
+{% for row in rows %}
+  {%
+    set row_classes = [
+      default_row_class ? 'views-row',
+    ]
+  %}
+  {% if loop.first %}
+    {# <div class="col-md-8 col-md-pull-4"> #}
+      <article class="bpost toppost">
+        {{ row.content }}
+      </article>
+      </div></div></div></div>
+    <div class="posts" id="blogstream">
+  {% elseif loop.index0 == 1 %}
+  <article class="bpost gridsizer animated">
+    {{ row.content }}
+  </article>
+  {% elseif loop.index0 == 2 %}
+   <article class="bpost double invert">
+    {{ row.content }}
+   </article>
+  {% elseif loop.index0 == 6 %}
+   <article class="bpost double">
+    {{ row.content }}
+   </article> 
+   {% else %}
+    <article class="bpost">
+     {{ row.content }}
+    </article>
+  {% endif %}
+{% endfor %}
+</div>

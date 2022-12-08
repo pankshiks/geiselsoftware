@@ -1,0 +1,30 @@
+core: 8.x
+type: theme
+base theme: bootstrap
+
+name: 'IoT Flat Design'
+description: 'Geisel Software design done by Vlad with flat design. Uses the jsDelivr CDN for all CSS and JavaScript. No source files or compiling is necessary and is recommended for simple sites.'
+package: 'Bootstrap'
+
+regions:
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  callout_images: 'Callout Images'
+
+features:
+  favicon: false
+
+libraries:
+  - 'iotflat/global-js'
+  - 'iotflat/global-css'
+  - 'iotflat/owl-carousel'
+

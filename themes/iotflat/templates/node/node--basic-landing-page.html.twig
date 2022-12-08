@@ -1,0 +1,25 @@
+<!-- page.html.twig -->
+{% set container = theme.settings.fluid_container ? 'container-fluid' : 'container' %}
+{% set banner_image = file_url(node.field_basic_landing_banner.entity.fileuri) %}
+
+<div class="robots-overview-header-part" style="background-image: url('{{banner_image}}');">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-6 col-md-offset-3">
+            <img src="{{ file_url(node.field_image.entity.fileuri) }}">
+            <h3>{{node.label}}</h3>
+            <h2>{{node.field_subtitle.value}}</h2>
+         </div>
+      </div>
+   </div>
+</div>
+<div role="main" class="pagecontent padded {{ container }} js-quickedit-main-content mt-35 robotic-page-main-content-block">
+   <div class="row">
+      <section{{ content_attributes }}> 
+      {{node.body.value|raw}} 
+      {{content.field_description}} 
+     <div class="bottom-portfolio-link" {{content.field_text_link }} </div>
+         <a class="download-pdf" download="" href="{{file_url(node.field_pd.entity.fileuri)}}">Download as a pdf</a>
+      </section>
+   </div>
+</div>

@@ -1,0 +1,71 @@
+<!-- Header -->
+  {% block navbar %}
+    {%
+      set navbar_classes = [
+        'header',
+        theme.settings.navbar_inverse ? 'navbar-inverse' : 'navbar-default',
+      ]
+    %}
+    {% set site_url = url("<current>")|render|trim %}
+
+    {% if site_url == "https://geisel.software/about" or site_url == "https://geisel.software/contact" %}
+      {% set img_url = '/themes/iotflat/img/Geisel_Software_Logo_Default_Logo_4_Black.png' %}
+    {% else %}
+      {% set img_url = '/themes/iotflat/img/logo-geisel-software_1.png' %}
+    {% endif %}
+    <header class="header" id="navbar" role="banner">
+
+    <!-- Mobile bar -->
+    <div class="mobile-bar">
+      <div class="logobox">
+        <a href="/">
+          <img src="{{img_url}}" alt="Geisel Software Inc."/>
+        </a>
+      </div>
+      <div class="action">
+        <a href="#" class="btn btn-mobilemenu">
+        <span></span>
+        <span class="second"></span>
+        <span></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mobile-menu">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/" class="navbar-brand">
+            <img src="{{img_url}}" alt="Geisel Software, Inc"/>
+          </a>
+          <a href="#" class="btn-close btn-closemenu"><i class="icon-x"></i></a>
+        </div>
+        <div class="collapse navbar-collapse" id="mobile-menu">
+            <!--
+            <pre>
+            {{ dump(content) }}
+            </pre>
+            -->
+            {{ content }}
+            <!--
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Region Menu</a></li>
+            <li><a href="#">Mobile Apps</a></li>
+            <li><a href="#">Web Apps</a></li>
+            <li><a href="#">Security</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#" class="btn btn-primary">Get Involved</a></li>
+          </ul>
+            -->
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>  <!-- Navigation -->
+  </header> <!-- End Header -->
+  {% endblock %}
+

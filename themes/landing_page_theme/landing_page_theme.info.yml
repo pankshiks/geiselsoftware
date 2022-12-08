@@ -1,0 +1,15 @@
+name: 'Landing Page Theme'
+description: 'Geisel Software Landing Page Theme'
+core: 8.x
+type: theme
+base theme: bootstrap
+package: 'Bootstrap'
+
+regions:
+  navigation: 'Navigation'
+  content: 'Content'
+  sidebar: 'Secondary Sidebar'
+
+libraries:
+  - 'landing_page_theme/global-css'
+  - 'landing_page_theme/global-js'

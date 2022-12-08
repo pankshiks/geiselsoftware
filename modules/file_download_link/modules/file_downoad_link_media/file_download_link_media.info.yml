@@ -1,0 +1,14 @@
+name: File Download Link Media
+description: "Adds field formatter to render Media reference fields as download link very directly."
+package: Field
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:media
+  - file_download_link:file_download_link
+
+# Information added by Drupal.org packaging script on 2020-11-11
+version: '8.x-1.1'
+project: 'file_download_link'
+datestamp: 1605104020

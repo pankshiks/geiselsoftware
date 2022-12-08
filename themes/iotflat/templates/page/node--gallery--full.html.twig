@@ -1,0 +1,141 @@
+{{ attach_library('gallery_module/gallery_assets') }}
+  <header class="gallery-global-header">
+      <!-- Start Global Navigation -->
+      <!-- To be added -->
+      <!-- End Global Navigation -->
+      <!-- Start Secondary Navigation -->
+      <div class="gallery-small-9 gallery-large-3 gallery-xlarge-3 gallery-columns gallery-float-left">
+          <a href="https://www.americanancestors.com" title="Go to AmericanAncestors.com" target="_blank" class="gallery-global--brand">
+              <!--Show American Ancestors.com-->
+              <img src="/modules/custom/gallery_module/assets/img/aa_logo.svg" alt="American Ancestors" />
+          </a>
+      </div>
+      <div class="gallery-small-3 gallery-large-9 gallery-xlarge-9 gallery-columns gallery-float-right">
+          <ul id="main--menu" class="gallery-global--menu float-right">
+              <li>
+                  <a href="https://www.americanancestors.org/join" target="_blank">Join</a>
+              </li>
+              <li>
+                  <a href="https://www.americanancestors.org/services/which-service" target="_blank">Research Services</a>
+              </li>
+              <li>
+                  <a href="https://www.americanancestors.org/support" target="_blank">Support</a>
+              </li>
+              <li>
+                  <a href="https://www.americanancestors.org/about" target="_blank">About</a>
+              </li>
+              <li>
+                  {{ drupal_entity('block', 'exposedformgallery_viewpage_1') }}
+              </li>
+          </ul>
+      </div>
+  </header>
+	<article id="gallery-introduction" class="gallery-canvas">
+    <div class="gallery--arrow">
+        <span class="arrow-icon"></span>
+    </div> 
+    <div class="gallery--pagination">
+        {% if pre_node %}
+        <span class="gallery-arrow gallery-arrow--prev">
+          <a href="/node/{{pre_node}}"></a>
+        </span>
+        {% endif %}
+        {% if next_node %}
+        <span class="gallery-arrow gallery-arrow--next">
+          <a href="/node/{{next_node}}"></a>
+        </span>
+        {% endif %}
+    </div> 
+  	<div id="gallery-article" class="gallery-columns gallery-small-12 gallery-large-6">
+
+        {% if content.field_gallery_logo %}
+        <header id="gallery-article--header" class="gallery-brand">
+        <img src="{{ file_url(node.field_gallery_logo.entity.fileuri) }}" 
+        alt="{{ node.field_gallery_logo.alt }}">
+        </header>
+        {% endif %}
+        <section>
+        	
+      	{% if node.field_title_style.value == "Blockquote" %}
+      	<div class="gallery-article--heading heading-blockquote">
+      		<h1>&ldquo;{{ node.label }}&rdquo;</h1>
+      	</div>
+      	{% else %}
+      	<div class="gallery-article--heading">
+      	  <h1>{{ node.label }}</h1>  
+      	</div>
+      	{% endif %}
+            
+        {% set body = {
+				'#type': 'processed_text',
+				'#text': node.body.value,
+				'#format': node.body.format,
+				}
+				%}
+        <div class="gallery-article--content">
+        	{{body}}
+        </div>
+        {{content.field_tags.0}}
+        {{content.field_comments}}
+      </section>
+    </div>
+    
+    {% if node.field_background_image.entity.fileuri %}
+    {% set background = file_url(node.field_background_image.entity.fileuri) %}
+    {% else %}
+    {% set background = '/modules/custom/gallery_module/assets/img/backgrounds/background_1.jpg' %}
+    {% endif %}
+
+    <div id="gallery-media" class="gallery-columns gallery-small-12 gallery-large-6" style="background-image: url('{{background}}');">
+    	<section>
+    		{% if node.field_gallery_collage %}
+                {{content.field_gallery_collage}}
+    		{% endif %}
+        {% set cta_media = {
+        '#type': 'processed_text',
+        '#text': node.field_cta_media.value,
+        '#format': node.field_cta_media.format,
+        }
+        %}
+        <div class="gallery-media--action">
+          {{cta_media}}
+        </div>
+
+        {#
+        {% if content.field_gallery_cta_block.0 %}
+        <div class="gallery-media--action">
+        {% for key, item in node.field_gallery_cta_block if key|first != '#' %}
+        {% set link_title = item.entity.field_call_to_action.0.title %}
+          <div>
+              <h5>{{ item.entity.field_call_to_action_text.value }}</h5>
+              <a href="{{ item.entity.field_call_to_action.0.url }}" class="gallery-btn gallery-btn--primary">{{ link_title }}</a>
+          </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+        #}
+    	</section>
+    </div>
+</article>
+  
+	  {% if content.field_left_footer_cta_block.0 %}
+	  <div class="gallery-slug">
+			<div class="gallery-container">
+        <div class="gallery-columns gallery-large-6">
+          <div class="gallery-slug--action">
+				    {{content.field_left_footer_cta_block.0}}
+          </div>
+        </div>
+		{% endif %}
+
+		{% if content.field_right_footer_cta_block.0 %}
+        <div class="gallery-columns gallery-large-6">
+          <div class="gallery-slug--action">
+			       {{content.field_right_footer_cta_block.0}}
+           </div>
+         </div>
+			</div>
+		</div>
+		{% endif %}
+
+		</div>

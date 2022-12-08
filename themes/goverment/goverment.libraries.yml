@@ -1,0 +1,9 @@
+global-styling:
+  version: VERSION
+  js:
+    # js/global.js: {}
+  css:
+    component:
+      assets/css/bootstrap.min.css: {}
+      assets/css/main.css: {}
+      # css/style.css: {}

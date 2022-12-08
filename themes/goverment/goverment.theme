@@ -1,0 +1,15 @@
+<?php
+
+function goverment_preprocess_page(&$variables) {
+	if (isset($variables['node'])) {
+	    $node = $variables['node'];
+	     $variables['node_title'] = $node->getTitle();
+	 }
+}
+
+function goverment_theme_suggestions_block_alter(&$suggestions, $variables) {
+  $content = $variables['elements']['content'];
+  if (isset($content['#block_content']) && $content['#block_content'] instanceof \Drupal\block_content\BlockContentInterface) {
+    $suggestions[] = 'block__' . $content['#block_content']->bundle();
+  }
+}

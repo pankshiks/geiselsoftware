@@ -1,0 +1,12 @@
+name: Ludwig Test
+description: Module for testing Ludwig
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - ludwig
+
+# Information added by Drupal.org packaging script on 2021-01-29
+version: '8.x-1.6'
+project: 'ludwig'
+datestamp: 1611958527

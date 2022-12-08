@@ -1,0 +1,8 @@
+<?php
+
+function landing_page_theme_preprocess_html(&$variables) {
+	$node = \Drupal::routeMatch()->getParameter('node');
+	if ($node instanceof \Drupal\node\NodeInterface) {
+	  $variables['node_id'] = $node->id();
+	}
+}

@@ -1,0 +1,13 @@
+global-css:
+  css:
+    theme:
+      css/bootstrap.min.css: {}
+      css/style.css: {}
+      https://fonts.googleapis.com/css?family=Bitter: {}
+
+global-js:
+  js:
+    js/prefixfree.min.js: {}
+    js/custom.js: {}
+  dependencies:
+    - core/jquery

@@ -1,0 +1,21 @@
+name: Ember
+description: 'A responsive administration theme made to work with Spark'
+package: Spark
+version: VERSION
+core: 8.x
+stylesheets:
+  all:
+    - css/normalize.css
+    - css/style.css
+stylesheets-override:
+    - css/contextual.theme.css
+regions:
+  content: Content
+  help: Help
+  messages: Messages
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  sidebar_first: 'First sidebar'
+  regions_hidden: 'sidebar_first'
+settings:
+  shortcut_module_link: '0'

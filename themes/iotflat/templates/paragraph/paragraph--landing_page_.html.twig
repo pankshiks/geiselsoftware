@@ -1,0 +1,12 @@
+<div class="technology-concepts">
+        <h5>{{paragraph.field_title.value}}</h5>
+    <ul>
+		 {% for item in paragraph.field_list %}
+		<li>{{item.value}}</li>
+		{% endfor %}
+    </ul>
+       
+</div>
+<div class="bottom-text">
+<p>{{paragraph.field_bottom_text.value}}</p>
+</div>

@@ -1,0 +1,13 @@
+name: File Download Link
+description: "Adds field formatter to render file field as configurable download link."
+package: Field
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:file
+
+# Information added by Drupal.org packaging script on 2020-11-11
+version: '8.x-1.1'
+project: 'file_download_link'
+datestamp: 1605104020
