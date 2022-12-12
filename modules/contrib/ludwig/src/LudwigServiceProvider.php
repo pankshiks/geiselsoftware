@@ -21,7 +21,7 @@ class LudwigServiceProvider extends ServiceProviderBase {
     $package_manager = new PackageManager($root);
     $namespaces = $container->getParameter('container.namespaces');
     foreach ($package_manager->getPackages() as $package_name => $package) {
-      if ($package['installed']) {
+      if ($package['status'] == 'Installed') {
         if ($package['resource'] == 'psr-4' || $package['resource'] == 'psr-0') {
           $namespace = $package['namespace'];
           // If this namespace exists already, convert it's path(s) to
@@ -59,11 +59,6 @@ class LudwigServiceProvider extends ServiceProviderBase {
             $namespaces[$namespace] = $return_paths;
           }
         }
-        // @todo Add support for 'classmap' autoload type.
-        // @todo Add support for 'files' autoload type.
-        // @todo Add support for 'exclude-from-classmap' autoload property.
-        // @todo Add support for 'target-dir' autoload property.
-        // @todo Add support for 'legacy' libraries (depricated type).
       }
     }
     $container->setParameter('container.namespaces', $namespaces);

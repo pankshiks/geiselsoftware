@@ -1,0 +1,10 @@
+name: Algolia Places
+type: module
+description: Provides a field widget for text inputs on entity forms to leverage the Algolia Places JS library.
+core_version_requirement: ^8 || ^9
+package: Algolia
+
+# Information added by Drupal.org packaging script on 2022-03-08
+version: '8.x-2.0'
+project: 'algolia_places'
+datestamp: 1646754241

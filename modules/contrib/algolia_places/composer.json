@@ -1,0 +1,22 @@
+{
+    "name": "drupal/algolia_places",
+    "description": "provides a field widget for text inputs on entity\nforms to leverage the Algolia Places JS library.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "George Anderson (geoanders)",
+            "homepage": "https://www.drupal.org/u/geoanders",
+            "role": "Maintainer"
+        }
+    ],
+    "homepage": "https://drupal.org/project/algolia_places",
+    "support": {
+        "issues": "https://drupal.org/project/issues/algolia_places",
+        "source": "https://git.drupalcode.org/project/algolia_places"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "drupal/core": "^8 || ^9"
+    }
+}

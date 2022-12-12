@@ -44,16 +44,20 @@ namespace Drupal\Tests\ludwig\Unit {
         ],
         'test2' => [
           'require' => [
-            'symfony/config' => [
+            'symfony/config d9 d10' => [
               'version' => 'v3.2.8',
               'url' => 'https://github.com/symfony/config/archive/v3.2.8.zip',
+            ],
+            'symfony/config d8' => [
+              'version' => 'v3.2.6',
+              'url' => 'https://github.com/symfony/config/archive/v3.2.6.zip',
             ],
           ],
         ],
         'test3a' => [
           'require' => [
             'html2text/html2text' => [
-              'version' => 'v4.3.1',
+              'version' => '4.3.1',
               'url' => 'https://github.com/mtibben/html2text/archive/4.3.1.zip',
             ],
           ],
@@ -69,7 +73,7 @@ namespace Drupal\Tests\ludwig\Unit {
         'test3c' => [
           'require' => [
             'html2text/html2text' => [
-              'version' => 'v4.3.1',
+              'version' => '^4.3.1',
               'url' => 'https://github.com/mtibben/html2text/archive/4.3.1.zip',
             ],
           ],
@@ -79,7 +83,6 @@ namespace Drupal\Tests\ludwig\Unit {
             'dompdf/dompdf' => [
               'version' => 'v0.8.6',
               'url' => 'https://github.com/dompdf/dompdf/releases/download/v0.8.6/dompdf_0-8-6.zip',
-              'disable_warnings' => 'TRUE',
             ],
           ],
         ],
@@ -96,6 +99,14 @@ namespace Drupal\Tests\ludwig\Unit {
             'maxmind/web-service-common' => [
               'version' => 'v0.8.0',
               'url' => 'https://github.com/maxmind/web-service-common-php/archive/v0.8.0.zip',
+            ],
+          ],
+        ],
+        'telephone_formatter' => [
+          'require' => [
+            'giggsey/libphonenumber-for-php' => [
+              'version' => 'v8.12.20',
+              'url' => 'https://github.com/giggsey/libphonenumber-for-php/archive/8.12.20.zip',
             ],
           ],
         ],
@@ -145,13 +156,27 @@ namespace Drupal\Tests\ludwig\Unit {
             ],
           ],
         ],
+        'giggsey/libphonenumber-for-php' => [
+          'name' => 'giggsey/libphonenumber-for-php',
+          'description' => 'PHP Port of Google\'s libphonenumber',
+          'homepage' => 'https://github.com/giggsey/libphonenumber-for-php',
+          'autoload' => [
+            'psr-4' => ['libphonenumber\\' => 'src/'],
+            'exclude-from-classmap' => [
+              '/src/data/',
+              '/src/carrier/data/',
+              '/src/geocoding/data/',
+              '/src/timezone/data/',
+            ],
+          ],
+        ],
       ],
     ];
 
     /**
      * {@inheritdoc}
      */
-    public function setUp() {
+    public function setUp() : void {
       parent::setUp();
 
       $structure = [
@@ -171,7 +196,7 @@ namespace Drupal\Tests\ludwig\Unit {
             'test3a.info.yml' => 'type: module',
             'lib' => [
               'html2text-html2text' => [
-                'v4.3.1' => [
+                '4.3.1' => [
                   'composer.json' => json_encode($this->packages['installed']['html2text/html2text']),
                 ],
               ],
@@ -193,7 +218,7 @@ namespace Drupal\Tests\ludwig\Unit {
             'test3c.info.yml' => 'type: module',
             'lib' => [
               'html2text-html2text' => [
-                'v4.3.1' => [
+                '^4.3.1' => [
                   'composer.json' => json_encode($this->packages['installed']['html2text/html2text']),
                 ],
               ],
@@ -213,6 +238,7 @@ namespace Drupal\Tests\ludwig\Unit {
           'feeds_ex' => [
             'ludwig.json' => json_encode($this->packages['extension']['feeds_ex']),
             'feeds_ex.info.yml' => 'type: module',
+            'feeds_ex.module' => '<?php if (\Drupal::hasService("ludwig.require_once")) { $ludwig_require_once = \Drupal::service("ludwig.require_once"); $ludwig_require_once->requireOnce("mtdowling/jmespath.php", "src/JmesPath.php", dirname(__FILE__)); $ludwig_require_once->requireOnce("querypath/QueryPath", "src/qp_functions.php", dirname(__FILE__)); }',
             'lib' => [
               'querypath-QueryPath' => [
                 'v3.0.5' => [
@@ -232,6 +258,17 @@ namespace Drupal\Tests\ludwig\Unit {
               ],
             ],
           ],
+          'telephone_formatter' => [
+            'ludwig.json' => json_encode($this->packages['extension']['telephone_formatter']),
+            'telephone_formatter.info.yml' => 'type: module',
+            'lib' => [
+              'giggsey-libphonenumber-for-php' => [
+                'v8.12.20' => [
+                  'composer.json' => json_encode($this->packages['installed']['giggsey/libphonenumber-for-php']),
+                ],
+              ],
+            ],
+          ],
         ],
         'sites' => [
           'all' => [
@@ -242,6 +279,9 @@ namespace Drupal\Tests\ludwig\Unit {
                 'lib' => [
                   'symfony-config' => [
                     'v3.2.8' => [
+                      'composer.json' => json_encode($this->packages['installed']['symfony/config']),
+                    ],
+                    'v3.2.6' => [
                       'composer.json' => json_encode($this->packages['installed']['symfony/config']),
                     ],
                   ],
@@ -262,7 +302,7 @@ namespace Drupal\Tests\ludwig\Unit {
      */
     public function testGetPackages() {
       $expected_packages = [
-        'symfony/css-selector' => [
+        'lightning_symfony/css-selector' => [
           'name' => 'symfony/css-selector',
           'version' => 'v3.2.8',
           'description' => '',
@@ -270,14 +310,13 @@ namespace Drupal\Tests\ludwig\Unit {
           'provider' => 'lightning',
           'provider_path' => 'profiles/lightning',
           'download_url' => 'https://github.com/symfony/css-selector/archive/v3.2.8.zip',
-          'disable_warnings' => FALSE,
           'path' => 'profiles/lightning/lib/symfony-css-selector/v3.2.8',
           'namespace' => '',
           'paths' => [],
-          'installed' => FALSE,
+          'status' => 'Missing',
           'resource' => '',
         ],
-        'symfony/intl' => [
+        'test1_symfony/intl' => [
           'name' => 'symfony/intl',
           'version' => 'v3.2.8',
           'description' => '',
@@ -285,14 +324,13 @@ namespace Drupal\Tests\ludwig\Unit {
           'provider' => 'test1',
           'provider_path' => 'modules/test1',
           'download_url' => 'https://github.com/symfony/intl/archive/v3.2.8.zip',
-          'disable_warnings' => FALSE,
           'path' => 'modules/test1/lib/symfony-intl/v3.2.8',
           'namespace' => '',
           'paths' => [],
-          'installed' => FALSE,
+          'status' => 'Missing',
           'resource' => '',
         ],
-        'symfony/config_src' => [
+        'test2_symfony/config_psr-4_0' => [
           'name' => 'symfony/config',
           'version' => 'v3.2.8',
           'description' => 'Symfony Config Component',
@@ -300,29 +338,55 @@ namespace Drupal\Tests\ludwig\Unit {
           'provider' => 'test2',
           'provider_path' => 'sites/all/modules/test2',
           'download_url' => 'https://github.com/symfony/config/archive/v3.2.8.zip',
-          'disable_warnings' => FALSE,
           'path' => 'sites/all/modules/test2/lib/symfony-config/v3.2.8',
           'namespace' => 'Symfony\\Component\\Config',
           'paths' => ['src'],
-          'installed' => TRUE,
+          'status' => 'Installed',
           'resource' => 'psr-4',
         ],
-        'html2text/html2text_src-test' => [
+        'test3a_html2text/html2text_psr-4_0' => [
           'name' => 'html2text/html2text',
-          'version' => 'v4.3.1',
+          'version' => '4.3.1',
           'description' => 'Converts HTML to formatted plain text',
           'homepage' => '',
           'provider' => 'test3a',
           'provider_path' => 'modules/test3a',
           'download_url' => 'https://github.com/mtibben/html2text/archive/4.3.1.zip',
-          'disable_warnings' => FALSE,
-          'path' => 'modules/test3a/lib/html2text-html2text/v4.3.1',
+          'path' => 'modules/test3a/lib/html2text-html2text/4.3.1',
           'namespace' => 'Html2Text',
           'paths' => ['src', 'test'],
-          'installed' => TRUE,
+          'status' => 'Installed',
           'resource' => 'psr-4',
         ],
-        'dompdf/dompdf_src' => [
+        'test3b_html2text/html2text_psr-4_0' => [
+          'name' => 'html2text/html2text',
+          'version' => 'v4.0.1',
+          'description' => 'Converts HTML to formatted plain text',
+          'homepage' => '',
+          'provider' => 'test3b',
+          'provider_path' => 'modules/test3b',
+          'download_url' => 'https://github.com/mtibben/html2text/archive/4.0.1.zip',
+          'path' => 'modules/test3b/lib/html2text-html2text/v4.0.1',
+          'namespace' => 'Html2Text',
+          'paths' => ['src', 'test'],
+          'status' => 'Overridden',
+          'resource' => 'psr-4',
+        ],
+        'test3c_html2text/html2text_psr-4_0' => [
+          'name' => 'html2text/html2text',
+          'version' => '^4.3.1',
+          'description' => 'Converts HTML to formatted plain text',
+          'homepage' => '',
+          'provider' => 'test3c',
+          'provider_path' => 'modules/test3c',
+          'download_url' => 'https://github.com/mtibben/html2text/archive/4.3.1.zip',
+          'path' => 'modules/test3c/lib/html2text-html2text/^4.3.1',
+          'namespace' => 'Html2Text',
+          'paths' => ['src', 'test'],
+          'status' => 'Installed',
+          'resource' => 'psr-4',
+        ],
+        'entity_print_dompdf/dompdf_psr-4_0' => [
           'name' => 'dompdf/dompdf',
           'version' => 'v0.8.6',
           'description' => 'DOMPDF is a CSS 2.1 compliant HTML to PDF converter',
@@ -330,14 +394,13 @@ namespace Drupal\Tests\ludwig\Unit {
           'provider' => 'entity_print',
           'provider_path' => 'modules/entity_print',
           'download_url' => 'https://github.com/dompdf/dompdf/releases/download/v0.8.6/dompdf_0-8-6.zip',
-          'disable_warnings' => 'TRUE',
           'path' => 'modules/entity_print/lib/dompdf-dompdf/v0.8.6',
           'namespace' => 'Dompdf',
           'paths' => ['src'],
-          'installed' => TRUE,
+          'status' => 'Installed',
           'resource' => 'psr-4',
         ],
-        'dompdf/dompdf_lib' => [
+        'entity_print_dompdf/dompdf_classmap_0' => [
           'name' => 'dompdf/dompdf',
           'version' => 'v0.8.6',
           'description' => 'DOMPDF is a CSS 2.1 compliant HTML to PDF converter',
@@ -345,14 +408,13 @@ namespace Drupal\Tests\ludwig\Unit {
           'provider' => 'entity_print',
           'provider_path' => 'modules/entity_print',
           'download_url' => 'https://github.com/dompdf/dompdf/releases/download/v0.8.6/dompdf_0-8-6.zip',
-          'disable_warnings' => 'TRUE',
           'path' => 'modules/entity_print/lib/dompdf-dompdf/v0.8.6',
           'namespace' => 'classmap',
           'paths' => ['lib'],
-          'installed' => TRUE,
+          'status' => 'Not installed',
           'resource' => 'classmap',
         ],
-        'querypath/QueryPath_src/QueryPath' => [
+        'feeds_ex_querypath/QueryPath_psr-0_0' => [
           'name' => 'querypath/QueryPath',
           'version' => 'v3.0.5',
           'description' => 'HTML/XML querying (CSS 4 or XPath) and processing (like jQuery)',
@@ -360,14 +422,13 @@ namespace Drupal\Tests\ludwig\Unit {
           'provider' => 'feeds_ex',
           'provider_path' => 'modules/feeds_ex',
           'download_url' => 'https://github.com/technosophos/querypath/archive/3.0.5.zip',
-          'disable_warnings' => FALSE,
           'path' => 'modules/feeds_ex/lib/querypath-QueryPath/v3.0.5',
           'namespace' => 'QueryPath',
           'paths' => ['src/QueryPath'],
-          'installed' => TRUE,
+          'status' => 'Installed',
           'resource' => 'psr-0',
         ],
-        'querypath/QueryPath_src/qp_functions.php' => [
+        'feeds_ex_querypath/QueryPath_files_0' => [
           'name' => 'querypath/QueryPath',
           'version' => 'v3.0.5',
           'description' => 'HTML/XML querying (CSS 4 or XPath) and processing (like jQuery)',
@@ -375,14 +436,13 @@ namespace Drupal\Tests\ludwig\Unit {
           'provider' => 'feeds_ex',
           'provider_path' => 'modules/feeds_ex',
           'download_url' => 'https://github.com/technosophos/querypath/archive/3.0.5.zip',
-          'disable_warnings' => FALSE,
           'path' => 'modules/feeds_ex/lib/querypath-QueryPath/v3.0.5',
           'namespace' => 'files',
           'paths' => ['src/qp_functions.php'],
-          'installed' => TRUE,
+          'status' => 'Installed',
           'resource' => 'files',
         ],
-        'maxmind/web-service-common_src/Exception' => [
+        'geoip_maxmind/web-service-common_psr-4_0' => [
           'name' => 'maxmind/web-service-common',
           'version' => 'v0.8.0',
           'description' => 'Internal MaxMind Web Service API',
@@ -390,14 +450,13 @@ namespace Drupal\Tests\ludwig\Unit {
           'provider' => 'geoip',
           'provider_path' => 'modules/geoip',
           'download_url' => 'https://github.com/maxmind/web-service-common-php/archive/v0.8.0.zip',
-          'disable_warnings' => FALSE,
           'path' => 'modules/geoip/lib/maxmind-web-service-common/v0.8.0',
           'namespace' => 'MaxMind\\Exception',
           'paths' => ['src/Exception'],
-          'installed' => TRUE,
+          'status' => 'Installed',
           'resource' => 'psr-4',
         ],
-        'maxmind/web-service-common_src/WebService' => [
+        'geoip_maxmind/web-service-common_psr-4_1' => [
           'name' => 'maxmind/web-service-common',
           'version' => 'v0.8.0',
           'description' => 'Internal MaxMind Web Service API',
@@ -405,14 +464,65 @@ namespace Drupal\Tests\ludwig\Unit {
           'provider' => 'geoip',
           'provider_path' => 'modules/geoip',
           'download_url' => 'https://github.com/maxmind/web-service-common-php/archive/v0.8.0.zip',
-          'disable_warnings' => FALSE,
           'path' => 'modules/geoip/lib/maxmind-web-service-common/v0.8.0',
           'namespace' => 'MaxMind\\WebService',
           'paths' => ['src/WebService'],
-          'installed' => TRUE,
+          'status' => 'Installed',
           'resource' => 'psr-4',
         ],
+        'telephone_formatter_giggsey/libphonenumber-for-php_psr-4_0' => [
+          'name' => 'giggsey/libphonenumber-for-php',
+          'version' => 'v8.12.20',
+          'description' => 'PHP Port of Google\'s libphonenumber',
+          'homepage' => 'https://github.com/giggsey/libphonenumber-for-php',
+          'provider' => 'telephone_formatter',
+          'provider_path' => 'modules/telephone_formatter',
+          'download_url' => 'https://github.com/giggsey/libphonenumber-for-php/archive/8.12.20.zip',
+          'path' => 'modules/telephone_formatter/lib/giggsey-libphonenumber-for-php/v8.12.20',
+          'namespace' => 'libphonenumber',
+          'paths' => ['src'],
+          'status' => 'Installed',
+          'resource' => 'psr-4',
+        ],
+        'telephone_formatter_giggsey/libphonenumber-for-php_exclude-from-classmap_0' => [
+          'name' => 'giggsey/libphonenumber-for-php',
+          'version' => 'v8.12.20',
+          'description' => 'PHP Port of Google\'s libphonenumber',
+          'homepage' => 'https://github.com/giggsey/libphonenumber-for-php',
+          'provider' => 'telephone_formatter',
+          'provider_path' => 'modules/telephone_formatter',
+          'download_url' => 'https://github.com/giggsey/libphonenumber-for-php/archive/8.12.20.zip',
+          'path' => 'modules/telephone_formatter/lib/giggsey-libphonenumber-for-php/v8.12.20',
+          'namespace' => 'exclude-from-classmap',
+          'paths' => [
+            '/src/data',
+            '/src/carrier/data',
+            '/src/geocoding/data',
+            '/src/timezone/data',
+          ],
+          'status' => 'Not supported',
+          'resource' => 'exclude-from-classmap',
+        ],
       ];
+
+      // We need the main drupal version for the compatibility check.
+      $drupal_main_version = 'd' . explode('.', \Drupal::VERSION, 2)[0];
+      if ($drupal_main_version == 'd8') {
+        $expected_packages['test2_symfony/config_psr-4_0'] = [
+          'name' => 'symfony/config',
+          'version' => 'v3.2.6',
+          'description' => 'Symfony Config Component',
+          'homepage' => 'http://symfony.com',
+          'provider' => 'test2',
+          'provider_path' => 'sites/all/modules/test2',
+          'download_url' => 'https://github.com/symfony/config/archive/v3.2.6.zip',
+          'path' => 'sites/all/modules/test2/lib/symfony-config/v3.2.6',
+          'namespace' => 'Symfony\\Component\\Config',
+          'paths' => ['src'],
+          'status' => 'Installed',
+          'resource' => 'psr-4',
+        ];
+      }
 
       $required_packages = $this->manager->getPackages();
       $this->assertEquals($expected_packages, $required_packages);

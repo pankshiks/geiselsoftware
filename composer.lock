@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7b066bd1c989dbd9e15d9238586689f",
+    "content-hash": "950a91cdeb1d0b45ebd94303c756216e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2099,6 +2099,56 @@
             }
         },
         {
+            "name": "drupal/algolia_places",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/algolia_places.git",
+                "reference": "8.x-2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/algolia_places-8.x-2.0.zip",
+                "reference": "8.x-2.0",
+                "shasum": "16a38e7039abd23acf4fa28cc74d1d1ae638be9f"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-2.0",
+                    "datestamp": "1646754238",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "George Anderson (geoanders)",
+                    "homepage": "https://www.drupal.org/u/geoanders",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "luzitano",
+                    "homepage": "https://www.drupal.org/user/3296625"
+                }
+            ],
+            "description": "provides a field widget for text inputs on entity\nforms to leverage the Algolia Places JS library.",
+            "homepage": "https://drupal.org/project/algolia_places",
+            "support": {
+                "source": "https://git.drupalcode.org/project/algolia_places",
+                "issues": "https://drupal.org/project/issues/algolia_places"
+            }
+        },
+        {
             "name": "drupal/asset_injector",
             "version": "2.13.0",
             "source": {
@@ -3402,6 +3452,58 @@
                 "source": "http://cgit.drupalcode.org/libraries",
                 "issues": "http://drupal.org/project/issues/libraries",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/ludwig",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ludwig.git",
+                "reference": "2.0.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/ludwig-2.0.5.zip",
+                "reference": "2.0.5",
+                "shasum": "c1f5cb3df825144da6a2fdbc54fc1ec862238a1a"
+            },
+            "require": {
+                "drupal/core": "^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.5",
+                    "datestamp": "1665637422",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "bojanz",
+                    "homepage": "https://www.drupal.org/user/86106"
+                },
+                {
+                    "name": "devad",
+                    "homepage": "https://www.drupal.org/user/2268520"
+                },
+                {
+                    "name": "jsacksick",
+                    "homepage": "https://www.drupal.org/user/972218"
+                }
+            ],
+            "description": "Provides a manual alternative to Composer.",
+            "homepage": "https://www.drupal.org/project/ludwig",
+            "support": {
+                "source": "https://git.drupalcode.org/project/ludwig"
             }
         },
         {

@@ -6,5 +6,5 @@ configure: facebook_comments.settings
 # Information added by Drupal.org packaging script on 2017-01-22
 version: '8.x-1.0'
 core: '8.x'
-project: 'facebook_comments'
+# project: 'facebook_comments'
 datestamp: 1485074589

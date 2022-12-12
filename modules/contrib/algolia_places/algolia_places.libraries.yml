@@ -1,0 +1,5 @@
+algolia_places:
+  version: 1.19.0
+  js:
+    https://cdn.jsdelivr.net/npm/places.js@1.19.0: { type: external, minified: true }
+    js/places.js: { }
