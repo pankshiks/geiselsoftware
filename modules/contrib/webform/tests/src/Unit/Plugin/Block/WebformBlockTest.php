@@ -7,7 +7,6 @@ use Drupal\Core\Cache\Context\CacheContextsManager;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Tests\UnitTestCase;
 use Drupal\webform\Plugin\Block\WebformBlock;
@@ -134,10 +133,6 @@ class WebformBlockTest extends UnitTestCase {
       ]);
 
     $token_manager = $this->getMockBuilder(WebformTokenManagerInterface::class)
-      ->disableOriginalConstructor()
-      ->getMock();
-
-    $route_match = $this->getMockBuilder(RouteMatchInterface::class)
       ->disableOriginalConstructor()
       ->getMock();
 

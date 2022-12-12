@@ -1,0 +1,17 @@
+--- lib/backup_migrate_core/src/Exception/IgnorableException.php
++++ src/Core/Exception/IgnorableException.php
+@@ -1,12 +1,12 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Exception;
++namespace Drupal\backup_migrate\Core\Exception;
+ 
+ /**
+  * Class IgnorableException.
+  *
+  * This exception can be avoided by setting the 'ignore errors' setting.
+  *
+- * @package BackupMigrate\Core\Exception
++ * @package Drupal\backup_migrate\Core\Exception
+  */
+ class IgnorableException extends BackupMigrateException {}

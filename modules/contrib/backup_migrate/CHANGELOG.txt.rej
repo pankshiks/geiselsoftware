@@ -1,0 +1,20 @@
+--- CHANGELOG.txt
++++ CHANGELOG.txt
+@@ -103,7 +103,7 @@ By Ronan: Fix issue with file timestamps not saving.
+ #2851741 by vibrasphere: 'UTF8 is not supported by the MySQL server' - When
+   database port was not set.
+ #2732195 by szeidler: Fatal error: Call to a member function create() on a non-
+-  object in backup_migrate\vendor\backupmigrate\core\src\Source\MySQLiSource.php
++  object in backup_migrate\vendor\Drupal\backup_migrate\Core\src\Source\MySQLiSource.php
+   on line 48.
+ By Ronan: Put in a check for mysqli extension.
+ #2865949 by Dinu Rodnitchi, pmunch: Add Backup Destination: "Directory Path"
+@@ -116,7 +116,7 @@ Backup and Migrate 8.x-4.0-alpha2, 2017-04-04
+ #2809965 by szeidler: Restore - nothing happens
+ #2833245: Error: Call to undefined method confSet() - prevents backup
+ #2741245 by tobiberlin: On restore page: Notice: Undefined index: groups in
+-  BackupMigrate\Drupal\Config\DrupalConfigHelper::addFieldsFromSchema().
++  Drupal\backup_migrate\Drupal\Config\DrupalConfigHelper::addFieldsFromSchema().
+ #2741301 noise on destination page.
+ #2820911 Web server detection failing for IIS.
+ #2826107 by szeidler: Error msgs on settings page.

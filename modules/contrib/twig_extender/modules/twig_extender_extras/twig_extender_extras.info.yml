@@ -1,0 +1,12 @@
+name: Twig Extender Extras
+type: module
+description: Multiple plugins for twig_extender
+core_version_requirement: ^8.8 || ^9
+package: Twig
+dependencies:
+  - twig_extender:twig_extender
+
+# Information added by Drupal.org packaging script on 2021-12-14
+version: '5.0.1'
+project: 'twig_extender'
+datestamp: 1639486224

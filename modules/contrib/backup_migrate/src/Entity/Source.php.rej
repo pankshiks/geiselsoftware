@@ -1,0 +1,16 @@
+--- src/Entity/Source.php
++++ src/Entity/Source.php
+@@ -29,6 +29,13 @@
+  *     "edit-form" = "/admin/config/development/backup_migrate/settings/source/{backup_migrate_source}/edit",
+  *     "delete-form" = "/admin/config/development/backup_migrate/settings/source/{backup_migrate_source}/delete",
+  *     "collection" = "/admin/config/development/backup_migrate/settings/source"
++ *   },
++ *   config_export = {
++ *     "id",
++ *     "label",
++ *     "uuid",
++ *     "type",
++ *     "config"
+  *   }
+  * )
+  */

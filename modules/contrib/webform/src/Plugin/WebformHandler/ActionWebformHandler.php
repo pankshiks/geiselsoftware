@@ -45,8 +45,7 @@ class ActionWebformHandler extends WebformHandlerBase {
    * {@inheritdoc}
    */
   public function getSummary() {
-    $configuration = $this->getConfiguration();
-    $settings = $configuration['settings'];
+    $settings = $this->getSettings();
 
     // Get state labels.
     $states = [
@@ -179,7 +178,7 @@ class ActionWebformHandler extends WebformHandlerBase {
     foreach ($elements as $element_key => $element) {
       $elements_rows[] = [
         $element_key,
-        (isset($element['#title']) ? $element['#title'] : ''),
+        ($element['#title'] ?? ''),
       ];
     }
     $form['actions']['elements'] = [
@@ -260,9 +259,9 @@ class ActionWebformHandler extends WebformHandlerBase {
     }
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Action helper methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Execute this action.

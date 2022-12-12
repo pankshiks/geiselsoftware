@@ -1,0 +1,21 @@
+--- lib/backup_migrate_core/src/Plugin/PluginBase.php
++++ src/Core/Plugin/PluginBase.php
+@@ -1,14 +1,14 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Plugin;
++namespace Drupal\backup_migrate\Core\Plugin;
+ 
+-use BackupMigrate\Core\Config\ConfigurableInterface;
+-use BackupMigrate\Core\Config\ConfigurableTrait;
++use Drupal\backup_migrate\Core\Config\ConfigurableInterface;
++use Drupal\backup_migrate\Core\Config\ConfigurableTrait;
+ 
+ /**
+  * Class PluginOperationTrait.
+  *
+- * @package BackupMigrate\Core\Plugin
++ * @package Drupal\backup_migrate\Core\Plugin
+  */
+ abstract class PluginBase implements PluginInterface, ConfigurableInterface {
+   use ConfigurableTrait;

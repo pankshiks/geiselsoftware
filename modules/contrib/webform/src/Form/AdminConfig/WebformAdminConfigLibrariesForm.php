@@ -58,14 +58,14 @@ class WebformAdminConfigLibrariesForm extends WebformAdminConfigBaseForm {
     ];
     $form['assets']['description'] = [
       '#type' => 'webform_message',
-      '#message_message' => $this->t('The below CSS and JavasScript will be loaded on all webform pages.'),
+      '#message_message' => $this->t('The below CSS and JavaScript will be loaded on all webform pages.'),
       '#message_type' => 'info',
     ];
     $form['assets']['css'] = [
       '#type' => 'webform_codemirror',
       '#mode' => 'css',
       '#title' => $this->t('CSS'),
-      '#description' => $this->t('Enter custom CSS to be attached to the all webforms.') . '<br/>' .
+      '#description' => $this->t('Enter custom CSS to be attached to all webforms.') . '<br/>' .
         $this->t("To customize only webform specific elements, you should use the '.webform-submission-form' selector"),
       '#default_value' => $config->get('assets.css'),
     ];
@@ -228,7 +228,7 @@ class WebformAdminConfigLibrariesForm extends WebformAdminConfigBaseForm {
     $config->set('libraries.excluded_libraries', $excluded_libraries);
     parent::submitForm($form, $form_state);
 
-    // Reset libraries cached.
+    // Reset libraries cache.
     // @see webform_library_info_build()
     \Drupal::service('library.discovery')->clearCachedDefinitions();
   }

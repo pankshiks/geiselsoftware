@@ -1,0 +1,30 @@
+--- src/Destination/DrupalBrowserDownloadDestination.php
++++ src/Drupal/Destination/DrupalBrowserDownloadDestination.php
+@@ -1,14 +1,14 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\Destination;
++namespace Drupal\backup_migrate\Drupal\Destination;
+ 
+-use \BackupMigrate\Core\Destination\BrowserDownloadDestination;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
++use \Drupal\backup_migrate\Core\Destination\BrowserDownloadDestination;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
+ 
+ /**
+  * Class DrupalBrowserDownloadDestination.
+  *
+- * @package BackupMigrate\Drupal\Destination
++ * @package Drupal\backup_migrate\Drupal\Destination
+  */
+ class DrupalBrowserDownloadDestination extends BrowserDownloadDestination {
+ 
+@@ -16,7 +16,7 @@ class DrupalBrowserDownloadDestination extends BrowserDownloadDestination {
+    * {@inheritdoc}
+    */
+   function saveFile(BackupFileReadableInterface $file) {
+-    // @TODO: Replace the header/print calls with a Symfony response (if that
++    // @todo Replace the header/print calls with a Symfony response (if that
+     // allows streaming).
+     // Need to find some way to return new BinaryFileResponse($uri, 200
+     // $headers); all the way out to the output of the caller.

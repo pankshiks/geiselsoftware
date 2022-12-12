@@ -1,0 +1,28 @@
+--- lib/backup_migrate_core/src/Config/ConfigurableInterface.php
++++ src/Core/Config/ConfigurableInterface.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Config;
++namespace Drupal\backup_migrate\Core\Config;
+ 
+-use BackupMigrate\Core\Config\ConfigInterface;
++use Drupal\backup_migrate\Core\Config\ConfigInterface;
+ 
+ /**
+  * Class ConfigurableTrait.
+  *
+- * @package BackupMigrate\Core\Config
++ * @package Drupal\backup_migrate\Core\Config
+  *
+  * A configurable object. Manages injection and access to a config object.
+  */
+@@ -58,7 +58,7 @@ public function configDefaults();
+    *
+    * @return array
+    */
+-  public function configSchema($params = []);
++  public function configSchema(array $params = []);
+ 
+   /**
+    * Get any validation errors in the config.

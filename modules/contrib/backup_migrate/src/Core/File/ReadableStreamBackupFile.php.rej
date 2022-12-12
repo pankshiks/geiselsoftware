@@ -1,0 +1,25 @@
+--- lib/backup_migrate_core/src/File/ReadableStreamBackupFile.php
++++ src/Core/File/ReadableStreamBackupFile.php
+@@ -1,11 +1,11 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\File;
++namespace Drupal\backup_migrate\Core\File;
+ 
+ /**
+  * Class ReadableStreamBackupFile.
+  *
+- * @package BackupMigrate\Core\File
++ * @package Drupal\backup_migrate\Core\File
+  *
+  * An implementation of the BackupFileReadableInterface which uses a readable
+  * php stream such as a local file.
+@@ -79,7 +79,7 @@ function openForRead($binary = FALSE) {
+       $path = $this->realpath();
+ 
+       if (!is_readable($path)) {
+-        // @TODO: Throw better exception
++        // @todo Throw better exception
+         throw new \Exception('Cannot read file.');
+       }
+ 

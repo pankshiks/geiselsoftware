@@ -42,3 +42,4 @@ sites/simpletest
 core/phpcs.xml
 core/phpunit.xml
 /nbproject/private/
+/README.md

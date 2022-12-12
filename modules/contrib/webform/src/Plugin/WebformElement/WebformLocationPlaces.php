@@ -34,7 +34,7 @@ class WebformLocationPlaces extends WebformLocationBase {
     ] + parent::defineDefaultProperties();
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}

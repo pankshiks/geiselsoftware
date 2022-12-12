@@ -3,7 +3,8 @@ type: theme
 description: 'Custom Theme for Goverment Pages.'
 # version: VERSION
 core: 8.x
-# base theme: bootstrap
+core_version_requirement: ^8 || ^9
+base theme: bootstrap
 
 libraries:
   - goverment/global-styling

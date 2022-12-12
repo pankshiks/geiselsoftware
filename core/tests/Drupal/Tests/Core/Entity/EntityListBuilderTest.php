@@ -16,7 +16,7 @@ use Drupal\entity_test\EntityTestListBuilder;
 use Drupal\Tests\UnitTestCase;
 
 /**
- * @coversDefaultClass \Drupal\entity_test\EntityTestListBuilder
+ * @coversDefaultClass \Drupal\Core\Entity\EntityListBuilder
  * @group Entity
  */
 class EntityListBuilderTest extends UnitTestCase {
@@ -80,7 +80,7 @@ class EntityListBuilderTest extends UnitTestCase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->role = $this->createMock('Drupal\user\RoleInterface');

@@ -85,9 +85,9 @@ class TestEntityMappingWebformHandler extends WebformHandlerBase {
       'wrapper' => 'webform-test-ajax-container',
     ];
 
-    /**************************************************************************/
+    /* ********************************************************************** */
     // Entity type.
-    /**************************************************************************/
+    /* ********************************************************************** */
 
     // Get entity type options.
     $entity_type_options = [];
@@ -109,9 +109,9 @@ class TestEntityMappingWebformHandler extends WebformHandlerBase {
       '#ajax' => $ajax,
     ];
 
-    /**************************************************************************/
+    /* ********************************************************************** */
     // Bundles.
-    /**************************************************************************/
+    /* ********************************************************************** */
 
     // Get entity type bundle options.
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity_type */
@@ -147,15 +147,15 @@ class TestEntityMappingWebformHandler extends WebformHandlerBase {
       '#access' => $access,
     ];
 
-    /**************************************************************************/
+    /* ********************************************************************** */
     // Fields.
-    /**************************************************************************/
+    /* ********************************************************************** */
 
     // Get elements options.
     $element_options = [];
     $elements = $this->webform->getElementsInitializedFlattenedAndHasValue();
     foreach ($elements as $element_key => $element) {
-      $element_options[$element_key] = (isset($element['#title'])) ? $element['#title'] : $element_key;
+      $element_options[$element_key] = $element['#title'] ?? $element_key;
     }
 
     // Get field options.

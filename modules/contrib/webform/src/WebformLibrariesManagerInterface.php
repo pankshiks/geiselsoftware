@@ -29,8 +29,8 @@ interface WebformLibrariesManagerInterface {
   /**
    * Finds files that are located in the supported 'libraries' directories.
    *
-   * @param string $path
-   *   The path for the library file to find.
+   * @param string $name
+   *   The library's directory name.
    *
    * @return string|false
    *   The real path to the library file relative to the root directory. If the

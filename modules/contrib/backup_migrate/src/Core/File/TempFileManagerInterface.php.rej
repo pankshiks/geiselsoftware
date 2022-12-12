@@ -1,0 +1,48 @@
+--- lib/backup_migrate_core/src/File/TempFileManagerInterface.php
++++ src/Core/File/TempFileManagerInterface.php
+@@ -1,14 +1,14 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\File;
++namespace Drupal\backup_migrate\Core\File;
+ 
+-use BackupMigrate\Core\File\BackupFileInterface;
+-use BackupMigrate\Core\File\BackupFileWritableInterface;
++use Drupal\backup_migrate\Core\File\BackupFileInterface;
++use Drupal\backup_migrate\Core\File\BackupFileWritableInterface;
+ 
+ /**
+  * Interface TempFileManagerInterface.
+  *
+- * @package BackupMigrate\Core\Services
++ * @package Drupal\backup_migrate\Core\Services
+  *
+  * A TempFileManager is in charge of creating new temp files for writing
+  * and tracking all created files so they can be deleted. It is also
+@@ -33,12 +33,12 @@ public function create($ext = '');
+    * extension added after the old one.
+    * For example: xxx.mysql would become xxx.mysql.gz.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileInterface $file
+    *        The file to add the extension to.
+    * @param $ext
+    *        The new file extension.
+    *
+-   * @return \BackupMigrate\Core\File\BackupFileWritableInterface
++   * @return \Drupal\backup_migrate\Core\File\BackupFileWritableInterface
+    *        A new writable backup file with the new extension and all of the metadata
+    *        from the previous file.
+    */
+@@ -49,9 +49,9 @@ public function pushExt(BackupFileInterface $file, $ext);
+    * file extension removed.
+    * For example: xxx.mysql.gz would become xxx.mysql.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileInterface $file
+    *
+-   * @return \BackupMigrate\Core\File\BackupFileWritableInterface
++   * @return \Drupal\backup_migrate\Core\File\BackupFileWritableInterface
+    *        A new writable backup file with the last extension removed and
+    *        all of the metadata from the previous file.
+    */

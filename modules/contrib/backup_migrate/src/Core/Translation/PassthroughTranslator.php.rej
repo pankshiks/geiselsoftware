@@ -1,0 +1,22 @@
+--- lib/backup_migrate_core/src/Translation/PassthroughTranslator.php
++++ src/Core/Translation/PassthroughTranslator.php
+@@ -1,8 +1,8 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Translation;
++namespace Drupal\backup_migrate\Core\Translation;
+ 
+-use BackupMigrate\Core\Translation\TranslatorInterface;
++use Drupal\backup_migrate\Core\Translation\TranslatorInterface;
+ 
+ /**
+  * This translator service simply passes through the us-english strings with the
+@@ -10,7 +10,7 @@
+  *
+  * Class PassthroughTranslator.
+  *
+- * @package BackupMigrate\Core\Service
++ * @package Drupal\backup_migrate\Core\Service
+  */
+ class PassthroughTranslator implements TranslatorInterface {
+ 

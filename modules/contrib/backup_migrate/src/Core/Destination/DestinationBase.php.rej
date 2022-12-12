@@ -1,0 +1,60 @@
+--- lib/backup_migrate_core/src/Destination/DestinationBase.php
++++ src/Core/Destination/DestinationBase.php
+@@ -1,16 +1,16 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Destination;
++namespace Drupal\backup_migrate\Core\Destination;
+ 
+-use BackupMigrate\Core\Exception\DestinationNotWritableException;
+-use BackupMigrate\Core\Plugin\PluginBase;
+-use BackupMigrate\Core\File\BackupFileInterface;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\Exception\DestinationNotWritableException;
++use Drupal\backup_migrate\Core\Plugin\PluginBase;
++use Drupal\backup_migrate\Core\File\BackupFileInterface;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
+ 
+ /**
+  * Class DestinationBase.
+  *
+- * @package BackupMigrate\Core\Destination
++ * @package Drupal\backup_migrate\Core\Destination
+  */
+ abstract class DestinationBase extends PluginBase implements ReadableDestinationInterface, WritableDestinationInterface {
+ 
+@@ -36,7 +36,7 @@ public function saveFile(BackupFileReadableInterface $file) {
+    */
+   public function loadFileMetadata(BackupFileInterface $file) {
+     // If this file is already loaded, simply return it.
+-    // @TODO: fix this inappropriate use of file metadata.
++    // @todo fix this inappropriate use of file metadata.
+     if (!$file->getMeta('metadata_loaded')) {
+       $metadata = $this->_loadFileMetadataArray($file);
+       $file->setMetaMultiple($metadata);
+@@ -77,7 +77,7 @@ public function checkWritable() {
+    * Do the actual file save. Should take care of the actual creation of a file
+    * in the destination without regard for metadata.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $file
+    */
+   abstract protected function _saveFile(BackupFileReadableInterface $file);
+ 
+@@ -85,14 +85,14 @@ public function checkWritable() {
+    * Do the metadata save. This function is called to save the data file AND
+    * the metadata sidecar file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileInterface $file
+    */
+   abstract protected function _saveFileMetadata(BackupFileInterface $file);
+ 
+   /**
+    * Load the actual metadata for the file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileInterface $file
+    */
+   abstract protected function _loadFileMetadataArray(BackupFileInterface $file);
+ 

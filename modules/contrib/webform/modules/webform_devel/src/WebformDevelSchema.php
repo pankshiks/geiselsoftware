@@ -53,7 +53,8 @@ class WebformDevelSchema implements WebformDevelSchemaInterface {
    * @param \Drupal\Core\Render\ElementInfoManagerInterface $element_info
    *   The element info manager.
    * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
-   *   The entity field manager.   * @param \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager
+   *   The entity field manager.
+   * @param \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager
    *   The webform element manager.
    */
   public function __construct(ElementInfoManagerInterface $element_info, EntityFieldManagerInterface $entity_field_manager, WebformElementManagerInterface $element_manager) {

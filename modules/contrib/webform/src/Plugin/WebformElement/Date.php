@@ -48,7 +48,7 @@ class Date extends DateBase {
     return $properties;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -116,7 +116,7 @@ class Date extends DateBase {
     // Drupal's default date fallback includes the time so we need to fallback
     // to the specified or default date only format.
     if ($format === 'fallback') {
-      $format = (isset($element['#date_date_format'])) ? $element['#date_date_format'] : $this->getDefaultProperty('date_date_format');
+      $format = $element['#date_date_format'] ?? $this->getDefaultProperty('date_date_format');
     }
     return $format;
   }

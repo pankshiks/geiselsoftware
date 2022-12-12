@@ -174,9 +174,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function hasSubmissionValue(WebformInterface $webform, $element_key);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Source entity methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get total number of source entities.
@@ -213,9 +213,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function getSourceEntitiesAsOptions(WebformInterface $webform);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Query methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Add condition to submission query.
@@ -238,9 +238,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function addQueryConditions($query, WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, array $options = []);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Paging methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get a webform's first submission.
@@ -335,9 +335,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function getSourceEntityAsOptions(WebformInterface $webform, $entity_type);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // WebformSubmissionEntityList methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get customized submission columns used to display custom table.
@@ -457,9 +457,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function getDefaultColumnNames(WebformInterface $webform = NULL, EntityInterface $source_entity = NULL, AccountInterface $account = NULL, $include_elements = TRUE);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Custom settings methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get customize setting.
@@ -478,9 +478,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function getCustomSetting($name, $default, WebformInterface $webform = NULL, EntityInterface $source_entity = NULL);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Custom CRUD methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Resaves the entity without triggering any hooks or handlers.
@@ -497,9 +497,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function resave(EntityInterface $entity);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Invoke methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Invoke a webform submission's webform's handlers method.
@@ -532,9 +532,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function invokeWebformElements($method, WebformSubmissionInterface $webform_submission, &$context1 = NULL, &$context2 = NULL);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Purge methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Purge webform submissions.
@@ -544,9 +544,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function purge($count);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Data handlers.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Save webform submission data to the 'webform_submission_data' table.
@@ -563,9 +563,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function saveData(WebformSubmissionInterface $webform_submission, $delete_first = TRUE);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Draft methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get webform submission draft.
@@ -582,9 +582,9 @@ interface WebformSubmissionStorageInterface extends ContentEntityStorageInterfac
    */
   public function loadDraft(WebformInterface $webform, EntityInterface $source_entity = NULL, AccountInterface $account = NULL);
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Anonymous submission methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * React to an event when a user logs in.

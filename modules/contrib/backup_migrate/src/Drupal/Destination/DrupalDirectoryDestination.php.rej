@@ -1,0 +1,133 @@
+--- src/Destination/DrupalDirectoryDestination.php
++++ src/Drupal/Destination/DrupalDirectoryDestination.php
+@@ -1,18 +1,18 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\Destination;
++namespace Drupal\backup_migrate\Drupal\Destination;
+ 
+-use BackupMigrate\Core\Destination\DirectoryDestination;
+-use BackupMigrate\Core\Exception\BackupMigrateException;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
+-use Drupal\Core\File\FileSystem;
++use Drupal\backup_migrate\Core\Destination\DirectoryDestination;
++use Drupal\backup_migrate\Core\Exception\BackupMigrateException;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
++use Drupal\Core\File\Exception\FileException;
++use Drupal\Core\File\FileSystemInterface;
+ use Drupal\Core\StreamWrapper\PrivateStream;
+-use BackupMigrate\Core\File\ReadableStreamBackupFile;
+ 
+ /**
+  * Class DrupalDirectoryDestination.
+  *
+- * @package BackupMigrate\Drupal\Destination
++ * @package Drupal\backup_migrate\Drupal\Destination
+  */
+ class DrupalDirectoryDestination extends DirectoryDestination {
+ 
+@@ -20,32 +20,36 @@ class DrupalDirectoryDestination extends DirectoryDestination {
+    * Do the actual file save. This function is called to save the data file AND
+    * the metadata sidecar file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $file
+    *
+-   * @throws \BackupMigrate\Core\Exception\BackupMigrateException
++   * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
+    */
+   function _saveFile(BackupFileReadableInterface $file) {
+     // Check if the directory exists.
+     $this->checkDirectory();
+ 
+-    // @TODO Decide what the appropriate file_exists strategy should be.
+-    file_unmanaged_move($file->realpath(), $this->_idToPath($file->getFullName()), FILE_EXISTS_REPLACE);
++    try {
++      \Drupal::service('file_system')->move($file->realpath(), $this->idToPath($file->getFullName()), FileSystemInterface::EXISTS_REPLACE);
++    }
++    catch (FileException $e) {
++      return FALSE;
++    }
+   }
+ 
+ 
+   /**
+    * Check that the directory can be used for backup.
+    *
+-   * @throws \BackupMigrate\Core\Exception\BackupMigrateException
++   * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
+    */
+   protected function checkDirectory() {
+-
+-    // @TODO: Figure out if the file is or might be accessible via the web.
++    // @todo Figure out if the file is or might be accessible via the web.
+     $dir = $this->confGet('directory');
+ 
+     $is_private = strpos($dir, 'private://') === 0;
+ 
+-    // Attempt to create/prepare the directory if it is in the private directory.
++    // Attempt to create/prepare the directory if it is in the private
++    // directory.
+     if ($is_private) {
+       if (!PrivateStream::basePath()) {
+         throw new BackupMigrateException(
+@@ -53,7 +57,7 @@ protected function checkDirectory() {
+           ['%dir' => $dir]
+         );
+       }
+-      if (!file_prepare_directory($dir, FILE_CREATE_DIRECTORY && FILE_MODIFY_PERMISSIONS)) {
++      if (!\Drupal::service('file_system')->prepareDirectory($dir, FileSystemInterface::CREATE_DIRECTORY && FileSystemInterface::MODIFY_PERMISSIONS)) {
+         throw new BackupMigrateException(
+           "The backup file could not be saved to '%dir' because the directory could not be created or cannot be written to. Please make sure your private files directory is writable by the web server.",
+           ['%dir' => $dir]
+@@ -80,21 +84,15 @@ protected function checkDirectory() {
+     // Do the regular exists/writable checks.
+     parent::checkDirectory();
+ 
+-    // @TODO: Warn if the realpath cannot be resolved (because we cannot determine if the file is publicly accessible)
++    // @todo Warn if the realpath cannot be resolved (because we cannot
++    // determine if the file is publicly accessible).
+   }
+ 
+ 
+   /**
+    * {@inheritdoc}
+    */
+-  public function queryFiles(
+-    $filters = [],
+-    $sort = 'datestamp',
+-    $sort_direction = SORT_DESC,
+-    $count = 100,
+-    $start = 0
+-  ) {
+-
++  public function queryFiles(array $filters = [], $sort = 'datestamp', $sort_direction = SORT_DESC, $count = 100, $start = 0) {
+     // Get the full list of files.
+     $out = $this->listFiles($count + $start);
+     foreach ($out as $key => $file) {
+@@ -103,7 +101,7 @@ public function queryFiles(
+ 
+     // Filter the output.
+     if ($filters) {
+-      $out = array_filter($out, function($file) use ($filters) {
++      $out = array_filter($out, function ($file) use ($filters) {
+         foreach ($filters as $key => $value) {
+           if ($file->getMeta($key) !== $value) {
+             return FALSE;
+@@ -120,14 +118,14 @@ public function queryFiles(
+           if ($sort == 'name') {
+             return $a->getFullName() < $b->getFullName();
+           }
+-          // @TODO: fix this in core
++          // @todo fix this in core
+           return $a->getMeta($sort) < $b->getMeta($sort);
+         }
+         else {
+           if ($sort == 'name') {
+             return $a->getFullName() > $b->getFullName();
+           }
+-          // @TODO: fix this in core
++          // @todo fix this in core
+           return $a->getMeta($sort) > $b->getMeta($sort);
+         }
+       });

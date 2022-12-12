@@ -1,0 +1,11 @@
+--- src/Form/BackupMigrateQuickBackupForm.php
++++ src/Form/BackupMigrateQuickBackupForm.php
+@@ -2,7 +2,7 @@
+ 
+ namespace Drupal\backup_migrate\Form;
+ 
+-use BackupMigrate\Drupal\Config\DrupalConfigHelper;
++use Drupal\backup_migrate\Drupal\Config\DrupalConfigHelper;
+ use Drupal\backup_migrate\Entity\SettingsProfile;
+ use Drupal\Core\Form\FormBase;
+ use Drupal\Core\Form\FormStateInterface;

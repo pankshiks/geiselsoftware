@@ -1,0 +1,16 @@
+--- src/EntityPlugins/Annotation/BackupMigrateDestinationPlugin.php
++++ src/Drupal/EntityPlugins/Annotation/BackupMigrateDestinationPlugin.php
+@@ -1,11 +1,11 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\EntityPlugins\Annotation;
++namespace Drupal\backup_migrate\Drupal\EntityPlugins\Annotation;
+ 
+ use Drupal\Component\Annotation\Plugin;
+ 
+ /**
+- * Defines an source plugin annotation object.
++ * Defines a destination plugin annotation object.
+  *
+  * Plugin Namespace: Plugin\BackupMigrateDestinationPlugin.
+  *

@@ -18,6 +18,7 @@ class WebformEntitySettingsConfirmationForm extends WebformEntitySettingsBaseFor
    * @var \Drupal\webform\WebformTokenManagerInterface
    */
   protected $tokenManager;
+
   /**
    * {@inheritdoc}
    */
@@ -141,7 +142,7 @@ class WebformEntitySettingsConfirmationForm extends WebformEntitySettingsBaseFor
       '#type' => 'textfield',
       '#title' => $this->t('Confirmation URL'),
       '#description' => $this->t('The URL or path to redirect the user to upon successful submission.') .
-        '<br/>' . t('Paths beginning with a forward slash (/) will redirect be treated as root-relative. Paths without a forward slash (/) will redirect be treated as Drupal relative path.'),
+        '<br/>' . $this->t('Paths beginning with a forward slash (/) will redirect be treated as root-relative. Paths without a forward slash (/) will redirect be treated as Drupal relative path.'),
       '#default_value' => $settings['confirmation_url'],
       '#maxlength' => NULL,
       '#states' => [

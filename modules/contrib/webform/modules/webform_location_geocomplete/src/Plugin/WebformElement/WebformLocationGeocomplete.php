@@ -38,7 +38,7 @@ class WebformLocationGeocomplete extends WebformLocationBase {
       + $this->defineDefaultBaseProperties();
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -63,7 +63,7 @@ class WebformLocationGeocomplete extends WebformLocationBase {
       $google_map_url = UrlGenerator::fromUri('http://maps.google.com/', ['query' => ['q' => $value['value']]]);
 
       $location = $value['location'];
-      $key = (isset($element['#api_key'])) ? $element['#api_key'] : $this->configFactory->get('webform.settings')->get('element.default_google_maps_api_key');
+      $key = $element['#api_key'] ?? $this->configFactory->get('webform.settings')->get('element.default_google_maps_api_key');
       $center = urlencode($value['location']);
       $image_map_uri = "https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=600x338&markers=color:red%7C$location&key=$key&center=$center";
 

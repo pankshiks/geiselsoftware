@@ -1,0 +1,73 @@
+--- lib/backup_migrate_core/src/Config/ConfigurableTrait.php
++++ src/Core/Config/ConfigurableTrait.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Config;
++namespace Drupal\backup_migrate\Core\Config;
+ 
+-use BackupMigrate\Core\Translation\TranslatableTrait;
++use Drupal\backup_migrate\Core\Translation\TranslatableTrait;
+ 
+ /**
+  * Class ConfigurableTrait.
+  *
+- * @package BackupMigrate\Core\Config
++ * @package Drupal\backup_migrate\Core\Config
+  *
+  * A configurable object. Manages injection and access to a config object.
+  */
+@@ -18,7 +18,7 @@ trait ConfigurableTrait {
+   /**
+    * The object's configuration object.
+    *
+-   * @var \BackupMigrate\Core\Config\ConfigInterface
++   * @var \Drupal\backup_migrate\Core\Config\ConfigInterface
+    */
+   protected $config;
+ 
+@@ -28,7 +28,7 @@ trait ConfigurableTrait {
+    * re-configured after construction any missing configuration options will
+    * revert to these values.
+    *
+-   * @var \BackupMigrate\Core\Config\ConfigInterface
++   * @var \Drupal\backup_migrate\Core\Config\ConfigInterface
+    */
+   protected $init;
+ 
+@@ -59,7 +59,7 @@ public function setConfig(ConfigInterface $config) {
+     $this->config = $config;
+ 
+     // Add the init/default values to the config object so they will always exist.
+-    // @TODO: Make this cascade happen when the config key is requested.
++    // @todo Make this cascade happen when the config key is requested.
+     // That will allow read-only or runtime generation config object to be passed
+     // This would work by creating a CascadeConfig object which takes an array
+     // of ConfigInterface objects and queries each in order to find the given key.
+@@ -77,7 +77,7 @@ public function setConfig(ConfigInterface $config) {
+   /**
+    * Get the configuration object for this item.
+    *
+-   * @return \BackupMigrate\Core\Config\ConfigInterface
++   * @return \Drupal\backup_migrate\Core\Config\ConfigInterface
+    */
+   public function config() {
+     return $this->config ? $this->config : new Config();
+@@ -86,7 +86,7 @@ public function config() {
+   /**
+    * Get the default values for the plugin.
+    *
+-   * @return \BackupMigrate\Core\Config\Config
++   * @return \Drupal\backup_migrate\Core\Config\Config
+    */
+   public function configDefaults() {
+     return new Config();
+@@ -104,7 +104,7 @@ public function configDefaults() {
+    *
+    * @return array
+    */
+-  public function configSchema($params = []) {
++  public function configSchema(array $params = []) {
+     return [];
+   }
+ 

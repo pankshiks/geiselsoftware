@@ -1,0 +1,19 @@
+--- lib/backup_migrate_core/src/File/BackupFileInterface.php
++++ src/Core/File/BackupFileInterface.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\File;
++namespace Drupal\backup_migrate\Core\File;
+ 
+ /**
+  * Provides a metadata-only file object.
+  *
+  * If the file needs to be readable or writable use
+- * \BackupMigrate\Core\File\BackupFileReadableInterface or
+- * \BackupMigrate\Core\File\BackupFileWritableInterface.
++ * \Drupal\backup_migrate\Core\File\BackupFileReadableInterface or
++ * \Drupal\backup_migrate\Core\File\BackupFileWritableInterface.
+  */
+ interface BackupFileInterface {
+ 

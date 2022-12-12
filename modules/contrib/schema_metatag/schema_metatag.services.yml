@@ -14,4 +14,3 @@ services:
   plugin.manager.schema_property_type:
     class: Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeManager
     parent: default_plugin_manager
- 

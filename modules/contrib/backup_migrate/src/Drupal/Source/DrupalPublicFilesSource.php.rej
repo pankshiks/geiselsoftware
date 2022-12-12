@@ -1,0 +1,29 @@
+--- src/Source/DrupalPublicFilesSource.php
++++ src/Drupal/Source/DrupalPublicFilesSource.php
+@@ -1,21 +1,21 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\Source;
++namespace Drupal\backup_migrate\Drupal\Source;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Core\Source\FileDirectorySource;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Core\Source\FileDirectorySource;
+ 
+ /**
+  * Class DrupalPublicFilesSource.
+  *
+- * @package BackupMigrate\Drupal\Source
++ * @package Drupal\backup_migrate\Drupal\Source
+  */
+ class DrupalPublicFilesSource extends FileDirectorySource {
+ 
+   /**
+    * Get the default values for the plugin.
+    *
+-   * @return \BackupMigrate\Core\Config\Config
++   * @return \Drupal\backup_migrate\Core\Config\Config
+    */
+   public function configDefaults() {
+     $config = [

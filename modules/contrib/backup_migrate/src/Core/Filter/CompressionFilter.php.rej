@@ -1,0 +1,275 @@
+--- lib/backup_migrate_core/src/Filter/CompressionFilter.php
++++ src/Core/Filter/CompressionFilter.php
+@@ -1,18 +1,19 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Filter;
++namespace Drupal\backup_migrate\Core\Filter;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Core\Plugin\FileProcessorInterface;
+-use BackupMigrate\Core\Plugin\FileProcessorTrait;
+-use BackupMigrate\Core\Plugin\PluginBase;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
+-use BackupMigrate\Core\File\BackupFileWritableInterface;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorInterface;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorTrait;
++use Drupal\backup_migrate\Core\Plugin\PluginBase;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\File\BackupFileWritableInterface;
+ 
+ /**
+  * Class CompressionFilter.
+  */
+ class CompressionFilter extends PluginBase implements FileProcessorInterface {
++
+   use FileProcessorTrait;
+ 
+   /**
+@@ -47,32 +48,32 @@ public function getFileTypes() {
+           "filemime" => "application/x-gzip",
+           'ops' => [
+             'backup',
+-            'restore'
+-          ]
++            'restore',
++          ],
+         ],
+         "bzip" => [
+           "extension" => "bz",
+           "filemime" => "application/x-bzip",
+           'ops' => [
+             'backup',
+-            'restore'
+-          ]
++            'restore',
++          ],
+         ],
+         "bzip2" => [
+           "extension" => "bz2",
+           "filemime" => "application/x-bzip",
+           'ops' => [
+             'backup',
+-            'restore'
+-          ]
++            'restore',
++          ],
+         ],
+         "zip" => [
+           "extension" => "zip",
+           "filemime" => "application/zip",
+           'ops' => [
+             'backup',
+-            'restore'
+-          ]
++            'restore',
++          ],
+         ],
+       ],
+     ];
+@@ -84,7 +85,7 @@ public function getFileTypes() {
+    *
+    * @return array
+    */
+-  public function configSchema($params = []) {
++  public function configSchema(array $params = []) {
+     $schema = [];
+ 
+     if ($params['operation'] == 'backup') {
+@@ -108,7 +109,7 @@ public function configSchema($params = []) {
+   /**
+    * Get the default values for the plugin.
+    *
+-   * @return \BackupMigrate\Core\Config\Config
++   * @return \Drupal\backup_migrate\Core\Config\Config
+    */
+   public function configDefaults() {
+     return new Config([
+@@ -120,23 +121,23 @@ public function configDefaults() {
+   /**
+    * Run on a backup.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $file
+    *
+-   * @return \BackupMigrate\Core\File\BackupFileReadableInterface
++   * @return \Drupal\backup_migrate\Core\File\BackupFileReadableInterface
+    */
+   public function afterBackup(BackupFileReadableInterface $file) {
+     $out = $success = FALSE;
+     if ($this->confGet('compression') == 'gzip') {
+       $out = $this->getTempFileManager()->pushExt($file, 'gz');
+-      $success = $this->_gzipEncode($file, $out);
++      $success = $this->gzipEncode($file, $out);
+     }
+     if ($this->confGet('compression') == 'bzip') {
+       $out = $this->getTempFileManager()->pushExt($file, 'bz2');
+-      $success = $this->_bzipEncode($file, $out);
++      $success = $this->bzipEncode($file, $out);
+     }
+     if ($this->confGet('compression') == 'zip') {
+       $out = $this->getTempFileManager()->pushExt($file, 'zip');
+-      $success = $this->_ZipEncode($file, $out);
++      $success = $this->zipEncode($file, $out);
+     }
+ 
+     // If the file was successfully compressed.
+@@ -153,12 +154,13 @@ public function afterBackup(BackupFileReadableInterface $file) {
+   /**
+    * Run on a restore.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $file
+    *
+-   * @return \BackupMigrate\Core\File\BackupFileReadableInterface
++   * @return \Drupal\backup_migrate\Core\File\BackupFileReadableInterface
+    */
+   public function beforeRestore(BackupFileReadableInterface $file) {
+-    // If the file is not a supported compression type then simply return the same input file.
++    // If the file is not a supported compression type then simply return the
++    // same input file.
+     $out = $file;
+ 
+     $type = $file->getExtLast();
+@@ -182,7 +184,6 @@ public function beforeRestore(BackupFileReadableInterface $file) {
+         $out = $this->getTempFileManager()->popExt($file);
+         $this->_ZipDecode($file, $out);
+         break;
+-
+     }
+     return $out;
+   }
+@@ -191,12 +192,12 @@ public function beforeRestore(BackupFileReadableInterface $file) {
+   /**
+    * Gzip encode a file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $from
+-   * @param \BackupMigrate\Core\File\BackupFileWritableInterface $to
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $from
++   * @param \Drupal\backup_migrate\Core\File\BackupFileWritableInterface $to
+    *
+    * @return bool
+    */
+-  protected function _gzipEncode(BackupFileReadableInterface $from, BackupFileWritableInterface $to) {
++  protected function gzipEncode(BackupFileReadableInterface $from, BackupFileWritableInterface $to) {
+     $success = FALSE;
+ 
+     if (!$success && function_exists("gzopen")) {
+@@ -209,7 +210,7 @@ protected function _gzipEncode(BackupFileReadableInterface $from, BackupFileWrit
+         gzclose($fp_out);
+ 
+         // Get the compressed filesize and set it.
+-        $fileszc = filesize(drupal_realpath($to->realpath()));
++        $fileszc = filesize(\Drupal::service('file_system')->realpath($to->realpath()));
+         $to->setMeta('filesize', $fileszc);
+       }
+     }
+@@ -220,8 +221,8 @@ protected function _gzipEncode(BackupFileReadableInterface $from, BackupFileWrit
+   /**
+    * Gzip decode a file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $from
+-   * @param \BackupMigrate\Core\File\BackupFileWritableInterface $to
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $from
++   * @param \Drupal\backup_migrate\Core\File\BackupFileWritableInterface $to
+    *
+    * @return bool
+    */
+@@ -245,12 +246,12 @@ protected function _gzipDecode(BackupFileReadableInterface $from, BackupFileWrit
+   /**
+    * BZip encode a file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $from
+-   * @param \BackupMigrate\Core\File\BackupFileWritableInterface $to
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $from
++   * @param \Drupal\backup_migrate\Core\File\BackupFileWritableInterface $to
+    *
+    * @return bool
+    */
+-  protected function _bzipEncode(BackupFileReadableInterface $from, BackupFileWritableInterface $to) {
++  protected function bzipEncode(BackupFileReadableInterface $from, BackupFileWritableInterface $to) {
+     $success = FALSE;
+     if (!$success && function_exists("bzopen")) {
+       if (($fp_out = bzopen($to->realpath(), 'w')) && $from->openForRead()) {
+@@ -262,7 +263,7 @@ protected function _bzipEncode(BackupFileReadableInterface $from, BackupFileWrit
+         bzclose($fp_out);
+ 
+         // Get the compressed filesize and set it.
+-        $fileszc = filesize(drupal_realpath($to->realpath()));
++        $fileszc = filesize(\Drupal::service('file_system')->realpath($to->realpath()));
+         $to->setMeta('filesize', $fileszc);
+       }
+     }
+@@ -273,8 +274,8 @@ protected function _bzipEncode(BackupFileReadableInterface $from, BackupFileWrit
+   /**
+    * BZip decode a file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $from
+-   * @param \BackupMigrate\Core\File\BackupFileWritableInterface $to
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $from
++   * @param \Drupal\backup_migrate\Core\File\BackupFileWritableInterface $to
+    *
+    * @return bool
+    */
+@@ -298,25 +299,25 @@ protected function _bzipDecode(BackupFileReadableInterface $from, BackupFileWrit
+   /**
+    * Zip encode a file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $from
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $from
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileWritableInterface $to
++   * @param \Drupal\backup_migrate\Core\File\BackupFileWritableInterface $to
+    *
+    * @return bool
+    */
+-  protected function _ZipEncode(BackupFileReadableInterface $from, BackupFileWritableInterface $to) {
++  protected function zipEncode(BackupFileReadableInterface $from, BackupFileWritableInterface $to) {
+     $success = FALSE;
+ 
+     if (class_exists('ZipArchive')) {
+       $zip = new \ZipArchive();
+-      $res = $zip->open(drupal_realpath($to->realpath()), constant("ZipArchive::CREATE"));
++      $res = $zip->open(\Drupal::service('file_system')->realpath($to->realpath()), constant("ZipArchive::CREATE"));
+       if ($res === TRUE) {
+-        $zip->addFile(drupal_realpath($from->realpath()), $from->getFullName());
++        $zip->addFile(\Drupal::service('file_system')->realpath($from->realpath()), $from->getFullName());
+       }
+       $success = $zip->close();
+     }
+     // Get the compressed filesize and set it.
+-    $fileszc = filesize(drupal_realpath($to->realpath()));
++    $fileszc = filesize(\Drupal::service('file_system')->realpath($to->realpath()));
+     $to->setMeta('filesize', $fileszc);
+ 
+     return $success;
+@@ -325,8 +326,8 @@ protected function _ZipEncode(BackupFileReadableInterface $from, BackupFileWrita
+   /**
+    * Gzip decode a file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $from
+-   * @param \BackupMigrate\Core\File\BackupFileWritableInterface $to
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $from
++   * @param \Drupal\backup_migrate\Core\File\BackupFileWritableInterface $to
+    *
+    * @return bool
+    */
+@@ -334,7 +335,7 @@ protected function _ZipDecode(BackupFileReadableInterface $from, BackupFileWrita
+     $success = FALSE;
+     if (class_exists('ZipArchive')) {
+       $zip = new \ZipArchive();
+-      if ($zip->open(drupal_realpath($from->realpath()))) {
++      if ($zip->open(\Drupal::service('file_system')->realpath($from->realpath()))) {
+         $filename = ($zip->getNameIndex(0));
+         if ($fp_in = $zip->getStream($filename)) {
+           while (!feof($fp_in)) {
+@@ -371,7 +372,7 @@ protected function _availableCompressionAlgorithms() {
+    * Get the default compression algorithm based on those available.
+    *
+    * @return string
+-   *  The machine name of the algorithm.
++   *   The machine name of the algorithm.
+    */
+   protected function _defaultCompressionAlgorithm() {
+     $available = array_keys($this->_availableCompressionAlgorithms());

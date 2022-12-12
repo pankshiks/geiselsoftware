@@ -1,0 +1,70 @@
+--- lib/backup_migrate_core/src/Filter/MetadataWriter.php
++++ src/Core/Filter/MetadataWriter.php
+@@ -1,19 +1,19 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Filter;
++namespace Drupal\backup_migrate\Core\Filter;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Core\File\BackupFileWritableInterface;
+-use BackupMigrate\Core\Plugin\FileProcessorInterface;
+-use BackupMigrate\Core\Plugin\FileProcessorTrait;
+-use BackupMigrate\Core\Plugin\PluginBase;
+-use BackupMigrate\Core\Plugin\PluginCallerInterface;
+-use BackupMigrate\Core\Plugin\PluginCallerTrait;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Core\File\BackupFileWritableInterface;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorInterface;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorTrait;
++use Drupal\backup_migrate\Core\Plugin\PluginBase;
++use Drupal\backup_migrate\Core\Plugin\PluginCallerInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginCallerTrait;
+ 
+ /**
+  * Class MetadataWriter.
+  *
+- * @package BackupMigrate\Core\Filter
++ * @package Drupal\backup_migrate\Core\Filter
+  *
+  * Add metadata such as a description to the backup file.
+  */
+@@ -24,7 +24,7 @@ class MetadataWriter extends PluginBase implements FileProcessorInterface, Plugi
+   /**
+    * {@inheritdoc}
+    */
+-  public function configSchema($params = []) {
++  public function configSchema(array $params = []) {
+     $schema = [];
+ 
+     // Backup configuration.
+@@ -45,7 +45,7 @@ public function configSchema($params = []) {
+   /**
+    * Get the default values for the plugin.
+    *
+-   * @return \BackupMigrate\Core\Config\Config
++   * @return \Drupal\backup_migrate\Core\Config\Config
+    */
+   public function configDefaults() {
+     return new Config([
+@@ -81,7 +81,7 @@ public function setUp($operand, $options) {
+     if ($options['operation'] == 'backup' && $options['source_id']) {
+       $this->config()->set('bam_sourceid', $options['source_id']);
+       if ($source = $this->plugins()->get($options['source_id'])) {
+-        // @TODO Query the source for it's type and name.
++        // @todo Query the source for it's type and name.
+       }
+     }
+     return $operand;
+@@ -90,9 +90,9 @@ public function setUp($operand, $options) {
+   /**
+    * Run after a backup. Add metadata to the file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileWritableInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileWritableInterface $file
+    *
+-   * @return \BackupMigrate\Core\File\BackupFileWritableInterface
++   * @return \Drupal\backup_migrate\Core\File\BackupFileWritableInterface
+    */
+   public function afterBackup(BackupFileWritableInterface $file) {
+     // Add the various metadata.

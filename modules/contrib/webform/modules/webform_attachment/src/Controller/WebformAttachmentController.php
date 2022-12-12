@@ -87,7 +87,7 @@ class WebformAttachmentController extends ControllerBase implements ContainerInj
     /** @var \Drupal\webform_attachment\Element\WebformAttachmentInterface $element_info */
     // Get base form element for webform element derivatives.
     // @see \Drupal\webform_entity_print\Plugin\Derivative\WebformEntityPrintWebformElementDeriver
-    list($type) = explode(':', $element['#type']);
+    [$type] = explode(':', $element['#type']);
     $element_info = $this->elementInfo->createInstance($type);
 
     // Get attachment information.

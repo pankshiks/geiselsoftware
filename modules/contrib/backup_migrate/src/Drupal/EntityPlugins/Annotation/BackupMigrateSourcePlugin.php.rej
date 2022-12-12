@@ -1,0 +1,10 @@
+--- src/EntityPlugins/Annotation/BackupMigrateSourcePlugin.php
++++ src/Drupal/EntityPlugins/Annotation/BackupMigrateSourcePlugin.php
+@@ -1,6 +1,6 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\EntityPlugins\Annotation;
++namespace Drupal\backup_migrate\Drupal\EntityPlugins\Annotation;
+ 
+ use Drupal\Component\Annotation\Plugin;
+ 

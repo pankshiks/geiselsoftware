@@ -1,0 +1,43 @@
+--- lib/backup_migrate_core/src/Destination/BrowserDownloadDestination.php
++++ src/Core/Destination/BrowserDownloadDestination.php
+@@ -1,16 +1,16 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Destination;
++namespace Drupal\backup_migrate\Core\Destination;
+ 
+-use BackupMigrate\Core\Exception\DestinationNotWritableException;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
+-use BackupMigrate\Core\Plugin\PluginCallerInterface;
+-use BackupMigrate\Core\Plugin\PluginCallerTrait;
++use Drupal\backup_migrate\Core\Exception\DestinationNotWritableException;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginCallerInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginCallerTrait;
+ 
+ /**
+  * Class BrowserDownloadDestination.
+  *
+- * @package BackupMigrate\Core\Destination
++ * @package Drupal\backup_migrate\Core\Destination
+  */
+ class BrowserDownloadDestination extends StreamDestination implements WritableDestinationInterface, PluginCallerInterface {
+   use PluginCallerTrait;
+@@ -66,7 +66,7 @@ function saveFile(BackupFileReadableInterface $file) {
+       }
+       $file->close();
+     }
+-    // @TODO Throw exception.
++    // @todo Throw exception.
+   }
+ 
+   /**
+@@ -74,7 +74,7 @@ function saveFile(BackupFileReadableInterface $file) {
+    */
+   public function checkWritable() {
+     // Check that we're running as a web process via a browser.
+-    // @TODO: we could check if the 'HTTP_ACCEPT' header contains the right mime but that is probably overkill.
++    // @todo we could check if the 'HTTP_ACCEPT' header contains the right mime but that is probably overkill.
+     if (!isset($_SERVER['REQUEST_METHOD'])) {
+       throw new DestinationNotWritableException(
+         "The download destination only works when accessed through a http client."

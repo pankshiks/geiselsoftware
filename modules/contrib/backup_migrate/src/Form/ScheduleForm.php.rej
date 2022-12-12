@@ -1,0 +1,49 @@
+--- src/Form/ScheduleForm.php
++++ src/Form/ScheduleForm.php
+@@ -2,9 +2,8 @@
+ 
+ namespace Drupal\backup_migrate\Form;
+ 
+-use BackupMigrate\Drupal\Config\DrupalConfigHelper;
++use Drupal\backup_migrate\Drupal\Config\DrupalConfigHelper;
+ use Drupal\backup_migrate\Entity\Schedule;
+-use Drupal\Core\Entity\EntityInterface;
+ use Drupal\Core\Entity\EntityForm;
+ use Drupal\Core\Form\FormStateInterface;
+ 
+@@ -73,8 +72,8 @@ public function form(array $form, FormStateInterface $form_state) {
+         'class' => [
+           'container-inline',
+           'fieldgroup',
+-          'form-composite'
+-        ]
++          'form-composite',
++        ],
+       ],
+     ];
+     $form['period_container']['period_number'] = [
+@@ -115,7 +114,7 @@ public function buildEntity(array $form, FormStateInterface $form_state) {
+     $type = Schedule::getPeriodType($form_state->getValue('period_type'));
+     $seconds = Schedule::periodToSeconds([
+       'number' => $form_state->getValue('period_number'),
+-      'type' => $type
++      'type' => $type,
+     ]);
+ 
+     $form_state->setValue('period', $seconds);
+@@ -132,13 +131,13 @@ public function save(array $form, FormStateInterface $form_state) {
+ 
+     switch ($status) {
+       case SAVED_NEW:
+-        drupal_set_message($this->t('Created the %label Schedule.', [
++        \Drupal::messenger()->addMessage($this->t('Created the %label Schedule.', [
+           '%label' => $backup_migrate_schedule->label(),
+         ]));
+         break;
+ 
+       default:
+-        drupal_set_message($this->t('Saved the %label Schedule.', [
++        \Drupal::messenger()->addMessage($this->t('Saved the %label Schedule.', [
+           '%label' => $backup_migrate_schedule->label(),
+         ]));
+     }

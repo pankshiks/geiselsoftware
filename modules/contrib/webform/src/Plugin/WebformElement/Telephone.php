@@ -10,6 +10,8 @@ use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+// phpcs:disable Drupal.Classes.FullyQualifiedNamespace.UseStatementMissing
+
 /**
  * Provides a 'tel' element.
  *
@@ -53,12 +55,12 @@ class Telephone extends TextBase {
    */
   protected function defineDefaultProperties() {
     $properties = [
-        'input_hide' => FALSE,
-        'multiple' => FALSE,
-        'international' => FALSE,
-        'international_initial_country' => '',
-        'international_preferred_countries' => [],
-      ] + parent::defineDefaultProperties() + $this->defineDefaultMultipleProperties();
+      'input_hide' => FALSE,
+      'multiple' => FALSE,
+      'international' => FALSE,
+      'international_initial_country' => '',
+      'international_preferred_countries' => [],
+    ] + parent::defineDefaultProperties() + $this->defineDefaultMultipleProperties();
     // Add support for telephone_validation.module.
     if ($this->moduleHandler->moduleExists('telephone_validation')) {
       $properties += [
@@ -77,7 +79,7 @@ class Telephone extends TextBase {
     return array_merge(parent::defineTranslatableProperties(), ['international_initial_country']);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -210,7 +212,7 @@ class Telephone extends TextBase {
       $form['telephone']['telephone_validation_countries'] = [
         '#type' => 'select',
         '#title' => $this->t('Valid countries'),
-        '#description' => t('If no country selected all countries are valid.'),
+        '#description' => $this->t('If no country selected all countries are valid.'),
         '#options' => $this->telephoneValidator->getCountryList(),
         '#select2' => TRUE,
         '#multiple' => TRUE,
@@ -270,18 +272,14 @@ class Telephone extends TextBase {
    * {@inheritdoc}
    */
   public function getItemFormats() {
-    return parent::getItemFormats() + [
-        'link' => $this->t('Link'),
-      ];
+    return parent::getItemFormats() + ['link' => $this->t('Link')];
   }
 
   /**
    * {@inheritdoc}
    */
   public function preview() {
-    return parent::preview() + [
-        '#international' => TRUE,
-      ];
+    return parent::preview() + ['#international' => TRUE];
   }
 
   /**

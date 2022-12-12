@@ -1,0 +1,29 @@
+--- src/Entity/WrapperEntityBase.php
++++ src/Entity/WrapperEntityBase.php
+@@ -44,7 +44,7 @@ abstract class WrapperEntityBase extends ConfigEntityBase implements EntityWithP
+   /**
+    * @return SourcePluginInterface
+    *
+-   * @throws \BackupMigrate\Core\Exception\BackupMigrateException
++   * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
+    */
+   public function getObject() {
+     if ($plugin = $this->getPlugin()) {
+@@ -57,7 +57,7 @@ public function getObject() {
+    *
+    * @return mixed
+    *
+-   * @throws \BackupMigrate\Core\Exception\BackupMigrateException
++   * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
+    */
+   public function getPlugin() {
+     if ($this->get('type')) {
+@@ -71,7 +71,7 @@ public function getPlugin() {
+    *
+    * @return mixed
+    *
+-   * @throws \BackupMigrate\Core\Exception\BackupMigrateException
++   * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
+    */
+   public function getPluginDefinition() {
+     if ($plugin = $this->getPlugin()) {

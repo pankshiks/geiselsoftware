@@ -5,7 +5,6 @@ namespace Drupal\webform\Plugin\WebformElement;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\Plugin\WebformElementWizardPageInterface;
 use Drupal\webform\Utility\WebformElementHelper;
-use Drupal\webform\WebformInterface;
 use Drupal\webform\WebformSubmissionInterface;
 
 /**
@@ -49,7 +48,7 @@ class WebformWizardPage extends Details implements WebformElementWizardPageInter
     return array_merge(parent::defineTranslatableProperties(), ['prev_button_label', 'next_button_label']);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}

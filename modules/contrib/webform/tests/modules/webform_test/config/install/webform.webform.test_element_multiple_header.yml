@@ -96,7 +96,7 @@ elements: |
       email:
         '#type': email
         '#title': email
-
+  
 css: ''
 javascript: ''
 settings:
@@ -138,6 +138,9 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_method: ''
+  form_action: ''
+  form_attributes: {  }
   share: false
   share_node: false
   share_theme_name: ''
@@ -226,6 +229,7 @@ settings:
   results_customize: false
   token_view: false
   token_update: false
+  token_delete: false
   serial_disabled: false
 access:
   create:

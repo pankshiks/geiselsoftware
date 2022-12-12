@@ -59,6 +59,11 @@ class WebformAddonsController extends ControllerBase implements ContainerInjecti
       ],
     ];
 
+    // Support.
+    if (!$this->config('webform.settings')->get('ui.support_disabled')) {
+      $build['support'] = ['#theme' => 'webform_help_support'];
+    }
+
     // Filter.
     $is_claro_theme = $this->themeManager->isActiveTheme('claro');
     $data_source = $is_claro_theme ? '.admin-item' : 'li';
@@ -115,21 +120,6 @@ class WebformAddonsController extends ControllerBase implements ContainerInjecti
       ];
       $projects = $this->addons->getProjects($category_name);
       foreach ($projects as $project_name => &$project) {
-        // Append (Experimental) to title.
-        if (!empty($project['experimental'])) {
-          $project['title'] .= ' [' . $this->t('EXPERIMENTAL') . ']';
-        }
-        // Prepend logo to title.
-        if (isset($project['logo'])) {
-          $project['title'] = Markup::create('<img src="' . $project['logo']->toString() . '" alt="' . $project['title'] . '"/>' . $project['title']);
-        }
-        $project['description'] .= '<br /><small>' . $project['url']->toString() . '</small>';
-
-        // Append recommended to project's description.
-        if (!empty($project['recommended'])) {
-          $project['description'] .= '<br /><b class="color-success"> ★' . $this->t('Recommended') . '</b>';
-        }
-
         if (!empty($project['install']) && !$this->moduleHandler()->moduleExists($project_name)) {
           // If current user can install module then display a dismissible warning.
           if ($this->currentUser()->hasPermission('administer modules')) {
@@ -144,6 +134,21 @@ class WebformAddonsController extends ControllerBase implements ContainerInjecti
               '#weight' => -100,
             ];
           }
+        }
+
+        // Append (Experimental) to title.
+        if (!empty($project['experimental'])) {
+          $project['title'] .= ' [' . $this->t('EXPERIMENTAL') . ']';
+        }
+        // Prepend logo to title.
+        if (isset($project['logo'])) {
+          $project['title'] = Markup::create('<img src="' . $project['logo']->toString() . '" alt="' . $project['title'] . '"/>' . $project['title']);
+        }
+        $project['description'] .= '<br /><small>' . $project['url']->toString() . '</small>';
+
+        // Append recommended to project's description.
+        if (!empty($project['recommended'])) {
+          $project['description'] .= '<br /><b class="color-success"> ★' . $this->t('Recommended') . '</b>';
         }
       }
 

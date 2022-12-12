@@ -1,0 +1,19 @@
+--- src/Form/ScheduleDeleteForm.php
++++ src/Form/ScheduleDeleteForm.php
+@@ -38,13 +38,13 @@ public function getConfirmText() {
+   public function submitForm(array &$form, FormStateInterface $form_state) {
+     $this->entity->delete();
+ 
+-    drupal_set_message(
++    \Drupal::messenger()->addMessage(
+       $this->t('content @type: deleted @label.',
+         [
+           '@type' => $this->entity->bundle(),
+-          '@label' => $this->entity->label()
++          '@label' => $this->entity->label(),
+         ]
+-        )
++      )
+     );
+ 
+     $form_state->setRedirectUrl($this->getCancelUrl());

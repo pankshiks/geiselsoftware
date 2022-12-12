@@ -1,0 +1,21 @@
+--- lib/backup_migrate_core/src/Destination/SidecarMetadataDestinationTrait.php
++++ src/Core/Destination/SidecarMetadataDestinationTrait.php
+@@ -1,14 +1,14 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Destination;
++namespace Drupal\backup_migrate\Core\Destination;
+ 
+-use BackupMigrate\Core\Plugin\FileProcessorTrait;
+-use BackupMigrate\Core\File\BackupFileInterface;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorTrait;
++use Drupal\backup_migrate\Core\File\BackupFileInterface;
+ 
+ /**
+  * Class SidecarMetadataDestinationTrait.
+  *
+- * @package BackupMigrate\Core\Destination
++ * @package Drupal\backup_migrate\Core\Destination
+  *
+  * This trait allows destinations to store extended file metadata as a sidecar
+  * file to the same destination. Sidecar files are .ini formatted. This trait

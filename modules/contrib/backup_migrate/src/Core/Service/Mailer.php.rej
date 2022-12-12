@@ -1,0 +1,19 @@
+--- lib/backup_migrate_core/src/Service/Mailer.php
++++ src/Core/Service/Mailer.php
+@@ -1,6 +1,6 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Service;
++namespace Drupal\backup_migrate\Core\Service;
+ 
+ /**
+  * Class Mailer.
+@@ -9,7 +9,7 @@
+  * will be replaced by a wrapper around whatever mail library is used in that
+  * system.
+  *
+- * @package BackupMigrate\Core\Environment
++ * @package Drupal\backup_migrate\Core\Environment
+  */
+ class Mailer implements MailerInterface {
+ 

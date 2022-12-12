@@ -164,6 +164,14 @@ abstract class WebformOtherBase extends FormElement {
       $element['other']['#parents'] = array_merge($element['#parents'], ['other']);
     }
 
+    // Add custom required error message so that clientside_validation.module
+    // can display it.
+    // @see https://www.drupal.org/project/clientside_validation/issues/3084798
+    if (\Drupal::moduleHandler()->moduleExists('clientside_validation')
+      && isset($element['other']['#required_error'])) {
+      $element['other']['#attributes']['data-msg-required'] = $element['other']['#required_error'];
+    }
+
     // Initialize the type and other elements to allow for webform enhancements.
     /** @var \Drupal\webform\Plugin\WebformElementManagerInterface $element_manager */
     $element_manager = \Drupal::service('plugin.manager.webform.element');
@@ -239,7 +247,7 @@ abstract class WebformOtherBase extends FormElement {
 
     // Display missing other or missing value error.
     if (Element::isVisibleElement($element)) {
-      $required_error_title = (isset($element['#title'])) ? $element['#title'] : NULL;
+      $required_error_title = $element['#title'] ?? NULL;
       if ($other_is_empty) {
         WebformElementHelper::setRequiredError($element['other'], $form_state, $required_error_title);
       }
@@ -289,9 +297,9 @@ abstract class WebformOtherBase extends FormElement {
     }
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Helper functions.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get the element type.

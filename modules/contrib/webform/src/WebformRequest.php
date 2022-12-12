@@ -137,7 +137,7 @@ class WebformRequest implements WebformRequestInterface {
    * {@inheritdoc}
    */
   public function getCurrentSourceEntity($ignored_types = NULL) {
-    // TODO: Can we refactor this method away altogether and let all its callers
+    // @todo Can we refactor this method away altogether and let all its callers
     // work directly with webform source entity manager?
     return $this->webformSourceEntityManager->getSourceEntity(is_null($ignored_types) ? [] : $ignored_types);
   }
@@ -212,9 +212,9 @@ class WebformRequest implements WebformRequestInterface {
     return [$webform_submission, $source_entity];
   }
 
-  /****************************************************************************/
-  // Routing helpers
-  /****************************************************************************/
+  /* ************************************************************************ */
+  // Routing helpers.
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}

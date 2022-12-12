@@ -1,0 +1,28 @@
+--- lib/backup_migrate_core/src/Service/HTTPClientInterface.php
++++ src/Core/Service/HTTPClientInterface.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Service;
++namespace Drupal\backup_migrate\Core\Service;
+ 
+-use BackupMigrate\Core\File\ReadableStreamBackupFile;
++use Drupal\backup_migrate\Core\File\ReadableStreamBackupFile;
+ 
+ /**
+  * Interface HttpClientInterface.
+  *
+- * @package BackupMigrate\Core\Service
++ * @package Drupal\backup_migrate\Core\Service
+  */
+ interface HttpClientInterface {
+ 
+@@ -34,7 +34,7 @@ public function post($url, $data);
+    * Post a file along with other data (as an array).
+    *
+    * @param $url
+-   * @param \BackupMigrate\Core\File\ReadableStreamBackupFile $file
++   * @param \Drupal\backup_migrate\Core\File\ReadableStreamBackupFile $file
+    * @param $data
+    *
+    * @return mixed

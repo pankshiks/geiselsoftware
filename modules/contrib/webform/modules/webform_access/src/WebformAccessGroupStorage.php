@@ -53,7 +53,7 @@ class WebformAccessGroupStorage extends ConfigEntityStorage implements WebformAc
       $admins[$record['group_id']][] = $record['uid'];
     }
     foreach ($webform_access_groups as $group_id => $webform_access_group) {
-      $webform_access_group->setAdminIds((isset($admins[$group_id])) ? $admins[$group_id] : []);
+      $webform_access_group->setAdminIds($admins[$group_id] ?? []);
     }
 
     // Load users.
@@ -68,7 +68,7 @@ class WebformAccessGroupStorage extends ConfigEntityStorage implements WebformAc
       $users[$record['group_id']][] = $record['uid'];
     }
     foreach ($webform_access_groups as $group_id => $webform_access_group) {
-      $webform_access_group->setUserIds((isset($users[$group_id])) ? $users[$group_id] : []);
+      $webform_access_group->setUserIds($users[$group_id] ?? []);
     }
 
     // Load entities.
@@ -84,7 +84,7 @@ class WebformAccessGroupStorage extends ConfigEntityStorage implements WebformAc
       $entities[$group_id][] = implode(':', $record);
     }
     foreach ($webform_access_groups as $group_id => $webform_access_group) {
-      $webform_access_group->setEntityIds((isset($entities[$group_id])) ? $entities[$group_id] : []);
+      $webform_access_group->setEntityIds($entities[$group_id] ?? []);
     }
 
     return $webform_access_groups;
@@ -137,7 +137,7 @@ class WebformAccessGroupStorage extends ConfigEntityStorage implements WebformAc
       ->fields(['group_id', 'entity_type', 'entity_id', 'field_name', 'webform_id']);
     $values = ['group_id' => $entity->id()];
     foreach ($entities as $entity) {
-      list($values['entity_type'], $values['entity_id'], $values['field_name'], $values['webform_id']) = explode(':', $entity);
+      [$values['entity_type'], $values['entity_id'], $values['field_name'], $values['webform_id']] = explode(':', $entity);
       $query->values($values);
     }
     $query->execute();
@@ -212,7 +212,7 @@ class WebformAccessGroupStorage extends ConfigEntityStorage implements WebformAc
     foreach ($webform_access_groups as $webform_access_group) {
       $entities = $webform_access_group->getEntityIds();
       foreach ($entities as $entity) {
-        list($source_entity_type, $source_entity_id) = explode(':', $entity);
+        [$source_entity_type, $source_entity_id] = explode(':', $entity);
         if (!$entity_type || $source_entity_type === $entity_type) {
           $source_entity_ids[] = $source_entity_id;
         }

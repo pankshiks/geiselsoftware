@@ -3,13 +3,13 @@
 namespace Drupal\schema_metatag\Plugin\schema_metatag;
 
 use Drupal\Component\Plugin\PluginBase;
-use Drupal\schema_metatag\SchemaMetatagManagerInterface;
-use Drupal\schema_metatag\SchemaMetatagClientInterface;
-use Drupal\schema_metatag\SchemaMetatagTestTagInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\schema_metatag\SchemaMetatagClientInterface;
+use Drupal\schema_metatag\SchemaMetatagManagerInterface;
+use Drupal\schema_metatag\SchemaMetatagTestTagInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base class for Property type plugins.
@@ -370,8 +370,8 @@ class PropertyTypeBase extends PluginBase implements PropertyTypeInterface, Sche
   public function testDefaultValue($count = NULL, $delimiter = NULL) {
     $items = [];
     $min = 1;
-    $max = isset($count) ? $count : 2;
-    $delimiter = isset($delimiter) ? $delimiter : ' ';
+    $max = $count ?? 2;
+    $delimiter = $delimiter ?? ' ';
     for ($i = $min; $i <= $max; $i++) {
       $items[] = $this->schemaMetatagManager()->randomMachineName();
     }

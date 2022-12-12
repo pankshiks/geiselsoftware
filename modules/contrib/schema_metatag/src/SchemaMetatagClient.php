@@ -2,9 +2,9 @@
 
 namespace Drupal\schema_metatag;
 
+use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Cache\CacheBackendInterface;
 
 /**
  * Class SchemaMetatagClient.
@@ -104,7 +104,9 @@ class SchemaMetatagClient implements SchemaMetatagClientInterface {
       foreach ($data as $item) {
         if ($this->isIncludedClass($item)) {
           $subobject_of = [];
-          $object = $item['rdfs:label'];
+          $object = is_array($item['rdfs:label'])
+            ? $item['rdfs:label']['@value']
+            : $item['rdfs:label'];
           $description = $item['rdfs:comment'];
           if (array_key_exists('rdfs:subClassOf', $item)) {
             foreach ($item['rdfs:subClassOf'] as $value) {

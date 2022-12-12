@@ -1,0 +1,15 @@
+--- lib/backup_migrate_core/src/Exception/HttpClientException.php
++++ src/Core/Exception/HttpClientException.php
+@@ -1,10 +1,10 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Exception;
++namespace Drupal\backup_migrate\Core\Exception;
+ 
+ /**
+  * Class HttpClientException.
+  *
+- * @package BackupMigrate\Core\Exception
++ * @package Drupal\backup_migrate\Core\Exception
+  */
+ class HttpClientException extends BackupMigrateException {}

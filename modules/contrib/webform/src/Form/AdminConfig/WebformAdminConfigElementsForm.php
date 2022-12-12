@@ -471,7 +471,7 @@ class WebformAdminConfigElementsForm extends WebformAdminConfigBaseForm {
       // Item format.
       $item_formats = WebformOptionsHelper::appendValueToText($element_plugin->getItemFormats());
       $item_default_format = $element_plugin->getItemDefaultFormat();
-      $item_default_format_label = (isset($item_formats[$item_default_format])) ? $item_formats[$item_default_format] : $item_default_format;
+      $item_default_format_label = $item_formats[$item_default_format] ?? $item_default_format;
       $row['item'] = [
         '#type' => 'select',
         '#title' => $this->t('Item format'),
@@ -580,9 +580,11 @@ class WebformAdminConfigElementsForm extends WebformAdminConfigBaseForm {
    */
   public static function validateMaxFilesize($element, FormStateInterface $form_state) {
     // Issue #2359675: File field's Maximum upload size always passes validation.
+    // phpcs:disable
     // if (class_exists('\Drupal\file\Plugin\Field\FieldType\FileItem')) {
     //   FileItem::validateMaxFilesize($element, $form_state);
     // }
+    // phpcs:enable
     // @see \Drupal\file\Plugin\Field\FieldType\FileItem::validateMaxFilesize
     if (!empty($element['#value']) && !Bytes::toInt($element['#value'])) {
       $form_state->setError($element, t('The "@name" option must contain a valid value. You may either leave the text field empty or enter a string like "512" (bytes), "80 KB" (kilobytes) or "50 MB" (megabytes).', ['@name' => $element['#title']]));

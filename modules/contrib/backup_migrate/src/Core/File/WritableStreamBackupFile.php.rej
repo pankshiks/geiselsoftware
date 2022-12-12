@@ -1,0 +1,29 @@
+--- lib/backup_migrate_core/src/File/WritableStreamBackupFile.php
++++ src/Core/File/WritableStreamBackupFile.php
+@@ -2,14 +2,14 @@
+ 
+ // Must be injected:
+ // Temp directory.
+-namespace BackupMigrate\Core\File;
++namespace Drupal\backup_migrate\Core\File;
+ 
+-use BackupMigrate\Core\Exception\BackupMigrateException;
++use Drupal\backup_migrate\Core\Exception\BackupMigrateException;
+ 
+ /**
+  * Class TempFile.
+  *
+- * @package BackupMigrate\Core\File
++ * @package Drupal\backup_migrate\Core\File
+  *
+  * A file object which represents an existing PHP stream that can be written to and read from.
+  */
+@@ -40,7 +40,7 @@ function openForWrite($binary = FALSE) {
+ 
+       // Check if the file can be read/written.
+       if ((file_exists($path) && !is_writable($path)) || (!file_exists($path) && !is_writable(dirname($path)))) {
+-        // @TODO: Throw better exception
++        // @todo Throw better exception
+         throw new BackupMigrateException('Cannot write to file: %path', ['%path' => $path]);
+       }
+ 

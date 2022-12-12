@@ -292,7 +292,7 @@ class WebformOptionsCustom extends ConfigEntityBase implements WebformOptionsCus
     }
     elseif (strpos($url, 'http') !== 0) {
       // Map webform_option_custom/images path.
-      $path = drupal_get_path('module', 'webform_options_custom') . '/images/' . $url;
+      $path = \Drupal::service('extension.list.module')->getPath('webform_options_custom') . '/images/' . $url;
       if (file_exists($path)) {
         $url = $base_url . '/' . $path;
       }
@@ -334,9 +334,9 @@ class WebformOptionsCustom extends ConfigEntityBase implements WebformOptionsCus
     // Set default #options.
     if (empty($element['#options'])) {
       $element['#options'] = [
-        'one' => t('One -- This is the number 1.'),
-        'two' => t('Two -- This is the number 2.'),
-        'three' => t('Three -- This is the number 3.'),
+        'one' => $this->t('One -- This is the number 1.'),
+        'two' => $this->t('Two -- This is the number 2.'),
+        'three' => $this->t('Three -- This is the number 3.'),
       ];
     }
 

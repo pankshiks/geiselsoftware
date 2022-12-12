@@ -80,3 +80,7 @@
 .webform-progress-tracker .progress-step.is-complete:hover .progress-marker[role="link"]:before {
   background-color: #1976f2;
 }
+
+.webform-progress-tracker .progress-marker::after {
+  z-index: auto;
+}

@@ -197,7 +197,7 @@ class WebformSubmissionViewBuilder extends EntityViewBuilder implements WebformS
         $build[$key] = $build_element;
         if (!$this->isElementVisible($element, $webform_submission, $options)) {
           $build[$key]['#access'] = FALSE;
-        };
+        }
       }
     }
 

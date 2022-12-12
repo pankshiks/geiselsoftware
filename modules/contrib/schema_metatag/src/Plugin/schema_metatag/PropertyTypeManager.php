@@ -2,9 +2,9 @@
 
 namespace Drupal\schema_metatag\Plugin\schema_metatag;
 
-use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Plugin\DefaultPluginManager;
 
 /**
  * Provides the Property type plugin manager.

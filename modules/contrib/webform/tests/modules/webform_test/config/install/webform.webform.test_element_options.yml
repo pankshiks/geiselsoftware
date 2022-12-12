@@ -75,7 +75,7 @@ elements: |
       '#type': webform_element_options
       '#title': webform_element_options_custom_type_multiple
       '#custom__type': webform_multiple
-      '#default_value': { }
+      '#default_value': {  }
   
 css: ''
 javascript: ''
@@ -118,6 +118,9 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_method: ''
+  form_action: ''
+  form_attributes: {  }
   share: false
   share_node: false
   share_theme_name: ''
@@ -264,5 +267,7 @@ handlers:
     status: true
     conditions: {  }
     weight: 0
-    settings: {  }
+    settings:
+      format: yaml
+      submission: false
 variants: {  }

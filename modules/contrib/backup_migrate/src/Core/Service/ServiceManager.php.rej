@@ -1,0 +1,19 @@
+--- lib/backup_migrate_core/src/Service/ServiceManager.php
++++ src/Core/Service/ServiceManager.php
+@@ -1,6 +1,6 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Service;
++namespace Drupal\backup_migrate\Core\Service;
+ 
+ /**
+  * A very simple service locator. Does not handle dependency injection but could
+@@ -8,7 +8,7 @@
+  *
+  * Class ServiceManager.
+  *
+- * @package BackupMigrate\Core\Service
++ * @package Drupal\backup_migrate\Core\Service
+  */
+ class ServiceManager implements ServiceManagerInterface {
+ 

@@ -80,11 +80,24 @@ elements: |
     '#type': webform_computed_token
     '#title': 'Computed (token)'
     '#value': 'Site name: [site:name]'
+  autocomplete_options:
+    '#type': autocomplete
+    '#title': 'Autocomplete (options)'
+    '#format_items': comma
+    '#autocomplete_items': test_translation
+  autocomplete_custom:
+    '#type': autocomplete
+    '#title': 'Autocomplete (custom)'
+    '#format_items': comma
+    '#autocomplete_items':
+      - Seven
+      - Eight
+      - Nine
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'
     '#submit__label': 'Send message'
-
+  
 css: ''
 javascript: ''
 settings:
@@ -126,6 +139,9 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_method: ''
+  form_action: ''
+  form_attributes: {  }
   share: false
   share_node: false
   share_theme_name: ''
@@ -316,6 +332,6 @@ variants:
         textfield:
           '#title': 'Text field - Variant'
           '#type': textarea
-
+        
       handlers: {  }
       debug: false

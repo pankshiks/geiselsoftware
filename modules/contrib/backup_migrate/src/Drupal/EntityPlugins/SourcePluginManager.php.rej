@@ -1,0 +1,28 @@
+--- src/EntityPlugins/SourcePluginManager.php
++++ src/Drupal/EntityPlugins/SourcePluginManager.php
+@@ -1,6 +1,6 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\EntityPlugins;
++namespace Drupal\backup_migrate\Drupal\EntityPlugins;
+ 
+ use Drupal\Core\Cache\CacheBackendInterface;
+ use Drupal\Core\Extension\ModuleHandlerInterface;
+@@ -9,7 +9,7 @@
+ /**
+  * Class SourcePluginManager.
+  *
+- * @package BackupMigrate\Drupal\Source
++ * @package Drupal\backup_migrate\Drupal\Source
+  */
+ class SourcePluginManager extends DefaultPluginManager {
+ 
+@@ -25,7 +25,7 @@ class SourcePluginManager extends DefaultPluginManager {
+    *   The module handler to invoke the alter hook with.
+    */
+   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
+-    parent::__construct('Plugin/BackupMigrateSource', $namespaces, $module_handler, 'BackupMigrate\Drupal\EntityPlugins\SourcePluginInterface', 'BackupMigrate\Drupal\EntityPlugins\Annotation\BackupMigrateSourcePlugin');
++    parent::__construct('Plugin/BackupMigrateSource', $namespaces, $module_handler, 'Drupal\backup_migrate\Drupal\EntityPlugins\SourcePluginInterface', 'Drupal\backup_migrate\Drupal\EntityPlugins\Annotation\BackupMigrateSourcePlugin');
+     $this->alterInfo('backup_migrate_source_info');
+     $this->setCacheBackend($cache_backend, 'backup_migrate_source_plugins');
+   }

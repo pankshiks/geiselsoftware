@@ -1,0 +1,109 @@
+--- lib/backup_migrate_core/src/Source/MySQLiSource.php
++++ src/Core/Source/MySQLiSource.php
+@@ -1,18 +1,18 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Source;
++namespace Drupal\backup_migrate\Core\Source;
+ 
+-use BackupMigrate\Core\Exception\BackupMigrateException;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
+-use BackupMigrate\Core\File\BackupFileWritableInterface;
+-use BackupMigrate\Core\Plugin\PluginCallerTrait;
+-use BackupMigrate\Core\Plugin\PluginCallerInterface;
++use Drupal\backup_migrate\Core\Exception\BackupMigrateException;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\File\BackupFileWritableInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginCallerTrait;
++use Drupal\backup_migrate\Core\Plugin\PluginCallerInterface;
+ use PDO;
+ 
+ /**
+  * Class MySQLiSource.
+  *
+- * @package BackupMigrate\Core\Source
++ * @package Drupal\backup_migrate\Core\Source
+  */
+ class MySQLiSource extends DatabaseSource implements PluginCallerInterface {
+   use PluginCallerTrait;
+@@ -36,7 +36,7 @@ public function supportedOps() {
+    * Export this source to the given temp file. This should be the main
+    * back up function for this source.
+    *
+-   * @return \BackupMigrate\Core\File\BackupFileReadableInterface $file
++   * @return \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $file
+    *    A backup file with the contents of the source dumped to it..
+    */
+   public function exportToFile() {
+@@ -51,7 +51,7 @@ public function exportToFile() {
+ 
+       $lines = 0;
+       foreach ($tables as $table) {
+-        // @TODO reenable this.
++        // @todo reenable this.
+         //        if (_backup_migrate_check_timeout()) {
+         //          return FALSE;
+         //        }
+@@ -70,7 +70,7 @@ public function exportToFile() {
+       return $file;
+     }
+     else {
+-      // @TODO: Throw exception
++      // @todo Throw exception
+       return $this->getTempFileManager()->create('mysql');
+     }
+ 
+@@ -80,7 +80,7 @@ public function exportToFile() {
+    * Import to this source from the given backup file. This is the main restore
+    * function for this source.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $file
+    *    The file to read the backup from. It will not be opened for reading
+    *
+    * @return bool|int
+@@ -223,7 +223,7 @@ protected function _getSQLHeader() {
+ /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+ /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=NO_AUTO_VALUE_ON_ZERO */;
+ 
+-/* @TODO expose these options in config with the ability to turn on and off */
++/* @todo expose these options in config with the ability to turn on and off */
+ 
+ SET AUTOCOMMIT = 0;
+ SET FOREIGN_KEY_CHECKS=0;
+@@ -248,7 +248,7 @@ protected function _getSQLFooter() {
+ /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+ 
+-/* @TODO expose these options in config with the ability to turn on and off */
++/* @todo expose these options in config with the ability to turn on and off */
+ SET FOREIGN_KEY_CHECKS = 1;
+ COMMIT;
+ SET AUTOCOMMIT = 1;
+@@ -260,7 +260,7 @@ protected function _getSQLFooter() {
+    *
+    * Supports the formatting created by mysqldump, but won't handle multiline comments.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $file
+    *
+    * @return string
+    */
+@@ -331,7 +331,7 @@ protected function _getTableCreateSQL($table) {
+     if (empty($table['engine'])) {
+       // Switch SQL mode to for a simpler version of the create view syntax.
+       $sql_mode = $this->_fetchValue("SELECT @@SESSION.sql_mode");
+-      // @TODO: Setting the sql_mode does not seem to work.
++      // @todo Setting the sql_mode does not seem to work.
+       $this->query("SET sql_mode = 'ANSI'");
+       $create = $this->_fetchAssoc("SHOW CREATE VIEW `" . $table['name'] . "`");
+       if ($create) {
+@@ -394,7 +394,7 @@ protected function _dumpTableSQLToFile(BackupFileWritableInterface $file, $table
+       $items = [];
+       foreach ($row as $key => $value) {
+         $items[] = is_null($value) ? "null" : "'" . str_replace($search, $replace, $value) . "'";
+-        // @TODO: escape binary data
++        // @todo escape binary data
+       }
+ 
+       // If there is a row to be added.

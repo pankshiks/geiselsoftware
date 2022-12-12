@@ -61,7 +61,7 @@ class WebformResultsExportController extends ControllerBase implements Container
    *   A response that renders or redirects to the CSV file.
    */
   public function index(Request $request) {
-    list($webform, $source_entity) = $this->requestHandler->getWebformEntities();
+    [$webform, $source_entity] = $this->requestHandler->getWebformEntities();
     $this->submissionExporter->setWebform($webform);
     $this->submissionExporter->setSourceEntity($source_entity);
 
@@ -131,7 +131,7 @@ class WebformResultsExportController extends ControllerBase implements Container
    *   A response that renders or redirects to the CSV file.
    */
   public function file(Request $request, $filename) {
-    list($webform, $source_entity) = $this->requestHandler->getWebformEntities();
+    [$webform, $source_entity] = $this->requestHandler->getWebformEntities();
     $this->submissionExporter->setWebform($webform);
     $this->submissionExporter->setSourceEntity($source_entity);
 
@@ -180,11 +180,11 @@ class WebformResultsExportController extends ControllerBase implements Container
     return $response;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Batch functions.
   // Using static method to prevent the service container from being serialized.
-  // "Prevents exception 'AssertionError' with message 'The container was serialized.'."
-  /****************************************************************************/
+  // Prevents 'AssertionError: The container was serialized.' exception.
+  /* ************************************************************************ */
 
   /**
    * Batch API; Initialize batch operations.
@@ -240,7 +240,7 @@ class WebformResultsExportController extends ControllerBase implements Container
    * @param mixed|array $context
    *   The batch current context.
    */
-  public static function batchProcess(WebformInterface $webform, EntityInterface $source_entity = NULL, array $export_options, &$context) {
+  public static function batchProcess(WebformInterface $webform, EntityInterface $source_entity = NULL, array $export_options = [], &$context = []) {
     /** @var \Drupal\webform\WebformSubmissionExporterInterface $submission_exporter */
     $submission_exporter = \Drupal::service('webform_submission.exporter');
     $submission_exporter->setWebform($webform);

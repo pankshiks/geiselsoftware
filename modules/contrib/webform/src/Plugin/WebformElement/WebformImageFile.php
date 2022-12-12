@@ -35,7 +35,7 @@ class WebformImageFile extends WebformManagedFileBase {
     return $properties;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -97,7 +97,7 @@ class WebformImageFile extends WebformManagedFileBase {
       return parent::formatHtmlItem($element, $webform_submission, $options);
     }
     else {
-      list($style_name, $format) = explode(':', $format);
+      [$style_name, $format] = explode(':', $format);
       $theme = str_replace('webform_', 'webform_element_', $this->getPluginId());
       if (strpos($theme, 'webform_') !== 0) {
         $theme = 'webform_element_' . $theme;
@@ -182,7 +182,7 @@ class WebformImageFile extends WebformManagedFileBase {
         'filemime' => $file->getMimeType(),
         // File URIs that are not supported return FALSE, when this happens
         // still use the file's URI as the file's path.
-        'filepath' => $this->fileSystem->realpath($file->getFileUri()) ?: $file->getFileUri(),
+        'filepath' => $this->fileSystem->realpath($file_uri) ?: $file_uri,
         // URL is used when debugging or resending messages.
         // @see \Drupal\webform\Plugin\WebformHandler\EmailWebformHandler::buildAttachments
         '_fileurl' => $file_url,

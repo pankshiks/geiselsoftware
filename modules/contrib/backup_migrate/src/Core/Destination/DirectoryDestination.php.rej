@@ -1,0 +1,162 @@
+--- lib/backup_migrate_core/src/Destination/DirectoryDestination.php
++++ src/Core/Destination/DirectoryDestination.php
+@@ -1,19 +1,19 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Destination;
++namespace Drupal\backup_migrate\Core\Destination;
+ 
+-use BackupMigrate\Core\Config\ConfigurableInterface;
+-use BackupMigrate\Core\Exception\DestinationNotWritableException;
+-use BackupMigrate\Core\Plugin\FileProcessorInterface;
+-use BackupMigrate\Core\File\BackupFile;
+-use BackupMigrate\Core\File\BackupFileInterface;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
+-use BackupMigrate\Core\File\ReadableStreamBackupFile;
++use Drupal\backup_migrate\Core\Config\ConfigurableInterface;
++use Drupal\backup_migrate\Core\Exception\DestinationNotWritableException;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorInterface;
++use Drupal\backup_migrate\Core\File\BackupFile;
++use Drupal\backup_migrate\Core\File\BackupFileInterface;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\File\ReadableStreamBackupFile;
+ 
+ /**
+  * Class ServerDirectoryDestination.
+  *
+- * @package BackupMigrate\Core\Destination
++ * @package Drupal\backup_migrate\Core\Destination
+  */
+ class DirectoryDestination extends DestinationBase implements ListableDestinationInterface, ReadableDestinationInterface, ConfigurableInterface, FileProcessorInterface {
+   use SidecarMetadataDestinationTrait;
+@@ -40,7 +40,7 @@ public function checkWritable() {
+    *
+    * @return array
+    */
+-  public function configSchema($params = []) {
++  public function configSchema(array $params = []) {
+     $schema = [];
+ 
+     // Init settings.
+@@ -59,22 +59,22 @@ public function configSchema($params = []) {
+    * Do the actual file save. This function is called to save the data file AND
+    * the metadata sidecar file.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $file
+    *
+-   * @throws \BackupMigrate\Core\Exception\BackupMigrateException
++   * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
+    */
+   function _saveFile(BackupFileReadableInterface $file) {
+     // Check if the directory exists.
+     $this->checkDirectory();
+ 
+-    copy($file->realpath(), $this->_idToPath($file->getFullName()));
+-    // @TODO: use copy/unlink if the temp file and the destination do not share a stream wrapper.
++    copy($file->realpath(), $this->idToPath($file->getFullName()));
++    // @todo use copy/unlink if the temp file and the destination do not share a stream wrapper.
+   }
+ 
+   /**
+    * Check that the directory can be used for backup.
+    *
+-   * @throws \BackupMigrate\Core\Exception\BackupMigrateException
++   * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
+    */
+   protected function checkDirectory() {
+     $dir = $this->confGet('directory');
+@@ -120,7 +120,7 @@ public function loadFileForReading(BackupFileInterface $file) {
+ 
+     $id = $file->getMeta('id');
+     if ($this->fileExists($id)) {
+-      return new ReadableStreamBackupFile($this->_idToPath($id));
++      return new ReadableStreamBackupFile($this->idToPath($id));
+     }
+     return NULL;
+   }
+@@ -133,7 +133,7 @@ public function listFiles() {
+     $out = [];
+ 
+     // Get the entire list of filenames.
+-    $files = $this->_getAllFileNames();
++    $files = $this->getAllFileNames();
+ 
+     foreach ($files as $file) {
+       $filepath = $dir . '/' . $file;
+@@ -146,14 +146,7 @@ public function listFiles() {
+   /**
+    * {@inheritdoc}
+    */
+-  public function queryFiles(
+-    $filters = [],
+-    $sort = 'datestamp',
+-    $sort_direction = SORT_DESC,
+-    $count = 100,
+-    $start = 0
+-  ) {
+-
++  public function queryFiles(array $filters = [], $sort = 'datestamp', $sort_direction = SORT_DESC, $count = 100, $start = 0) {
+     // Get the full list of files.
+     $out = $this->listFiles($count + $start);
+     foreach ($out as $key => $file) {
+@@ -192,21 +185,19 @@ public function queryFiles(
+     return $out;
+   }
+ 
+-
+   /**
+    * @return int The number of files in the destination.
+    */
+   public function countFiles() {
+-    $files = $this->_getAllFileNames();
++    $files = $this->getAllFileNames();
+     return count($files);
+   }
+ 
+-
+   /**
+    * {@inheritdoc}
+    */
+   public function fileExists($id) {
+-    return file_exists($this->_idToPath($id));
++    return file_exists($this->idToPath($id));
+   }
+ 
+   /**
+@@ -228,7 +219,7 @@ public function _deleteFile($id) {
+    *
+    * @return string
+    */
+-  protected function _idToPath($id) {
++  protected function idToPath($id) {
+     return rtrim($this->confGet('directory'), '/') . '/' . $id;
+   }
+ 
+@@ -237,19 +228,20 @@ protected function _idToPath($id) {
+    *
+    * @return array
+    */
+-  protected function _getAllFileNames() {
++  protected function getAllFileNames() {
+     $files = [];
+ 
+     // Read the list of files from the directory.
+     $dir = $this->confGet('directory');
++    $scheme = 
+ 
+-    /** @var \Drupal\Core\File\FileSystemInterface $fileSystem */
+-    $fileSystem = \Drupal::service('file_system');
+-    $scheme = $fileSystem->uriScheme($dir);
++    /** @var \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface $stream_wrapper_manager */
++    $stream_wrapper_manager = \Drupal::service('stream_wrapper_manager');
++    $scheme = $stream_wrapper_manager->getScheme($dir);
+ 
+     // Ensure the stream is configured.
+-    if (!$fileSystem->validScheme($scheme)) {
+-      drupal_set_message(t('Your @scheme stream is not configured.', [
++    if (!$stream_wrapper_manager->isValidScheme($scheme)) {
++      \Drupal::messenger()->addMessage(t('Your @scheme stream is not configured.', [
+         '@scheme' => $scheme . '://'
+       ]), 'warning');
+       return $files;

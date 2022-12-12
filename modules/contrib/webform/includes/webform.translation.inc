@@ -33,7 +33,7 @@ function webform_form_language_content_settings_form_alter(array &$form, FormSta
 function webform_form_locale_translate_edit_form_alter(&$form, FormStateInterface $form_state) {
   // Don't allow YAML to be validated using locale string translation.
   foreach (Element::children($form['strings']) as $key) {
-    $element =& $form['strings'][$key];
+    $element = &$form['strings'][$key];
     if ($element['original']
       && !empty($element['original']['#plain_text'])
       && preg_match("/'#[^']+':/", $element['original']['#plain_text'])
@@ -52,9 +52,9 @@ function webform_form_locale_translate_edit_form_alter(&$form, FormStateInterfac
   }
 }
 
-/******************************************************************************/
+/* ************************************************************************** */
 // Configuration translation.
-/******************************************************************************/
+/* ************************************************************************** */
 
 /**
  * Implements hook_form_FORM_ID_alter() for config translation add form.
@@ -65,7 +65,6 @@ function webform_form_config_translation_add_form_alter(&$form, FormStateInterfa
   $translation_config_manager->alterForm($form, $form_state);
 }
 
-
 /**
  * Implements hook_form_FORM_ID_alter() for config translation edit form.
  */
@@ -75,9 +74,9 @@ function webform_form_config_translation_edit_form_alter(&$form, FormStateInterf
   $translation_config_manager->alterForm($form, $form_state);
 }
 
-/******************************************************************************/
+/* ************************************************************************** */
 // Lingotek integration.
-/******************************************************************************/
+/* ************************************************************************** */
 
 /**
  * Implements hook_lingotek_config_entity_document_upload().

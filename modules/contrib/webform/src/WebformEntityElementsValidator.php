@@ -534,7 +534,7 @@ class WebformEntityElementsValidator implements WebformEntityElementsValidatorIn
   protected function validatePages() {
     if (strpos($this->elementsRaw, "'#type': webform_card") !== FALSE
       && strpos($this->elementsRaw, "'#type': webform_wizard_page") !== FALSE) {
-        return [$this->t('Pages and cards cannot be used in the same webform. Please remove or convert the pages/cards to the same element type.')];
+      return [$this->t('Pages and cards cannot be used in the same webform. Please remove or convert the pages/cards to the same element type.')];
     }
     else {
       return NULL;
@@ -599,9 +599,9 @@ class WebformEntityElementsValidator implements WebformEntityElementsValidatorIn
     return $message;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Helper methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Recurse through elements and collect an associative array of deleted element keys.

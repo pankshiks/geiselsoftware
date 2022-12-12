@@ -124,7 +124,7 @@ elements: |
     '#description': |
       @see <a href="https://www.drupal.org/node/2917107">Issue #2917107: Date and Time validation problem</a><br/>
       @see <a href="https://www.drupal.org/node/2723159">Issue #2723159: Datetime form element cannot validate when using a format without seconds</a><br/>
-  
+      
     '#date_date_element': datepicker
     '#date_time_element': text
     '#date_time_format': 'H:i'
@@ -196,6 +196,9 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_method: ''
+  form_action: ''
+  form_attributes: {  }
   share: false
   share_node: false
   share_theme_name: ''
@@ -342,5 +345,7 @@ handlers:
     status: true
     conditions: {  }
     weight: 1
-    settings: {  }
+    settings:
+      format: yaml
+      submission: false
 variants: {  }

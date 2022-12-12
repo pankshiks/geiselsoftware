@@ -62,7 +62,7 @@ class RouteParametersWebformSourceEntityTest extends UnitTestCase {
     $container = new ContainerBuilder();
     $container->set('current_route_match', $route_match);
 
-    /**************************************************************************/
+    /* ********************************************************************** */
 
     $plugin = RouteParametersWebformSourceEntity::create($container, [], 'route_parameters', []);
     $output = $plugin->getSourceEntity($ignored_types);

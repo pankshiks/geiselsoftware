@@ -69,7 +69,7 @@ trait WebformCompositeFormElementTrait {
     $element['#attached']['library'][] = 'webform/webform.composite';
 
     // Set theme wrapper to wrapper type.
-    $wrapper_type = (isset($element['#wrapper_type'])) ? $element['#wrapper_type'] : 'fieldset';
+    $wrapper_type = $element['#wrapper_type'] ?? 'fieldset';
     $element['#theme_wrappers'][] = $wrapper_type;
 
     // Apply wrapper specific enhancements.

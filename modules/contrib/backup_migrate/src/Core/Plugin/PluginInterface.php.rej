@@ -1,0 +1,10 @@
+--- lib/backup_migrate_core/src/Plugin/PluginInterface.php
++++ src/Core/Plugin/PluginInterface.php
+@@ -1,6 +1,6 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Plugin;
++namespace Drupal\backup_migrate\Core\Plugin;
+ 
+ /**
+  * An interface to describe a Backup and Migrate plugin.

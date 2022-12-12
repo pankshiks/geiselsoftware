@@ -1,0 +1,39 @@
+--- lib/backup_migrate_core/src/Filter/FileExcludeFilter.php
++++ src/Core/Filter/FileExcludeFilter.php
+@@ -1,14 +1,14 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Filter;
++namespace Drupal\backup_migrate\Core\Filter;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Core\Plugin\PluginBase;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Core\Plugin\PluginBase;
+ 
+ /**
+  * Class FileExcludeFilter.
+  *
+- * @package BackupMigrate\Core\Filter
++ * @package Drupal\backup_migrate\Core\Filter
+  */
+ class FileExcludeFilter extends PluginBase {
+ 
+@@ -42,7 +42,7 @@ public function beforeFileBackup($path, $params = []) {
+   /**
+    * Get the default values for the plugin.
+    *
+-   * @return \BackupMigrate\Core\Config\Config
++   * @return \Drupal\backup_migrate\Core\Config\Config
+    */
+   public function configDefaults() {
+     return new Config([
+@@ -102,7 +102,7 @@ private function matchPath($path, $exclude, $base_path = '') {
+    *
+    * @return array
+    */
+-  public function configSchema($params = []) {
++  public function configSchema(array $params = []) {
+     $schema = [];
+ 
+     $source = $this->confGet('source');

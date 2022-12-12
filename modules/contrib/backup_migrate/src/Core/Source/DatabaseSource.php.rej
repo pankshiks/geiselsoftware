@@ -1,0 +1,43 @@
+--- lib/backup_migrate_core/src/Source/DatabaseSource.php
++++ src/Core/Source/DatabaseSource.php
+@@ -1,16 +1,16 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Source;
++namespace Drupal\backup_migrate\Core\Source;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Core\Plugin\FileProcessorInterface;
+-use BackupMigrate\Core\Plugin\FileProcessorTrait;
+-use BackupMigrate\Core\Plugin\PluginBase;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorInterface;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorTrait;
++use Drupal\backup_migrate\Core\Plugin\PluginBase;
+ 
+ /**
+  * Class DatabaseSource.
+  *
+- * @package BackupMigrate\Core\Source
++ * @package Drupal\backup_migrate\Core\Source
+  */
+ abstract class DatabaseSource extends PluginBase implements DatabaseSourceInterface, FileProcessorInterface {
+   use FileProcessorTrait;
+@@ -22,7 +22,7 @@ abstract class DatabaseSource extends PluginBase implements DatabaseSourceInterf
+    *
+    * @return array
+    */
+-  public function configSchema($params = []) {
++  public function configSchema(array $params = []) {
+     $schema = [];
+ 
+     // Init settings.
+@@ -57,7 +57,7 @@ public function configSchema($params = []) {
+   /**
+    * Get the default values for the plugin.
+    *
+-   * @return \BackupMigrate\Core\Config\Config
++   * @return \Drupal\backup_migrate\Core\Config\Config
+    */
+   public function configDefaults() {
+     return new Config([

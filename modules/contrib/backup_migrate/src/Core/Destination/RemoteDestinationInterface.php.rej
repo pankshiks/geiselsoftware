@@ -1,0 +1,16 @@
+--- lib/backup_migrate_core/src/Destination/RemoteDestinationInterface.php
++++ src/Core/Destination/RemoteDestinationInterface.php
+@@ -1,11 +1,11 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Destination;
++namespace Drupal\backup_migrate\Core\Destination;
+ 
+ /**
+  * Interface RemoteDestinationInterface.
+  *
+- * @package BackupMigrate\Core\Destination
++ * @package Drupal\backup_migrate\Core\Destination
+  */
+ interface RemoteDestinationInterface extends DestinationInterface {
+ 

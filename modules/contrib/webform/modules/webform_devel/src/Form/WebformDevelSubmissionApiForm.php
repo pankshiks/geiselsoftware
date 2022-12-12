@@ -56,7 +56,7 @@ class WebformDevelSubmissionApiForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     /** @var \Drupal\webform\WebformInterface $webform */
     /** @var \Drupal\Core\Entity\EntityInterface $source_entity */
-    list($webform, $source_entity) = $this->requestHandler->getWebformEntities();
+    [$webform, $source_entity] = $this->requestHandler->getWebformEntities();
 
     $values = [];
 

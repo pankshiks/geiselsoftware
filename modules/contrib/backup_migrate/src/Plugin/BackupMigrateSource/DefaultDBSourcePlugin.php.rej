@@ -1,0 +1,46 @@
+--- src/Plugin/BackupMigrateSource/DefaultDBSourcePlugin.php
++++ src/Plugin/BackupMigrateSource/DefaultDBSourcePlugin.php
+@@ -2,11 +2,11 @@
+ 
+ namespace Drupal\backup_migrate\Plugin\BackupMigrateSource;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Core\Filter\DBExcludeFilter;
+-use BackupMigrate\Core\Main\BackupMigrateInterface;
+-use BackupMigrate\Drupal\Source\DrupalMySQLiSource;
+-use BackupMigrate\Drupal\EntityPlugins\SourcePluginBase;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Core\Filter\DBExcludeFilter;
++use Drupal\backup_migrate\Core\Main\BackupMigrateInterface;
++use Drupal\backup_migrate\Drupal\Source\DrupalMySQLiSource;
++use Drupal\backup_migrate\Drupal\EntityPlugins\SourcePluginBase;
+ 
+ /**
+  * Defines an default database source plugin.
+@@ -23,7 +23,7 @@ class DefaultDBSourcePlugin extends SourcePluginBase {
+   /**
+    * Get the Backup and Migrate plugin object.
+    *
+-   * @return BackupMigrate\Core\Plugin\PluginInterface;
++   * @return Drupal\backup_migrate\Core\Plugin\PluginInterface;
+    */
+   public function getObject() {
+     // Add the default database.
+@@ -49,7 +49,7 @@ public function getObject() {
+   public function alterBackupMigrate(BackupMigrateInterface $bam, $key, $options = []) {
+     if ($source = $this->getObject()) {
+       $bam->sources()->add($key, $source);
+-      // @TODO: This needs a better solution.
++      // @todo This needs a better solution.
+       $config = [
+         'exclude_tables' => [],
+         'nodata_tables' => [
+@@ -74,7 +74,7 @@ public function alterBackupMigrate(BackupMigrateInterface $bam, $key, $options =
+         ],
+       ];
+ 
+-      // @TODO: Allow modules to add their own excluded tables.
++      // @todo Allow modules to add their own excluded tables.
+       $bam->plugins()->add('db_exclude', new DBExcludeFilter(new Config($config)));
+     }
+   }

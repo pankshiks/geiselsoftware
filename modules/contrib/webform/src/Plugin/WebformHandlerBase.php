@@ -26,6 +26,7 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
 
   use WebformEntityInjectionTrait;
   use WebformEntityStorageTrait;
+  use WebformPluginSettingsTrait;
 
   /**
    * The webform.
@@ -114,7 +115,7 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
   /**
    * The webform submission (server-side) conditions (#states) validator.
    *
-   * @var \Drupal\webform\WebformSubmissionConditionsValidator
+   * @var \Drupal\webform\WebformSubmissionConditionsValidatorInterface
    */
   protected $conditionsValidator;
 
@@ -135,7 +136,6 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
    * "LogicException: The database connection is not serializable." exceptions
    * from being thrown when a form is serialized via an Ajax callback and/or
    * form build.
-   *
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = new static($configuration, $plugin_id, $plugin_definition);
@@ -489,9 +489,9 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
     }
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Webform methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -503,18 +503,23 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
    */
   public function alterElement(array &$element, FormStateInterface $form_state, array $context) {}
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Webform submission methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
    */
   public function overrideSettings(array &$settings, WebformSubmissionInterface $webform_submission) {}
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Submission form methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
+
+  /**
+   * {@inheritdoc}
+   */
+  public function prepareForm(WebformSubmissionInterface $webform_submission, $operation, FormStateInterface $form_state) {}
 
   /**
    * {@inheritdoc}
@@ -536,9 +541,9 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
    */
   public function confirmForm(array &$form, FormStateInterface $form_state, WebformSubmissionInterface $webform_submission) {}
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Submission methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -592,18 +597,18 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
     return AccessResult::neutral();
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Preprocessing methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
    */
   public function preprocessConfirmation(array &$variables) {}
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Handler methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -620,9 +625,9 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
    */
   public function deleteHandler() {}
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Element methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -646,9 +651,9 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
    */
   public function deleteElement($key, array $element) {}
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Form helper methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Set configuration settings parents.
@@ -711,9 +716,9 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
     return $elements;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Token methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Replace tokens in text with no render context.
@@ -770,9 +775,9 @@ abstract class WebformHandlerBase extends PluginBase implements WebformHandlerIn
     return $this->tokenManager->elementValidate($form, $token_types);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Logging methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get webform or webform_submission logger.

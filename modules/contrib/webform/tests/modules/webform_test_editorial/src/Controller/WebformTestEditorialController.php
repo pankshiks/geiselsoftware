@@ -80,7 +80,7 @@ class WebformTestEditorialController extends ControllerBase implements Container
    *   A renderable array containing webform help index page.
    */
   public function index() {
-    $path = drupal_get_path('module', 'webform_test_editorial') . '/webform_test_editorial.links.task.yml';
+    $path = __DIR__ . '/../../webform_test_editorial.links.task.yml';
     $tasks = Yaml::decode(file_get_contents($path));
     $content = [];
     foreach ($tasks as $id => $task) {
@@ -98,9 +98,9 @@ class WebformTestEditorialController extends ControllerBase implements Container
     ];
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Help.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Returns webform help editorial.
@@ -115,7 +115,7 @@ class WebformTestEditorialController extends ControllerBase implements Container
       $groups[$group_name] = [];
     }
     foreach ($help as $name => $info) {
-      $group_name = (isset($info['group'])) ? $info['group'] : (string) $this->t('General');
+      $group_name = $info['group'] ?? (string) $this->t('General');
       $groups[$group_name][$name] = $info;
     }
     $groups = array_filter($groups);
@@ -195,9 +195,9 @@ class WebformTestEditorialController extends ControllerBase implements Container
     return $this->response($build);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Videos.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Returns webform videos editorial.
@@ -236,9 +236,9 @@ class WebformTestEditorialController extends ControllerBase implements Container
     return $this->response($build);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Elements.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Returns webform elements editorial.
@@ -285,9 +285,9 @@ class WebformTestEditorialController extends ControllerBase implements Container
     return $this->response($build);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Libraries.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Returns webform libraries.
@@ -322,9 +322,9 @@ class WebformTestEditorialController extends ControllerBase implements Container
     return $this->response($build);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Schema.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Returns webform schema.
@@ -357,9 +357,9 @@ class WebformTestEditorialController extends ControllerBase implements Container
     return $this->response($build);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Drush.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Returns webform drush.
@@ -417,9 +417,9 @@ class WebformTestEditorialController extends ControllerBase implements Container
     return $this->response($build);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Helper methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Build a reusable and styled table for inputs, outputs, and publications.

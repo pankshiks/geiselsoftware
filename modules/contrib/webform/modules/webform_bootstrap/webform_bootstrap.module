@@ -5,11 +5,12 @@
  * Helps support Webform to Bootstrap integration.
  */
 
-use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\Utility\WebformArrayHelper;
 use Drupal\webform\Utility\WebformElementHelper;
 use Drupal\webform_bootstrap\WebformBootstrapRenderCallbacks;
+
+// phpcs:disable Drupal.Classes.FullyQualifiedNamespace.UseStatementMissing
 
 /**
  * Implements hook_page_attachments().
@@ -25,7 +26,7 @@ function webform_bootstrap_page_attachments(array &$attachments) {
 /**
  * Implements hook_webform_element_ELEMENT_TYPE_alter().
  */
-function webform_bootstrap_webform_element_webform_terms_of_service_alter(array &$element, \Drupal\Core\Form\FormStateInterface $form_state, array $context) {
+function webform_bootstrap_webform_element_webform_terms_of_service_alter(array &$element, FormStateInterface $form_state, array $context) {
   // Terms of service agreement must always be displayed, so disable
   // smart description.
   $element['#smart_description'] = FALSE;
@@ -34,7 +35,7 @@ function webform_bootstrap_webform_element_webform_terms_of_service_alter(array 
 /**
  * Implements hook_webform_element_ELEMENT_TYPE_alter().
  */
-function webform_bootstrap_webform_element_webform_likert_alter(array &$element, \Drupal\Core\Form\FormStateInterface $form_state, array $context) {
+function webform_bootstrap_webform_element_webform_likert_alter(array &$element, FormStateInterface $form_state, array $context) {
   $element['#pre_render'] = array_merge([[WebformBootstrapRenderCallbacks::class, 'webformLikertPreRender']], $element['#pre_render']);
 }
 

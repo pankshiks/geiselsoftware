@@ -1,0 +1,16 @@
+--- lib/backup_migrate_core/src/Config/ValidationError.php
++++ src/Core/Config/ValidationError.php
+@@ -1,11 +1,11 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Config;
++namespace Drupal\backup_migrate\Core\Config;
+ 
+ /**
+  * Class ValidationError.
+  *
+- * @package BackupMigrate\Core\Config
++ * @package Drupal\backup_migrate\Core\Config
+  */
+ class ValidationError implements ValidationErrorInterface {
+ 

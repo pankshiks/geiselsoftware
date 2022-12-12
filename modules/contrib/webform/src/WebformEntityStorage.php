@@ -36,6 +36,20 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
   protected $fileSystem;
 
   /**
+   * The cache backend service.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  protected $cacheBackend;
+
+  /**
+   * The language manager.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface
+   */
+  protected $languageManager;
+
+  /**
    * Associative array container total results for all webforms.
    *
    * @var array
@@ -50,6 +64,8 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
     $instance->database = $container->get('database');
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->fileSystem = $container->get('file_system');
+    $instance->cacheBackend = $container->get('cache.default');
+    $instance->languageManager = $container->get('language_manager');
     return $instance;
   }
 
@@ -147,12 +163,48 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
         }
       }
     }
+
+    $this->resetCategoriesCache();
+  }
+
+  /**
+   * Get all webform ids.
+   *
+   * @return array
+   *   An array containing all webform ids.
+   */
+  public function getWebformIds() {
+    if ($cache = $this->cacheBackend->get('webform_ids')) {
+      return $cache->data;
+    }
+    $webform_ids = array_values($this->getQuery()->execute());
+    $this->cacheBackend->get('webform_ids', $webform_ids, Cache::PERMANENT, ['config:webform_list']);
+    return $webform_ids;
   }
 
   /**
    * {@inheritdoc}
    */
   public function getCategories($template = NULL) {
+    // Get categories cache key which includes langcode and template type.
+    $cache_key = $this->languageManager->getCurrentLanguage()->getId();
+    if ($template === FALSE) {
+      $cache_key .= '.forms';
+    }
+    elseif ($template === TRUE) {
+      $cache_key .= '.templates';
+    }
+    else {
+      $cache_key .= '.all';
+    }
+
+    // Get categories cached data.
+    $cache = $this->cacheBackend->get('webform.categories');
+    $cache_data = ($cache) ? $cache->data : [];
+    if (isset($cache_data[$cache_key])) {
+      return $cache_data[$cache_key];
+    }
+
     $webforms = $this->loadMultiple();
     $categories = [];
     foreach ($webforms as $webform) {
@@ -164,7 +216,18 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
       }
     }
     ksort($categories);
+
+    // Add to categories cached data.
+    $this->cacheBackend->set('webform.categories', [$cache_key => $categories] + $cache_data);
+
     return $categories;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function resetCategoriesCache() {
+    $this->cacheBackend->delete('webform.categories');
   }
 
   /**
@@ -246,6 +309,7 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
     // The transaction will commit when $transaction goes out-of-scope.
     //
     // @see \Drupal\Core\Database\Transaction
+    // phpcs:ignore DrupalPractice.CodeAnalysis.VariableAnalysis.UnusedVariable
     $transaction = $this->database->startTransaction();
 
     // Get the next_serial value.
@@ -291,19 +355,18 @@ class WebformEntityStorage extends ConfigEntityStorage implements WebformEntityS
    *   results for specified webform
    */
   public function getTotalNumberOfResults($webform_id = NULL) {
-    if (!isset($this->totals)) {
+    if ($webform_id) {
+      $query = $this->database->select('webform_submission', 'ws');
+      $query->condition('webform_id', $webform_id);
+      $query->addExpression('COUNT(sid)', 'results');
+      return $query->execute()->fetchField() ?: 0;
+    }
+    else {
       $query = $this->database->select('webform_submission', 'ws');
       $query->fields('ws', ['webform_id']);
       $query->addExpression('COUNT(sid)', 'results');
       $query->groupBy('webform_id');
-      $this->totals = array_map('intval', $query->execute()->fetchAllKeyed());
-    }
-
-    if ($webform_id) {
-      return (isset($this->totals[$webform_id])) ? $this->totals[$webform_id] : 0;
-    }
-    else {
-      return $this->totals;
+      return array_map('intval', $query->execute()->fetchAllKeyed());
     }
   }
 

@@ -74,7 +74,7 @@ class WebformEntityReferenceLinkFormatter extends WebformEntityReferenceFormatte
     $summary[] = $this->t('Label: @label', ['@label' => $this->getSetting('label')]);
     $dialog_option_name = $this->getSetting('dialog');
     if ($dialog_option = $this->configFactory->get('webform.settings')->get('settings.dialog_options.' . $dialog_option_name)) {
-      $summary[] = $this->t('Dialog: @dialog', ['@dialog' => (isset($dialog_option['title']) ? $dialog_option['title'] : $dialog_option_name)]);
+      $summary[] = $this->t('Dialog: @dialog', ['@dialog' => ($dialog_option['title'] ?? $dialog_option_name)]);
     }
     return $summary;
   }
@@ -106,7 +106,7 @@ class WebformEntityReferenceLinkFormatter extends WebformEntityReferenceFormatte
     if ($dialog_options) {
       $options = [];
       foreach ($dialog_options as $dialog_option_name => $dialog_option) {
-        $options[$dialog_option_name] = (isset($dialog_option['title'])) ? $dialog_option['title'] : $dialog_option_name;
+        $options[$dialog_option_name] = $dialog_option['title'] ?? $dialog_option_name;
       }
       $form['dialog'] = [
         '#title' => $this->t('Dialog'),

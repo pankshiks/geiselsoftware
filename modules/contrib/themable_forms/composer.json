@@ -1,0 +1,9 @@
+{
+    "name": "drupal/themable_forms",
+    "description": "This module adds some helpful theme suggestions for form elements.",
+    "type": "drupal-module",
+    "require-dev": {
+        "drupal/coder": "^8.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
+    }
+}

@@ -88,7 +88,7 @@ class WebformPluginElementController extends ControllerBase implements Container
       'access_update_users',
       'access_view_roles',
       'access_view_users',
-    ];;
+    ];
     $default_properties = array_combine($default_properties, $default_properties);
 
     // Test element is only enabled if the Webform Devel and UI module are
@@ -176,7 +176,7 @@ class WebformPluginElementController extends ControllerBase implements Container
         // Element info.
         $element_info_definitions = [
           'input' => (empty($webform_element_info['#input'])) ? $this->t('No') : $this->t('Yes'),
-          'theme' => (isset($webform_element_info['#theme'])) ? $webform_element_info['#theme'] : 'N/A',
+          'theme' => $webform_element_info['#theme'] ?? 'N/A',
           'theme_wrappers' => (isset($webform_element_info['#theme_wrappers'])) ? implode('; ', $webform_element_info['#theme_wrappers']) : 'N/A',
         ];
         $element_info = [];

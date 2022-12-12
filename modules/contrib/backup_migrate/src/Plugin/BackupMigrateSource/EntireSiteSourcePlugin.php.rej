@@ -1,0 +1,28 @@
+--- src/Plugin/BackupMigrateSource/EntireSiteSourcePlugin.php
++++ src/Plugin/BackupMigrateSource/EntireSiteSourcePlugin.php
+@@ -2,11 +2,11 @@
+ 
+ namespace Drupal\backup_migrate\Plugin\BackupMigrateSource;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Drupal\Source\DrupalMySQLiSource;
+-use BackupMigrate\Core\Main\BackupMigrateInterface;
+-use BackupMigrate\Drupal\EntityPlugins\SourcePluginBase;
+-use BackupMigrate\Drupal\Source\DrupalSiteArchiveSource;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Drupal\Source\DrupalMySQLiSource;
++use Drupal\backup_migrate\Core\Main\BackupMigrateInterface;
++use Drupal\backup_migrate\Drupal\EntityPlugins\SourcePluginBase;
++use Drupal\backup_migrate\Drupal\Source\DrupalSiteArchiveSource;
+ 
+ /**
+  * Defines an default database source plugin.
+@@ -25,7 +25,7 @@ class EntireSiteSourcePlugin extends SourcePluginBase {
+   /**
+    * Get the Backup and Migrate plugin object.
+    *
+-   * @return BackupMigrate\Core\Plugin\PluginInterface;
++   * @return Drupal\backup_migrate\Core\Plugin\PluginInterface;
+    */
+   public function getObject() {
+     // Add the default database.

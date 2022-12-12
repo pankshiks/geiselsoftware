@@ -1,0 +1,21 @@
+--- lib/backup_migrate_core/src/Config/Config.php
++++ src/Core/Config/Config.php
+@@ -1,15 +1,15 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Config;
++namespace Drupal\backup_migrate\Core\Config;
+ 
+-use \BackupMigrate\Core\Config\ConfigInterface;
++use \Drupal\backup_migrate\Core\Config\ConfigInterface;
+ 
+ /**
+  * Class ConfigBase.
+  *
+  * A basic configuration manager with very little logic in it.
+  *
+- * @package BackupMigrate\Core\Config
++ * @package Drupal\backup_migrate\Core\Config
+  */
+ class Config implements ConfigInterface {
+ 

@@ -77,7 +77,7 @@ abstract class WebformAttachmentBase extends WebformElementBase implements Webfo
     return array_merge(parent::defineTranslatableProperties(), ['filename', 'link_title']);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -229,7 +229,7 @@ abstract class WebformAttachmentBase extends WebformElementBase implements Webfo
     // Add warning about disabled attachments.
     $form['conditional_logic']['states_attachment'] = [
       '#type' => 'webform_message',
-      '#message_message' => t('Disabled attachments will not be included as file attachments in sent emails.'),
+      '#message_message' => $this->t('Disabled attachments will not be included as file attachments in sent emails.'),
       '#message_type' => 'warning',
       '#message_close' => TRUE,
       '#message_storage' => WebformMessage::STORAGE_SESSION,

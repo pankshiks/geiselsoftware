@@ -86,6 +86,7 @@ trait WebformEntityStorageTrait {
     if (isset($this->entityStorageToTypeMappings[$name])) {
       $entity_type = $this->entityStorageToTypeMappings[$name];
       $class_name = get_class($this);
+      // phpcs:ignore Drupal.Semantics.FunctionTriggerError.TriggerErrorTextLayoutRelaxed
       @trigger_error("$class_name::$name is deprecated in Webform 6.x and is removed from Webform 7.x Use \$this->entityTypeManager->getStorage('$entity_type') instead", E_USER_DEPRECATED);
       return $this->entityTypeManager->getStorage($entity_type);
     }

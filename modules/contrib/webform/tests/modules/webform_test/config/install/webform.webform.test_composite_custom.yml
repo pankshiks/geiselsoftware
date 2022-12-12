@@ -66,6 +66,34 @@ elements: |
         martial_status: Single
         employment_status: Unemployed
         age: 20
+  webform_custom_composite_fieldset:
+    '#type': webform_custom_composite
+    '#title': webform_custom_composite_fieldset
+    '#wrapper_type': fieldset
+    '#wrapper_attributes':
+      class:
+        - custom-class
+    '#element':
+      first_name:
+        '#type': textfield
+        '#title': 'First name'
+      last_name:
+        '#type': textfield
+        '#title': 'Last name'
+  webform_custom_composite_container:
+    '#type': webform_custom_composite
+    '#title': webform_custom_composite_container
+    '#wrapper_type': container
+    '#wrapper_attributes':
+      class:
+        - custom-class
+    '#element':
+      first_name:
+        '#type': textfield
+        '#title': 'First name'
+      last_name:
+        '#type': textfield
+        '#title': 'Last name'
   
 css: ''
 javascript: ''
@@ -108,6 +136,9 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_method: ''
+  form_action: ''
+  form_attributes: {  }
   share: false
   share_node: false
   share_theme_name: ''
@@ -254,5 +285,7 @@ handlers:
     status: true
     conditions: {  }
     weight: 0
-    settings: {  }
+    settings:
+      format: yaml
+      submission: false
 variants: {  }

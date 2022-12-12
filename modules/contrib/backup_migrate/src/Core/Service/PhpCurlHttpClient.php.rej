@@ -1,0 +1,48 @@
+--- lib/backup_migrate_core/src/Service/PhpCurlHttpClient.php
++++ src/Core/Service/PhpCurlHttpClient.php
+@@ -1,14 +1,14 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Service;
++namespace Drupal\backup_migrate\Core\Service;
+ 
+-use BackupMigrate\Core\Exception\HttpClientException;
+-use BackupMigrate\Core\File\ReadableStreamBackupFile;
++use Drupal\backup_migrate\Core\Exception\HttpClientException;
++use Drupal\backup_migrate\Core\File\ReadableStreamBackupFile;
+ 
+ /**
+  * Class PhpCurlHttpClient.
+  *
+- * @package BackupMigrate\Core\Service
++ * @package Drupal\backup_migrate\Core\Service
+  */
+ class PhpCurlHttpClient implements HttpClientInterface {
+ 
+@@ -20,7 +20,7 @@ class PhpCurlHttpClient implements HttpClientInterface {
+    * @return mixed
+    */
+   public function get($url) {
+-    // @TODO: Implement if needed.
++    // @todo Implement if needed.
+   }
+ 
+   /**
+@@ -43,7 +43,7 @@ public function post($url, $data) {
+    * Post a file along with other data (as an array).
+    *
+    * @param $url
+-   * @param \BackupMigrate\Core\File\ReadableStreamBackupFile $file
++   * @param \Drupal\backup_migrate\Core\File\ReadableStreamBackupFile $file
+    * @param $data
+    *
+    * @return mixed
+@@ -77,7 +77,7 @@ protected function getCurlResource($url) {
+    *
+    * @return mixed
+    *
+-   * @throws \BackupMigrate\Core\Exception\HttpClientException
++   * @throws \Drupal\backup_migrate\Core\Exception\HttpClientException
+    */
+   protected function curlExec($ch) {
+     $body = curl_exec($ch);

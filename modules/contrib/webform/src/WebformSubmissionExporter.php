@@ -235,9 +235,9 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
     return $this->getExporter()->getConfiguration();
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Default options and webform.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -273,6 +273,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
       'range_latest' => '',
       'range_start' => '',
       'range_end' => '',
+      'uid' => '',
       'order' => 'asc',
       'state' => 'all',
       'locked' => '',
@@ -595,6 +596,7 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
         '#options' => [
           'all' => $this->t('All'),
           'latest' => $this->t('Latest'),
+          'uid' => $this->t('Submitted by'),
           'serial' => $this->t('Submission number'),
           'sid' => $this->t('Submission ID'),
           'date' => $this->t('Created date'),
@@ -616,6 +618,26 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
           '#title' => $this->t('Number of submissions'),
           '#min' => 1,
           '#default_value' => $export_options['range_latest'],
+        ],
+      ];
+      $form['export']['download']['submitted_by'] = [
+        '#type' => 'container',
+        '#attributes' => ['class' => ['container-inline']],
+        '#states' => [
+          'visible' => [
+            ':input[name="range_type"]' => ['value' => 'uid'],
+          ],
+        ],
+        'uid' => [
+          '#type' => 'entity_autocomplete',
+          '#title' => $this->t('User'),
+          '#target_type' => 'user',
+          '#default_value' => $export_options['uid'],
+          '#states' => [
+            'visible' => [
+              ':input[name="range_type"]' => ['value' => 'uid'],
+            ],
+          ],
         ],
       ];
       $ranges = [
@@ -754,9 +776,9 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
     $states[$state][] = [':input[name="exporter"]' => ['value' => $plugin_id]];
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Generate and write.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -929,6 +951,11 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
         break;
     }
 
+    // Filter by UID.
+    if (!is_null($export_options['uid']) && $export_options['uid'] !== '') {
+      $query->condition('uid', $export_options['uid'], '=');
+    }
+
     // Filter by (completion) state.
     switch ($export_options['state']) {
       case 'draft':
@@ -959,8 +986,8 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
     }
     else {
       // Sort by created and sid in ASC or DESC order.
-      $query->sort('created', isset($export_options['order']) ? $export_options['order'] : 'ASC');
-      $query->sort('sid', isset($export_options['order']) ? $export_options['order'] : 'ASC');
+      $query->sort('created', $export_options['order'] ?? 'ASC');
+      $query->sort('sid', $export_options['order'] ?? 'ASC');
     }
 
     // Do not check access to submission since the exporter UI and Drush
@@ -1036,9 +1063,9 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
     return ($this->getWebformExportAttachmentElements()) ? TRUE : FALSE;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Summary and download.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -1068,9 +1095,8 @@ class WebformSubmissionExporter implements WebformSubmissionExporterInterface {
         /** @var \Drupal\webform\Plugin\WebformElementAttachmentInterface $attachment_element_plugin */
         $attachment_element_plugin = $this->elementManager->getElementInstance($attachment_element);
         $attachment_batch_limit = $attachment_element_plugin->getExportAttachmentsBatchLimit();
-        if ($attachment_batch_limit
-          && $attachment_batch_limit < $batch_limit)  {
-            $batch_limit = $attachment_batch_limit;
+        if ($attachment_batch_limit && $attachment_batch_limit < $batch_limit) {
+          $batch_limit = $attachment_batch_limit;
         }
       }
     }

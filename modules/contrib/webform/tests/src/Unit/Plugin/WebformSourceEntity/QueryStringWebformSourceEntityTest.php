@@ -65,10 +65,10 @@ class QueryStringWebformSourceEntityTest extends UnitTestCase {
       'ignored_types' => [],
     ];
 
-    /**************************************************************************/
+    /* ********************************************************************** */
 
     $webform = $this->getMockWebform($options);
-    list($source_entity, $source_entity_translation) = $this->getMockSourceEntity($options, $webform);
+    [$source_entity, $source_entity_translation] = $this->getMockSourceEntity($options, $webform);
 
     // Mock source entity storage.
     $source_entity_storage = $this->getMockBuilder(EntityStorageInterface::class)
@@ -137,7 +137,7 @@ class QueryStringWebformSourceEntityTest extends UnitTestCase {
     $container->set('language_manager', $language_manager);
     $container->set('webform.entity_reference_manager', $webform_entity_reference_manager);
 
-    /**************************************************************************/
+    /* ********************************************************************** */
 
     // Create QueryStringWebformSourceEntity plugin instance.
     $plugin = QueryStringWebformSourceEntity::create($container, [], 'query_string', []);

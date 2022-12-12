@@ -1,0 +1,22 @@
+--- lib/backup_migrate_core/src/File/TempFileAdapter.php
++++ src/Core/File/TempFileAdapter.php
+@@ -1,8 +1,8 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\File;
++namespace Drupal\backup_migrate\Core\File;
+ 
+-use BackupMigrate\Core\Exception\BackupMigrateException;
++use Drupal\backup_migrate\Core\Exception\BackupMigrateException;
+ 
+ /**
+  * Provides a very basic temp file manager which assumes read/write access to a
+@@ -44,7 +44,7 @@ public function __construct($dir, $prefix = 'bam') {
+     $this->dir = $dir;
+     $this->prefix = $prefix;
+     $this->tempfiles = [];
+-    // @TODO: check that temp direcory is writeable or throw an exception.
++    // @todo check that temp direcory is writeable or throw an exception.
+   }
+ 
+   /**

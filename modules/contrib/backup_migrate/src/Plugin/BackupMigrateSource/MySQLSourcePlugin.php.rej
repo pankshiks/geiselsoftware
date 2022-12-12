@@ -1,0 +1,20 @@
+--- src/Plugin/BackupMigrateSource/MySQLSourcePlugin.php
++++ src/Plugin/BackupMigrateSource/MySQLSourcePlugin.php
+@@ -2,7 +2,7 @@
+ 
+ namespace Drupal\backup_migrate\Plugin\BackupMigrateSource;
+ 
+-use BackupMigrate\Drupal\EntityPlugins\SourcePluginBase;
++use Drupal\backup_migrate\Drupal\EntityPlugins\SourcePluginBase;
+ 
+ /**
+  * Defines an mysql source plugin.
+@@ -11,7 +11,7 @@
+  *   id = "MySQL",
+  *   title = @Translation("MySQL Database"),
+  *   description = @Translation("Back up a MySQL compatible database."),
+- *   wrapped_class = "\BackupMigrate\Core\Source\MySQLiSource"
++ *   wrapped_class = "\Drupal\backup_migrate\Core\Source\MySQLiSource"
+  * )
+  */
+ class MySQLSourcePlugin extends SourcePluginBase {}

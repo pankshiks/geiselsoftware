@@ -1,0 +1,58 @@
+--- lib/backup_migrate_core/src/File/TempFileManager.php
++++ src/Core/File/TempFileManager.php
+@@ -1,16 +1,16 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\File;
++namespace Drupal\backup_migrate\Core\File;
+ 
+ /**
+  * Class TempFileManager.
+  *
+- * @package BackupMigrate\Core\Services
++ * @package Drupal\backup_migrate\Core\Services
+  */
+ class TempFileManager implements TempFileManagerInterface {
+ 
+   /**
+-   * @var \BackupMigrate\Core\File\TempFileAdapterInterface
++   * @var \Drupal\backup_migrate\Core\File\TempFileAdapterInterface
+    */
+   protected $adapter;
+ 
+@@ -18,7 +18,7 @@ class TempFileManager implements TempFileManagerInterface {
+    * Build the manager with the given adapter. This manager needs the adapter
+    * to create the actual temp files.
+    *
+-   * @param \BackupMigrate\Core\File\TempFileAdapterInterface $adapter
++   * @param \Drupal\backup_migrate\Core\File\TempFileAdapterInterface $adapter
+    */
+   public function __construct(TempFileAdapterInterface $adapter) {
+     $this->adapter = $adapter;
+@@ -44,12 +44,12 @@ public function create($ext = '') {
+    * extension added after the old one.
+    * For example: xxx.mysql would become xxx.mysql.gz.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileInterface $file
+    *        The file to add the extension to.
+    * @param $ext
+    *        The new file extension.
+    *
+-   * @return \BackupMigrate\Core\File\BackupFileWritableInterface
++   * @return \Drupal\backup_migrate\Core\File\BackupFileWritableInterface
+    *        A new writable backup file with the new extension and all of the metadata
+    *        from the previous file.
+    */
+@@ -75,9 +75,9 @@ public function pushExt(BackupFileInterface $file, $ext) {
+    * file extension removed.
+    * For example: xxx.mysql.gz would become xxx.mysql.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileInterface $file
+    *
+-   * @return \BackupMigrate\Core\File\BackupFileWritableInterface
++   * @return \Drupal\backup_migrate\Core\File\BackupFileWritableInterface
+    *        A new writable backup file with the last extension removed and
+    *        all of the metadata from the previous file.
+    */

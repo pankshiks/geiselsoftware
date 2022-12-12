@@ -1,0 +1,19 @@
+--- src/EntityPlugins/DestinationPluginBase.php
++++ src/Drupal/EntityPlugins/DestinationPluginBase.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\EntityPlugins;
++namespace Drupal\backup_migrate\Drupal\EntityPlugins;
+ 
+-use BackupMigrate\Core\Main\BackupMigrateInterface;
++use Drupal\backup_migrate\Core\Main\BackupMigrateInterface;
+ 
+ /**
+  * Class DestinationPluginBase.
+  *
+- * @package BackupMigrate\Drupal\EntityPlugins
++ * @package Drupal\backup_migrate\Drupal\EntityPlugins
+  */
+ abstract class DestinationPluginBase extends WrapperPluginBase implements DestinationPluginInterface {
+ 

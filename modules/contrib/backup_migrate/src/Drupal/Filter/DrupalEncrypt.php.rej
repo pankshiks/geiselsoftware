@@ -1,0 +1,137 @@
+--- src/Filter/DrupalEncrypt.php
++++ src/Drupal/Filter/DrupalEncrypt.php
+@@ -1,20 +1,20 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\Filter;
++namespace Drupal\backup_migrate\Drupal\Filter;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Core\Plugin\FileProcessorInterface;
+-use BackupMigrate\Core\Plugin\FileProcessorTrait;
+-use BackupMigrate\Core\Plugin\PluginBase;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
+-use BackupMigrate\Core\File\BackupFileWritableInterface;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorInterface;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorTrait;
++use Drupal\backup_migrate\Core\Plugin\PluginBase;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\File\BackupFileWritableInterface;
+ use Defuse\Crypto\File as CryptoFile;
+ 
+ 
+ /**
+  * Class DrupalEncrypt.
+  *
+- * @package BackupMigrate\Drupal\Filter
++ * @package Drupal\backup_migrate\Drupal\Filter
+  */
+ class DrupalEncrypt extends PluginBase implements FileProcessorInterface {
+ 
+@@ -23,8 +23,7 @@ class DrupalEncrypt extends PluginBase implements FileProcessorInterface {
+   /**
+    * {@inheritdoc}
+    */
+-  public function configSchema($params = []) {
+-
++  public function configSchema(array $params = []) {
+     $schema = [];
+ 
+     // Backup configuration.
+@@ -47,17 +46,17 @@ public function configSchema($params = []) {
+         ];
+       }
+       else {
+-        drupal_set_message($this->t('Please install the Defuse PHP-encryption library via Composer to be able to encrypt backup files.'), 'warning');
+-
++        \Drupal::messenger()->addMessage($this->t('Please install the Defuse PHP-encryption library via Composer to be able to encrypt backup files.'), 'warning');
+       }
+     }
++
+     return $schema;
+   }
+ 
+   /**
+    * Get the default values for the plugin.
+    *
+-   * @return \BackupMigrate\Core\Config\Config
++   * @return \Drupal\backup_migrate\Core\Config\Config
+    */
+   public function configDefaults() {
+     return new Config([
+@@ -65,44 +64,32 @@ public function configDefaults() {
+     ]);
+   }
+ 
+-
+   protected function _encryptFile (BackupFileReadableInterface $from, BackupFileWritableInterface $to) {
+-
+-    $path = drupal_realpath($from->realpath());
+-    $out_path = drupal_realpath($to->realpath());
++    $path = \Drupal::service('file_system')->realpath($from->realpath());
++    $out_path = \Drupal::service('file_system')->realpath($to->realpath());
+ 
+     try {
+-
+       CryptoFile::encryptFileWithPassword($path, $out_path, $this->confGet('encrypt_password'));
+-      $fileszc = filesize(drupal_realpath($to->realpath()));
++      $fileszc = filesize(\Drupal::service('file_system')->realpath($to->realpath()));
+       $to->setMeta('filesize', $fileszc);
+       return TRUE;
+-
+     }
+     catch (Exception $e) {
+-
+       return FALSE;
+-
+     }
+-
+   }
+ 
+-  protected function _decryptFile (BackupFileReadableInterface $from, BackupFileWritableInterface $to) {
+-
+-    $path = drupal_realpath($from->realpath());
+-    $out_path = drupal_realpath($to->realpath());
++  protected function decryptFile (BackupFileReadableInterface $from, BackupFileWritableInterface $to) {
++    $path = \Drupal::service('file_system')->realpath($from->realpath());
++    $out_path = \Drupal::service('file_system')->realpath($to->realpath());
+ 
+     try {
+-
+       CryptoFile::decryptFileWithPassword($path, $out_path, $this->confGet('encrypt_password'));
+ 
+       return TRUE;
+-
+     }
+     catch (Exception $e) {
+-
+       return FALSE;
+-
+     }
+   }
+ 
+@@ -110,7 +97,7 @@ public function beforeRestore(BackupFileReadableInterface $file) {
+     $type = $file->getExtLast();
+     if ($type == 'ssl' && $this->confGet('encrypt')) {
+       $out = $this->getTempFileManager()->popExt($file);
+-      $success = $this->_decryptFile($file, $out);
++      $success = $this->decryptFile($file, $out);
+       if ($out && $success) {
+         return $out;
+       }
+@@ -121,10 +108,10 @@ public function beforeRestore(BackupFileReadableInterface $file) {
+ 
+   public function supportedOps() {
+     return [
+-      'getFileTypes'    => [],
+-      'backupSettings'  => [],
+-      'afterBackup'     => ['weight' => 1000],
+-      'beforeRestore'   => ['weight' => -1000],
++      'getFileTypes' => [],
++      'backupSettings' => [],
++      'afterBackup' => ['weight' => 1000],
++      'beforeRestore' => ['weight' => -1000],
+     ];
+   }
+ 

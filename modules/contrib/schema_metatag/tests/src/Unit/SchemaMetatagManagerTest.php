@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\schema_metatag\Unit;
 
-use Drupal\Tests\UnitTestCase;
 use Drupal\schema_metatag\SchemaMetatagManager;
+use Drupal\Tests\UnitTestCase;
 
 /**
  * @coversDefaultClass \Drupal\schema_metatag\SchemaMetatagManager
@@ -82,7 +82,7 @@ class SchemaMetatagManagerTest extends UnitTestCase {
     }
     $replaced = str_replace('Organization', 'ReallyBigOrganization', $original_serialized);
     $processed = SchemaMetatagManager::recomputeSerializedLength($replaced);
-    $unserialized = unserialize($processed);
+    $unserialized = unserialize($processed, ['allowed_classes' => FALSE]);
     $this->assertIsArray($unserialized);
     $this->assertContains('ReallyBigOrganization', $unserialized);
   }

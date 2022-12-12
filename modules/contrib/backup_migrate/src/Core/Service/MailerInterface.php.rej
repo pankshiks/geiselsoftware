@@ -1,0 +1,16 @@
+--- lib/backup_migrate_core/src/Service/MailerInterface.php
++++ src/Core/Service/MailerInterface.php
+@@ -1,11 +1,11 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Service;
++namespace Drupal\backup_migrate\Core\Service;
+ 
+ /**
+  * Interface MailSenderInterface.
+  *
+- * @package BackupMigrate\Core\Environment
++ * @package Drupal\backup_migrate\Core\Environment
+  */
+ interface MailerInterface {
+ 

@@ -1,0 +1,17 @@
+--- lib/backup_migrate_core/src/Main/BackupMigrateInterface.php
++++ src/Core/Main/BackupMigrateInterface.php
+@@ -1,10 +1,10 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Main;
++namespace Drupal\backup_migrate\Core\Main;
+ 
+-use BackupMigrate\Core\Service\ServiceManager;
+-use BackupMigrate\Core\Plugin\PluginManagerInterface;
+-use BackupMigrate\Core\Plugin\PluginCallerInterface;
++use Drupal\backup_migrate\Core\Service\ServiceManager;
++use Drupal\backup_migrate\Core\Plugin\PluginManagerInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginCallerInterface;
+ 
+ /**
+  * The core Backup and Migrate service.

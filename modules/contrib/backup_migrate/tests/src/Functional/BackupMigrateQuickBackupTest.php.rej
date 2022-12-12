@@ -1,0 +1,42 @@
+--- tests/src/Functional/BackupMigrateQuickBackupTest.php
++++ tests/src/Functional/BackupMigrateQuickBackupTest.php
+@@ -2,6 +2,7 @@
+ 
+ namespace Drupal\Tests\backup_migrate\Functional;
+ 
++use Drupal\Core\File\FileSystemInterface;
+ use Drupal\Tests\BrowserTestBase;
+ 
+ /**
+@@ -34,18 +40,25 @@ public function setUp() {
+ 
+     // Ensure backup_migrate folder exists.
+     $path = 'private://backup_migrate/';
+-    file_prepare_directory($path, FILE_CREATE_DIRECTORY);
+-  }
++    \Drupal::service('file_system')
++      ->prepareDirectory($path, FileSystemInterface::CREATE_DIRECTORY);
+ 
+-  /**
+-   * Tests quick backup.
+-   */
+-  public function testQuickBackup() {
++    // Log in as an admin.
+     $this->drupalLogin($this->drupalCreateUser([
+       'perform backup',
+       'access backup files',
+       'administer backup and migrate',
++      // Required for the file admin page.
++      'administer site configuration',
+     ]));
++    $this->drupalGet('admin/config/media/file-system');
++  }
++
++  /**
++   * Tests quick backup.
++   */
++  public function testQuickBackup() {
++    // Load the main B&M admin page.
+     $this->drupalGet('admin/config/development/backup_migrate');
+     $this->assertSession()->statusCodeEquals(200);
+ 

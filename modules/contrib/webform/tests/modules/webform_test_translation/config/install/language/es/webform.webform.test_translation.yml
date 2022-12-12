@@ -41,8 +41,8 @@ elements: |
         '#title': Edad
         '#field_suffix': 'años. antiguo'
   address:
-    '#title': 'Dirección'
-    '#address__title': 'Dirección'
+    '#title': Dirección
+    '#address__title': Dirección
     '#address_2__title': 'Dirección 2'
     '#city__title': 'Ciudad / Pueblo'
     '#state_province__title': 'Estado / Provincia'
@@ -65,6 +65,7 @@ variants:
       elements: |
         textfield:
           '#title': 'Campo de texto - Variante'
+        
 ˚weight: 0
 dependencies:
   enforced:

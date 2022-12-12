@@ -1,0 +1,37 @@
+--- src/Plugin/BackupMigrateSource/DrupalFilesSourcePlugin.php
++++ src/Plugin/BackupMigrateSource/DrupalFilesSourcePlugin.php
+@@ -2,11 +2,11 @@
+ 
+ namespace Drupal\backup_migrate\Plugin\BackupMigrateSource;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Core\Filter\FileExcludeFilter;
+-use BackupMigrate\Core\Main\BackupMigrateInterface;
+-use BackupMigrate\Core\Source\MySQLiSource;
+-use BackupMigrate\Drupal\EntityPlugins\SourcePluginBase;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Core\Filter\FileExcludeFilter;
++use Drupal\backup_migrate\Core\Main\BackupMigrateInterface;
++use Drupal\backup_migrate\Core\Source\MySQLiSource;
++use Drupal\backup_migrate\Drupal\EntityPlugins\SourcePluginBase;
+ 
+ /**
+  * Defines an default database source plugin.
+@@ -15,7 +15,7 @@
+  *   id = "DrupalFiles",
+  *   title = @Translation("Public Files"),
+  *   description = @Translation("Back up the Drupal public files."),
+- *   wrapped_class = "\BackupMigrate\Core\Source\FileDirectorySource",
++ *   wrapped_class = "\Drupal\backup_migrate\Core\Source\FileDirectorySource",
+  *   locked = true
+  * )
+  */
+@@ -59,7 +59,7 @@ public function alterBackupMigrate(BackupMigrateInterface $bam, $key, $options =
+         break;
+     }
+ 
+-    // @TODO: Allow modules to add their own excluded defaults.
++    // @todo Allow modules to add their own excluded defaults.
+     $bam->plugins()->add($key . '_exclude', new FileExcludeFilter(new Config($config)));
+   }
+ 

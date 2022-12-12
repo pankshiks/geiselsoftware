@@ -1,0 +1,28 @@
+--- lib/backup_migrate_core/src/Service/ArchiveReaderInterface.php
++++ src/Core/Service/ArchiveReaderInterface.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Service;
++namespace Drupal\backup_migrate\Core\Service;
+ 
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
+ 
+ /**
+  * Interface ArchiveWriterInterface.
+  *
+- * @package BackupMigrate\Core\Environment
++ * @package Drupal\backup_migrate\Core\Environment
+  */
+ interface ArchiveReaderInterface {
+ 
+@@ -20,7 +20,7 @@ interface ArchiveReaderInterface {
+   public function getFileExt();
+ 
+   /**
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $out
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $out
+    */
+   public function setArchive(BackupFileReadableInterface $out);
+ 

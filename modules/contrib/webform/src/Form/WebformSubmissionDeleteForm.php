@@ -55,7 +55,7 @@ class WebformSubmissionDeleteForm extends ContentEntityDeleteForm implements Web
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    list($this->webformSubmission, $this->sourceEntity) = $this->requestHandler->getWebformSubmissionEntities();
+    [$this->webformSubmission, $this->sourceEntity] = $this->requestHandler->getWebformSubmissionEntities();
     $this->webform = $this->webformSubmission->getWebform();
 
     $form['warning'] = $this->getWarning();
@@ -119,6 +119,7 @@ class WebformSubmissionDeleteForm extends ContentEntityDeleteForm implements Web
    * {@inheritdoc}
    */
   public function getDescription() {
+    // @see \Drupal\webform\Form\WebformSubmissionDeleteMultipleForm::getDescription
     return [
       'title' => [
         '#markup' => $this->t('This action will…'),

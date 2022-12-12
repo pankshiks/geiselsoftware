@@ -1,0 +1,11 @@
+--- lib/backup_migrate_core/src/Destination/README.md
++++ src/Core/Destination/README.md
+@@ -2,7 +2,7 @@
+ 
+ A destination in Backup and Migrate is the place where backup files are sent after they are created or where they are read from during a restore. The simplest example of a destination would be a directory on your web server.
+ 
+-An object implementing the `\BackupMigrate\Core\Destination\DestinationInterface` can be used as a destination and is responsible for persisting a file using the given id (generally the filename). It is also responsible for returning the same file given the same file id.
++An object implementing the `\Drupal\backup_migrate\Core\Destination\DestinationInterface` can be used as a destination and is responsible for persisting a file using the given id (generally the filename). It is also responsible for returning the same file given the same file id.
+ 
+ Destinations in Backup and Migrate are implemented as plugins and will have dependencies and configuration injected into them by the Plugin Manager.
+ 

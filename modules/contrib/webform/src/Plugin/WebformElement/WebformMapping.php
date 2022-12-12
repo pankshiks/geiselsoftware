@@ -93,7 +93,7 @@ class WebformMapping extends WebformElementBase {
     return array_merge(parent::defineTranslatableProperties(), ['source', 'destination']);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -137,7 +137,7 @@ class WebformMapping extends WebformElementBase {
       case 'raw':
         $items = [];
         foreach ($element['#source'] as $source_key => $source_title) {
-          $destination_value = (isset($value[$source_key])) ? $value[$source_key] : NULL;
+          $destination_value = $value[$source_key] ?? NULL;
           $items[$source_key] = ['#markup' => "$source_key $arrow $destination_value"];
         }
         return [
@@ -159,8 +159,8 @@ class WebformMapping extends WebformElementBase {
 
         $rows = [];
         foreach ($element['#source'] as $source_key => $source_text) {
-          list($source_title) = WebformOptionsHelper::splitOption($source_text);
-          $destination_value = (isset($value[$source_key])) ? $value[$source_key] : NULL;
+          [$source_title] = WebformOptionsHelper::splitOption($source_text);
+          $destination_value = $value[$source_key] ?? NULL;
           $destination_title = ($destination_value) ? WebformOptionsHelper::getOptionText($destination_value, $element['#destination']) : $this->t('[blank]');
           $rows[$source_key] = [
             $source_title,
@@ -182,8 +182,8 @@ class WebformMapping extends WebformElementBase {
       case 'list':
         $items = [];
         foreach ($element['#source'] as $source_key => $source_text) {
-          list($source_title) = WebformOptionsHelper::splitOption($source_text);
-          $destination_value = (isset($value[$source_key])) ? $value[$source_key] : NULL;
+          [$source_title] = WebformOptionsHelper::splitOption($source_text);
+          $destination_value = $value[$source_key] ?? NULL;
           $destination_title = ($destination_value) ? WebformOptionsHelper::getOptionText($destination_value, $element['#destination']) : $this->t('[blank]');
           $items[$source_key] = ['#markup' => "$source_title $arrow $destination_title"];
         }
@@ -216,7 +216,7 @@ class WebformMapping extends WebformElementBase {
       case 'raw':
         $list = [];
         foreach ($element['#source'] as $source_key => $source_title) {
-          $destination_value = (isset($value[$source_key])) ? $value[$source_key] : NULL;
+          $destination_value = $value[$source_key] ?? NULL;
           $list[$source_key] = "$source_key $arrow $destination_value";
         }
         return implode(PHP_EOL, $list);
@@ -227,8 +227,8 @@ class WebformMapping extends WebformElementBase {
       case 'list':
         $list = [];
         foreach ($element['#source'] as $source_key => $source_text) {
-          list($source_title) = WebformOptionsHelper::splitOption($source_text);
-          $destination_value = (isset($value[$source_key])) ? $value[$source_key] : NULL;
+          [$source_title] = WebformOptionsHelper::splitOption($source_text);
+          $destination_value = $value[$source_key] ?? NULL;
           $destination_title = ($destination_value) ? WebformOptionsHelper::getOptionText($destination_value, $element['#destination']) : $this->t('[blank]');
           $list[] = "$source_title $arrow $destination_title";
         }
@@ -274,7 +274,7 @@ class WebformMapping extends WebformElementBase {
 
     $record = [];
     foreach ($element['#source'] as $source_key => $source_title) {
-      $record[] = (isset($value[$source_key])) ? $value[$source_key] : NULL;
+      $record[] = $value[$source_key] ?? NULL;
     }
     return $record;
   }
@@ -332,7 +332,7 @@ class WebformMapping extends WebformElementBase {
     if (isset($options['source_key'])) {
       $source_key = $options['source_key'];
       $value = $this->getValue($element, $webform_submission);
-      $question_value = (isset($value[$source_key])) ? $value[$source_key] : '';
+      $question_value = $value[$source_key] ?? '';
       return (isset($element['#destination'])) ? WebformOptionsHelper::getOptionText($question_value, $element['#destination']) : NULL;
     }
     else {
@@ -347,7 +347,7 @@ class WebformMapping extends WebformElementBase {
     $form_state = new FormState();
     $form_completed = [];
     $element += [
-      '#name' => (isset($element['#webform_key'])) ? $element['#webform_key'] : '',
+      '#name' => $element['#webform_key'] ?? '',
       '#required' => FALSE,
     ];
     $element = WebformMappingElement::processWebformMapping($element, $form_state, $form_completed);

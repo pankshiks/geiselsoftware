@@ -2,10 +2,10 @@
 
 namespace Drupal\schema_metatag\Plugin\schema_metatag\PropertyType;
 
-use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
 use Drupal\Core\Entity\Plugin\DataType\EntityAdapter;
-use Drupal\views\Views;
 use Drupal\Core\Url;
+use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
+use Drupal\views\Views;
 
 /**
  * Provides a plugin for the 'ItemListElement' Schema.org property type.

@@ -1,0 +1,23 @@
+--- src/Source/DrupalMySQLiSource.php
++++ src/Drupal/Source/DrupalMySQLiSource.php
+@@ -1,15 +1,15 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\Source;
++namespace Drupal\backup_migrate\Drupal\Source;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Core\Source\MySQLiSource;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Core\Source\MySQLiSource;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
+ 
+ /**
+  * Class DrupalMySQLiSource.
+  *
+- * @package BackupMigrate\Drupal\Source
++ * @package Drupal\backup_migrate\Drupal\Source
+  */
+ class DrupalMySQLiSource extends MySQLiSource {
+ 

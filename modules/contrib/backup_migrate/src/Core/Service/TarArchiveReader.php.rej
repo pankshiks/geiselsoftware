@@ -1,0 +1,48 @@
+--- lib/backup_migrate_core/src/Service/TarArchiveReader.php
++++ src/Core/Service/TarArchiveReader.php
+@@ -1,14 +1,14 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Service;
++namespace Drupal\backup_migrate\Core\Service;
+ 
+-use BackupMigrate\Core\Exception\BackupMigrateException;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\Exception\BackupMigrateException;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
+ 
+ /**
+  * Class TarArchiveReader.
+  *
+- * @package BackupMigrate\Core\Service
++ * @package Drupal\backup_migrate\Core\Service
+  */
+ class TarArchiveReader implements ArchiveReaderInterface {
+ 
+@@ -56,7 +56,7 @@ public function extractTo($directory) {
+    * @param $directory
+    *  The directory to extract the files to.
+    * @return bool
+-   * @throws \BackupMigrate\Core\Exception\BackupMigrateException
++   * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
+    */
+   private function extractAllToDirectory($directory) {
+     clearstatcache();
+@@ -243,7 +243,7 @@ private function createDir($directory) {
+    *
+    * @return array
+    *
+-   * @throws \BackupMigrate\Core\Exception\BackupMigrateException
++   * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
+    */
+   private function readHeader($block, $header = []) {
+     if (strlen($block) == 0) {
+@@ -337,7 +337,7 @@ private function readHeader($block, $header = []) {
+    *
+    * @return array
+    *
+-   * @throws \BackupMigrate\Core\Exception\BackupMigrateException
++   * @throws \Drupal\backup_migrate\Core\Exception\BackupMigrateException
+    */
+   private function readLongHeader($header) {
+     $filename = '';

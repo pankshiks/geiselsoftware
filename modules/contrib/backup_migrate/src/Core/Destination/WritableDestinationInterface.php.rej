@@ -1,0 +1,27 @@
+--- lib/backup_migrate_core/src/Destination/WritableDestinationInterface.php
++++ src/Core/Destination/WritableDestinationInterface.php
+@@ -1,20 +1,20 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Destination;
++namespace Drupal\backup_migrate\Core\Destination;
+ 
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
+ 
+ /**
+  * Interface WritableDestinationInterface.
+  *
+- * @package BackupMigrate\Core\Destination
++ * @package Drupal\backup_migrate\Core\Destination
+  */
+ interface WritableDestinationInterface extends DestinationInterface {
+ 
+   /**
+    * Save a file to the destination.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileReadableInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileReadableInterface $file
+    *   The file to save.
+    */
+   function saveFile(BackupFileReadableInterface $file);

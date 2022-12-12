@@ -1,0 +1,19 @@
+--- lib/backup_migrate_core/src/File/BackupFile.php
++++ src/Core/File/BackupFile.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\File;
++namespace Drupal\backup_migrate\Core\File;
+ 
+-use BackupMigrate\Core\File\BackupFileInterface;
++use Drupal\backup_migrate\Core\File\BackupFileInterface;
+ 
+ /**
+  * Class BackupFile.
+  *
+- * @package BackupMigrate\Core\File
++ * @package Drupal\backup_migrate\Core\File
+  */
+ class BackupFile implements BackupFileInterface {
+ 

@@ -274,7 +274,7 @@ class WebformElementManager extends DefaultPluginManager implements FallbackPlug
    * {@inheritdoc}
    */
   public function getSortedDefinitions(array $definitions = NULL, $sort_by = 'label') {
-    $definitions = isset($definitions) ? $definitions : $this->getDefinitions();
+    $definitions = $definitions ?? $this->getDefinitions();
 
     switch ($sort_by) {
       case 'category':
@@ -298,7 +298,7 @@ class WebformElementManager extends DefaultPluginManager implements FallbackPlug
    */
   public function getGroupedDefinitions(array $definitions = NULL, $label_key = 'label') {
     /** @var \Drupal\Core\Plugin\CategorizingPluginManagerTrait|\Drupal\Component\Plugin\PluginManagerInterface $this */
-    $definitions = $this->getSortedDefinitions(isset($definitions) ? $definitions : $this->getDefinitions(), $label_key);
+    $definitions = $this->getSortedDefinitions($definitions ?? $this->getDefinitions(), $label_key);
 
     // Organize grouped definition with basic and advanced first and other last.
     $basic_category = (string) $this->t('Basic elements');
@@ -324,7 +324,7 @@ class WebformElementManager extends DefaultPluginManager implements FallbackPlug
    * {@inheritdoc}
    */
   public function removeExcludeDefinitions(array $definitions) {
-    $definitions = isset($definitions) ? $definitions : $this->getDefinitions();
+    $definitions = $definitions ?? $this->getDefinitions();
     $excluded = $this->configFactory->get('webform.settings')->get('element.excluded_elements');
     return $excluded ? array_diff_key($definitions, $excluded) : $definitions;
   }

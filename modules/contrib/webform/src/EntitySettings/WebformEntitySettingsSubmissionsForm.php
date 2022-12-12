@@ -301,7 +301,7 @@ class WebformEntitySettingsSubmissionsForm extends WebformEntitySettingsBaseForm
       'token_delete' => [
         'title' => $this->t('Allow users to delete a submission using a secure token'),
         'form_description' => $this->t("If checked users will be able to delete a submission using the webform's URL appended with the submission's (secure) token.") . ' ' .
-          $this->t("The 'tokenized' URL to update a submission will be available when viewing a submission's information and can be inserted into an email using the [webform_submission:token-delete-url] token.") . ' ' .
+          $this->t("The 'tokenized' URL to delete a submission will be available when viewing a submission's information and can be inserted into an email using the [webform_submission:token-delete-url] token.") . ' ' .
           $this->t('Only webforms that are open to new submissions can be deleted using the secure token.'),
       ],
     ];
@@ -646,7 +646,7 @@ class WebformEntitySettingsSubmissionsForm extends WebformEntitySettingsBaseForm
     $form['draft_settings']['draft_container']['draft_multiple'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Allow users to save multiple drafts'),
-      "#description" => $this->t('If checked, users will be able save and resume multiple drafts.'),
+      "#description" => $this->t("If checked, users will be able save and resume multiple drafts. Please note: Authenticated user need to be able 'view own submissions' to access saved drafts."),
       '#return_value' => TRUE,
       '#default_value' => $settings['draft_multiple'],
     ];
@@ -728,6 +728,7 @@ class WebformEntitySettingsSubmissionsForm extends WebformEntitySettingsBaseForm
       '#type' => 'webform_excluded_elements',
       '#webform_id' => $this->getEntity()->id(),
       '#default_value' => $settings['autofill_excluded_elements'],
+      '#exclude_composite' => FALSE,
     ];
     $form['autofill_settings']['autofill_container']['token_tree_link'] = $this->tokenManager->buildTreeElement();
 

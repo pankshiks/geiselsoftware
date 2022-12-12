@@ -1,0 +1,18 @@
+--- lib/backup_migrate_core/src/Exception/BackupMigrateException.php
++++ src/Core/Exception/BackupMigrateException.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Exception;
++namespace Drupal\backup_migrate\Core\Exception;
+ 
+ use Exception;
+ 
+ /**
+  * Class BackupMigrateException.
+  *
+- * @package BackupMigrate\Core\Exception
++ * @package Drupal\backup_migrate\Core\Exception
+  */
+ class BackupMigrateException extends Exception {
+   protected $replacement = [];

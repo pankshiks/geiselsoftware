@@ -1,0 +1,37 @@
+--- lib/backup_migrate_core/src/Plugin/FileProcessorInterface.php
++++ src/Core/Plugin/FileProcessorInterface.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Plugin;
++namespace Drupal\backup_migrate\Core\Plugin;
+ 
+-use BackupMigrate\Core\File\TempFileManagerInterface;
++use Drupal\backup_migrate\Core\File\TempFileManagerInterface;
+ 
+ /**
+  * Interface FileProcessorPluginInterface.
+  *
+- * @package BackupMigrate\Core\Plugin
++ * @package Drupal\backup_migrate\Core\Plugin
+  *
+  * An interface for plugins which process files and therefore must have access
+  * to a temp file factory.
+@@ -17,7 +17,7 @@ interface FileProcessorInterface {
+   /**
+    * Inject the temp file manager.
+    *
+-   * @param \BackupMigrate\Core\File\TempFileManagerInterface $tempfilemanager
++   * @param \Drupal\backup_migrate\Core\File\TempFileManagerInterface $tempfilemanager
+    *
+    * @return mixed
+    */
+@@ -25,7 +25,7 @@ public function setTempFileManager(TempFileManagerInterface $tempfilemanager);
+ 
+   /**
+    * Get the temp file manager.
+-   *    * @return \BackupMigrate\Core\File\TempFileManagerInterface.
++   *    * @return \Drupal\backup_migrate\Core\File\TempFileManagerInterface.
+    */
+   public function getTempFileManager();
+ 

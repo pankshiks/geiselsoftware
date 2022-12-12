@@ -5,7 +5,7 @@ namespace Drupal\schema_metatag\Plugin\schema_metatag\PropertyType;
 use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
 
 /**
- * Provides a plugin for the 'Action' Schema.org property type.
+ * Provides a plugin for the 'Number' Schema.org property type.
  *
  * @SchemaPropertyType(
  *   id = "number",

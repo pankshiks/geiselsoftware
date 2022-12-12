@@ -1,0 +1,48 @@
+--- lib/backup_migrate_core/src/Plugin/PluginManagerInterface.php
++++ src/Core/Plugin/PluginManagerInterface.php
+@@ -1,8 +1,8 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Plugin;
++namespace Drupal\backup_migrate\Core\Plugin;
+ 
+-use \BackupMigrate\Core\Config\ConfigInterface;
++use \Drupal\backup_migrate\Core\Config\ConfigInterface;
+ 
+ /**
+  * Manage all of the available Plugins.
+@@ -13,7 +13,7 @@ interface PluginManagerInterface {
+    * Add an item to the manager.
+    *
+    * @param $id
+-   * @param \BackupMigrate\Core\Plugin\PluginInterface|object $item
++   * @param \Drupal\backup_migrate\Core\Plugin\PluginInterface|object $item
+    *    The source to add.
+    *
+    * @return
+@@ -25,14 +25,14 @@ public function add($id, PluginInterface $item);
+    *
+    * @param $id
+    *
+-   * @return \BackupMigrate\Core\Plugin\PluginInterface The item specified by the id or NULL if it doesn't exist.
++   * @return \Drupal\backup_migrate\Core\Plugin\PluginInterface The item specified by the id or NULL if it doesn't exist.
+    */
+   public function get($id);
+ 
+   /**
+    * Get a list of all of the items.
+    *
+-   * @return \BackupMigrate\Core\Plugin\PluginInterface[] An ordered list of the sources, keyed by their id.
++   * @return \Drupal\backup_migrate\Core\Plugin\PluginInterface[] An ordered list of the sources, keyed by their id.
+    */
+   public function getAll();
+ 
+@@ -47,7 +47,7 @@ public function getAll();
+    *
+    * @param string $op The name of the operation.
+    *
+-   * @return \BackupMigrate\Core\Plugin\PluginInterface[]
++   * @return \Drupal\backup_migrate\Core\Plugin\PluginInterface[]
+    */
+   public function getAllByOp($op);
+ 

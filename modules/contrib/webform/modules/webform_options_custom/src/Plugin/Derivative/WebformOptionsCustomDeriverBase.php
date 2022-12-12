@@ -28,7 +28,7 @@ abstract class WebformOptionsCustomDeriverBase extends DeriverBase implements Co
    * Constructs new WebformReusableCompositeDeriver.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   * The entity type manager.
+   *   The entity type manager.
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $this->entityTypeManager = $entity_type_manager;

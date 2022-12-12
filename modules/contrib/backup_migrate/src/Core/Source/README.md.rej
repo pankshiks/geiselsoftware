@@ -1,0 +1,10 @@
+--- lib/backup_migrate_core/src/Source/README.md
++++ src/Core/Source/README.md
+@@ -1,6 +1,6 @@
+ # Sources
+ 
+-A source in Backup and Migrate is a thing that can be backed up. This could be a database or a file directory. An object that implements the `\BackupMigrate\Core\Source\SourceInterface` is responsible for creating a single backup file that represents the specified source. It is also responsible for restoring the to that source from a backup file.
++A source in Backup and Migrate is a thing that can be backed up. This could be a database or a file directory. An object that implements the `\Drupal\backup_migrate\Core\Source\SourceInterface` is responsible for creating a single backup file that represents the specified source. It is also responsible for restoring the to that source from a backup file.
+ 
+ Sources in Backup and Migrate are implemented as plugins and will have dependencies and configuration injected into them by the Plugin Manager.
+ 

@@ -1,0 +1,28 @@
+--- lib/backup_migrate_core/src/Main/README.md
++++ src/Core/Main/README.md
+@@ -1,6 +1,6 @@
+ # The Backup and Migrate Object
+ 
+-The `\BackupMigrate\Core\Services\BackupMigrate` service is the object that exposes the operation of Backup and Migrate
++The `\Drupal\backup_migrate\Core\Services\BackupMigrate` service is the object that exposes the operation of Backup and Migrate
+ to the consuming application. By itself it does nothing, it relies on the consuming application to inject all of the 
+ necessary plugins, configuration and supporting services to perform it's work.
+ 
+@@ -12,7 +12,7 @@ application but keeps the library simple, allows greater flexibility and preserv
+ 
+ The service is instantiated with by creating a new `BackupMigrate` object:
+ 
+-    use BackupMigrate\Core\Services\BackupMigrate;
++    use Drupal\backup_migrate\Core\Services\BackupMigrate;
+     
+     $bam = new BackupMigrate();
+ 
+@@ -68,7 +68,7 @@ environments.
+ 
+ Providing an environment.
+ 
+-    use BackupMigrate\Core\Services\BackupMigrate; 
++    use Drupal\backup_migrate\Core\Services\BackupMigrate; 
+     use MyAPP\Environment\MyEnvironment;
+     
+     // Create a custom environment with whatever services or configuration are needed for the application

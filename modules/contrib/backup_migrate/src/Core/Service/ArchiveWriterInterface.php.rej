@@ -1,0 +1,28 @@
+--- lib/backup_migrate_core/src/Service/ArchiveWriterInterface.php
++++ src/Core/Service/ArchiveWriterInterface.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Service;
++namespace Drupal\backup_migrate\Core\Service;
+ 
+-use BackupMigrate\Core\File\BackupFileWritableInterface;
++use Drupal\backup_migrate\Core\File\BackupFileWritableInterface;
+ 
+ /**
+  * Interface ArchiveReaderInterface.
+  *
+- * @package BackupMigrate\Core\Service
++ * @package Drupal\backup_migrate\Core\Service
+  */
+ interface ArchiveWriterInterface {
+ 
+@@ -20,7 +20,7 @@ interface ArchiveWriterInterface {
+   public function getFileExt();
+ 
+   /**
+-   * @param \BackupMigrate\Core\File\BackupFileWritableInterface $out
++   * @param \Drupal\backup_migrate\Core\File\BackupFileWritableInterface $out
+    */
+   public function setArchive(BackupFileWritableInterface $out);
+ 

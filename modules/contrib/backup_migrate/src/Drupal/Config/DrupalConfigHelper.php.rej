@@ -1,0 +1,114 @@
+--- src/Config/DrupalConfigHelper.php
++++ src/Drupal/Config/DrupalConfigHelper.php
+@@ -1,24 +1,24 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\Config;
++namespace Drupal\backup_migrate\Drupal\Config;
+ 
+-use BackupMigrate\Core\Config\ConfigInterface;
+-use BackupMigrate\Core\Main\BackupMigrateInterface;
+-use BackupMigrate\Core\Plugin\PluginManagerInterface;
++use Drupal\backup_migrate\Core\Config\ConfigInterface;
++use Drupal\backup_migrate\Core\Main\BackupMigrateInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginManagerInterface;
+ use Drupal\backup_migrate\Entity\SettingsProfile;
+ use Drupal\Core\Form\FormStateInterface;
+ 
+ /**
+  * Class DrupalConfigHelper.
+  *
+- * @package BackupMigrate\Drupal\Config
++ * @package Drupal\backup_migrate\Drupal\Config
+  */
+ class DrupalConfigHelper {
+ 
+   /**
+    * Build the configuration form for all plugins in a manager.
+    *
+-   * @param \BackupMigrate\Core\Plugin\PluginManagerInterface $plugins
++   * @param \Drupal\backup_migrate\Core\Plugin\PluginManagerInterface $plugins
+    *  The PluginManager containing all of the plugins to be configured.
+    * @param string $operation
+    *  'backup', 'restore', or 'initialize' depending on the operation being configured for.
+@@ -42,7 +42,7 @@ static public function buildAllPluginsForm(PluginManagerInterface $plugins, $ope
+   /**
+    * Build the configuration form for a single plugin, source or destination.
+    *
+-   * @param \BackupMigrate\Core\Config\ConfigurableInterface $plugin
++   * @param \Drupal\backup_migrate\Core\Config\ConfigurableInterface $plugin
+    *  The plugin, source or destination to build the form for.
+    * @param string $operation
+    *  'backup', 'restore', or 'initialize' depending on the operation being configured for.
+@@ -60,7 +60,7 @@ static public function buildPluginForm($plugin, $operation, $parents = ['config'
+   /**
+    * @param array $schema
+    *  A configuration schema from one or more Backup and Migrate plugins.
+-   * @param \BackupMigrate\Core\Config\ConfigInterface $config
++   * @param \Drupal\backup_migrate\Core\Config\ConfigInterface $config
+    *  The configuration object containing the default values.
+    * @param array $parents
+    *  The form parents array.
+@@ -78,7 +78,7 @@ static public function buildFormFromSchema($schema, ConfigInterface $config, $pa
+    *
+    * @param array $schema
+    *  A configuration schema from one or more Backup and Migrate plugins.
+-   * @param \BackupMigrate\Core\Config\ConfigInterface $config
++   * @param \Drupal\backup_migrate\Core\Config\ConfigInterface $config
+    *  The configuration object containing the default values.
+    * @param array $parents
+    *  The form parents array.
+@@ -88,7 +88,7 @@ static public function addFieldsFromSchema(&$form, $schema, ConfigInterface $con
+     if (isset($schema['groups'])) {
+       foreach ($schema['groups'] as $group_key => $item) {
+         // If the group is just called 'default' then use the key from the plugin as the group key.
+-        // @TODO: make this less ugly.
++        // @todo make this less ugly.
+         if ($group_key == 'default' && $parents) {
+           $group_key = end($parents);
+         }
+@@ -117,7 +117,7 @@ static public function addFieldsFromSchema(&$form, $schema, ConfigInterface $con
+                 $form_item['#description'] = '';
+               }
+               $form_item['#description'] .= ' ' . t('Add one item per line.');
+-              $form_item['#element_validate'] = ['BackupMigrate\Drupal\Config\DrupalConfigHelper::validateMultiText'];
++              $form_item['#element_validate'] = ['Drupal\backup_migrate\Drupal\Config\DrupalConfigHelper::validateMultiText'];
+               $value = implode("\n", $value);
+             }
+             if (!empty($item['multiline'])) {
+@@ -127,7 +127,7 @@ static public function addFieldsFromSchema(&$form, $schema, ConfigInterface $con
+ 
+           case 'password':
+             $form_item['#type'] = 'password';
+-            $form_item['#value_callback'] = 'BackupMigrate\Drupal\Config\DrupalConfigHelper::valueCallbackSecret';
++            $form_item['#value_callback'] = 'Drupal\backup_migrate\Drupal\Config\DrupalConfigHelper::valueCallbackSecret';
+             break;
+ 
+           case 'number':
+@@ -208,7 +208,7 @@ public static function valueCallbackSecret(&$element, $input, FormStateInterface
+   /**
+    * Get a pulldown for the given list of plugins.
+    *
+-   * @param \BackupMigrate\Core\Config\ConfigurableInterface[]|\BackupMigrate\Core\Plugin\PluginManagerInterface $plugins
++   * @param \Drupal\backup_migrate\Core\Config\ConfigurableInterface[]|\Drupal\backup_migrate\Core\Plugin\PluginManagerInterface $plugins
+    * @param $title
+    * @param null $default_value
+    *
+@@ -230,7 +230,7 @@ public static function getPluginSelector(PluginManagerInterface $plugins, $title
+   /**
+    * Get a select form item for the given list of sources.
+    *
+-   * @param \BackupMigrate\Core\Main\BackupMigrateInterface $bam
++   * @param \Drupal\backup_migrate\Core\Main\BackupMigrateInterface $bam
+    * @param $title
+    * @param null $default_value
+    *
+@@ -243,7 +243,7 @@ public static function getSourceSelector(BackupMigrateInterface $bam, $title, $d
+   /**
+    * Get a select form item for the given list of sources.
+    *
+-   * @param \BackupMigrate\Core\Main\BackupMigrateInterface $bam
++   * @param \Drupal\backup_migrate\Core\Main\BackupMigrateInterface $bam
+    * @param $title
+    * @param null $default_value
+    *

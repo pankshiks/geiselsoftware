@@ -52,3 +52,6 @@ metatag.metatag_tag.schema_recipe_nutrition:
 metatag.metatag_tag.schema_recipe_recipe_cuisine:
   type: text
   label: 'recipeCuisine'
+metatag.metatag_tag.schema_recipe_keywords:
+  type: text
+  label: 'keywords'

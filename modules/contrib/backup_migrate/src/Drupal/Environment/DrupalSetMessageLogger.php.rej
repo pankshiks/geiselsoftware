@@ -1,0 +1,30 @@
+--- src/Environment/DrupalSetMessageLogger.php
++++ src/Drupal/Environment/DrupalSetMessageLogger.php
+@@ -1,6 +1,6 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\Environment;
++namespace Drupal\backup_migrate\Drupal\Environment;
+ 
+ use Psr\Log\AbstractLogger;
+ use Psr\Log\LogLevel;
+@@ -8,7 +8,7 @@
+ /**
+  * Class DrupalLogger.
+  *
+- * @package BackupMigrate\Drupal\Environment
++ * @package Drupal\backup_migrate\Drupal\Environment
+  *
+  * This logger sends messages to the browser when Backup and Migrate is run in
+  * interactive mode.
+@@ -44,8 +44,8 @@ public function log($level, $message, array $context = []) {
+         break;
+     }
+ 
+-    // @TODO: Handle translations properly.
+-    drupal_set_message($message, $type, FALSE);
++    // @todo Handle translations properly.
++    \Drupal::messenger()->addMessage($message, $type, FALSE);
+   }
+ 
+ }

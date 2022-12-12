@@ -27,7 +27,7 @@ class WebformSubmissionExportImportWebformExporter extends WebformExporterBase {
   /**
    * Webform submission export importer service.
    *
-   * @var \Drupal\webform_submission_export_import\WebformSubmissionExportImportImporterInterface $importer
+   * @var \Drupal\webform_submission_export_import\WebformSubmissionExportImportImporterInterface
    */
   protected $importer;
 

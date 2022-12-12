@@ -65,7 +65,7 @@ class WebformTranslationLingotekManager implements WebformTranslationLingotekMan
       case 'webform_options';
       case 'webform_options_custom';
         // Convert options YAML string to an associative array.
-        $options = Yaml::decode($source_data['options']);;
+        $options = Yaml::decode($source_data['options']);
 
         // Extract optgroups from the options and append them as '_optgroups_'
         // to the options so that the optgroups can be translated.
@@ -130,7 +130,7 @@ class WebformTranslationLingotekManager implements WebformTranslationLingotekMan
           unset($options['_optgroups_']);
 
           // Build translated optgroup options.
-          $optgroup_options = [];
+          $optgroups_options = [];
           foreach ($options as $option_value => $option_text) {
             if (is_array($option_text)) {
               $optgroups_options[$optgroups[$option_value]] = $option_text;
@@ -179,9 +179,9 @@ class WebformTranslationLingotekManager implements WebformTranslationLingotekMan
     $data['webform.settings']['test.names'] = Yaml::encode($data['webform.settings']['test.names']);
   }
 
-  /******************************************************************************/
+  /* ************************************************************************** */
   // Lingotek decode/encode token functions.
-  /******************************************************************************/
+  /* ************************************************************************** */
 
   /**
    * Encode all tokens so that they won't be translated.

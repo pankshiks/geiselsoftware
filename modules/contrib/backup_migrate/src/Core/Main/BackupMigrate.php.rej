@@ -1,0 +1,67 @@
+--- lib/backup_migrate_core/src/Main/BackupMigrate.php
++++ src/Core/Main/BackupMigrate.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Main;
++namespace Drupal\backup_migrate\Core\Main;
+ 
+-use BackupMigrate\Core\Config\ConfigInterface;
+-use BackupMigrate\Core\Plugin\PluginManagerInterface;
+-use BackupMigrate\Core\Exception\BackupMigrateException;
+-use BackupMigrate\Core\Plugin\PluginCallerTrait;
+-use BackupMigrate\Core\Plugin\PluginManager;
+-use BackupMigrate\Core\Service\ServiceManager;
++use Drupal\backup_migrate\Core\Config\ConfigInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginManagerInterface;
++use Drupal\backup_migrate\Core\Exception\BackupMigrateException;
++use Drupal\backup_migrate\Core\Plugin\PluginCallerTrait;
++use Drupal\backup_migrate\Core\Plugin\PluginManager;
++use Drupal\backup_migrate\Core\Service\ServiceManager;
+ 
+ /**
+  * The core Backup and Migrate service.
+@@ -16,12 +16,12 @@ class BackupMigrate implements BackupMigrateInterface {
+   use PluginCallerTrait;
+ 
+   /**
+-   * @var \BackupMigrate\Core\Plugin\PluginManagerInterface;
++   * @var \Drupal\backup_migrate\Core\Plugin\PluginManagerInterface;
+    */
+   protected $sources;
+ 
+   /**
+-   * @var \BackupMigrate\Core\Plugin\PluginManagerInterface;
++   * @var \Drupal\backup_migrate\Core\Plugin\PluginManagerInterface;
+    */
+   protected $destinations;
+ 
+@@ -33,8 +33,8 @@ class BackupMigrate implements BackupMigrateInterface {
+   /**
+    * {@inheritdoc}
+    *
+-   * @param \BackupMigrate\Core\Config\ConfigInterface $config
+-   * @param \BackupMigrate\Core\Service\ServiceManagerInterface $services
++   * @param \Drupal\backup_migrate\Core\Config\ConfigInterface $config
++   * @param \Drupal\backup_migrate\Core\Service\ServiceManagerInterface $services
+    */
+   function __construct() {
+     $this->setServiceManager(new ServiceManager());
+@@ -71,7 +71,7 @@ public function backup($source_id, $destination_id) {
+         }
+ 
+         // Check that the destination can be written to.
+-        // @TODO: Catch exceptions and continue if at least one destination is valid.
++        // @todo Catch exceptions and continue if at least one destination is valid.
+         $destinations[$id]->checkWritable();
+       }
+ 
+@@ -169,7 +169,7 @@ public function restore($source_id, $destination_id, $file_id = NULL) {
+    * This can be called after the service is instantiated to pass new configuration
+    * to the plugins.
+    *
+-   * @param \BackupMigrate\Core\Config\ConfigInterface $config
++   * @param \Drupal\backup_migrate\Core\Config\ConfigInterface $config
+    */
+   public function setConfig(ConfigInterface $config) {
+     $this->plugins()->setConfig($config);

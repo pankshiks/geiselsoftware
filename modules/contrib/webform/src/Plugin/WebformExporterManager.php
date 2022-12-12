@@ -64,7 +64,7 @@ class WebformExporterManager extends DefaultPluginManager implements WebformExpo
    * {@inheritdoc}
    */
   public function removeExcludeDefinitions(array $definitions) {
-    $definitions = isset($definitions) ? $definitions : $this->getDefinitions();
+    $definitions = $definitions ?? $this->getDefinitions();
     $excluded = $this->configFactory->get('webform.settings')->get('export.excluded_exporters');
     return $excluded ? array_diff_key($definitions, $excluded) : $definitions;
   }

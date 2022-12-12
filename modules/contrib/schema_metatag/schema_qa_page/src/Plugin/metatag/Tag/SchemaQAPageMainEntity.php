@@ -21,7 +21,7 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  *   type = "string",
  *   secure = FALSE,
  *   multiple = TRUE,
- *   property_type = "url",
+ *   property_type = "question",
  *   tree_parent = {},
  *   tree_depth = -1,
  * )

@@ -1,0 +1,44 @@
+--- lib/backup_migrate_core/src/Plugin/PluginCallerTrait.php
++++ src/Core/Plugin/PluginCallerTrait.php
+@@ -1,27 +1,27 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Plugin;
++namespace Drupal\backup_migrate\Core\Plugin;
+ 
+-use BackupMigrate\Core\Plugin\PluginManagerInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginManagerInterface;
+ 
+ /**
+  * Class PluginCallerTrait.
+  *
+- * @package BackupMigrate\Core\Plugin
++ * @package Drupal\backup_migrate\Core\Plugin
+  *
+  * Implements the injection code for a PluginCallerInterface object.
+  */
+ trait PluginCallerTrait {
+ 
+   /**
+-   * @var \BackupMigrate\Core\Plugin\PluginManagerInterface;
++   * @var \Drupal\backup_migrate\Core\Plugin\PluginManagerInterface;
+    */
+   protected $plugins;
+ 
+   /**
+    * Inject the plugin manager.
+    *
+-   * @param \BackupMigrate\Core\Plugin\PluginManagerInterface $plugins
++   * @param \Drupal\backup_migrate\Core\Plugin\PluginManagerInterface $plugins
+    */
+   public function setPluginManager(PluginManagerInterface $plugins) {
+     $this->plugins = $plugins;
+@@ -30,7 +30,7 @@ public function setPluginManager(PluginManagerInterface $plugins) {
+   /**
+    * Get the plugin manager.
+    *
+-   * @return \BackupMigrate\Core\Plugin\PluginManagerInterface
++   * @return \Drupal\backup_migrate\Core\Plugin\PluginManagerInterface
+    */
+   public function plugins() {
+     // Return the list of plugins or a blank placeholder.

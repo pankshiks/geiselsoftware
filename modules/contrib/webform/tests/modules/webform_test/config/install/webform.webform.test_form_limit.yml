@@ -36,6 +36,7 @@ elements: |
         remaining:webform:source_entity: [webform_submission:remaining:webform:source_entity]<br/>
         limit:user:source_entity: [webform_submission:limit:user:source_entity]<br/>
         remaining:user:source_entity: [webform_submission:remaining:user:source_entity]<br/>
+        
   name:
     '#type': textfield
     '#title': Name
@@ -81,6 +82,9 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_method: ''
+  form_action: ''
+  form_attributes: {  }
   share: false
   share_node: false
   share_theme_name: ''

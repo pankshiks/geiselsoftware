@@ -1,0 +1,28 @@
+--- src/EntityPlugins/DestinationPluginManager.php
++++ src/Drupal/EntityPlugins/DestinationPluginManager.php
+@@ -1,6 +1,6 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\EntityPlugins;
++namespace Drupal\backup_migrate\Drupal\EntityPlugins;
+ 
+ use Drupal\Core\Cache\CacheBackendInterface;
+ use Drupal\Core\Extension\ModuleHandlerInterface;
+@@ -9,7 +9,7 @@
+ /**
+  * Class DestinationPluginManager.
+  *
+- * @package BackupMigrate\Drupal\Destination
++ * @package Drupal\backup_migrate\Drupal\Destination
+  */
+ class DestinationPluginManager extends DefaultPluginManager {
+   /**
+@@ -24,7 +24,7 @@ class DestinationPluginManager extends DefaultPluginManager {
+    *   The module handler to invoke the alter hook with.
+    */
+   public function __construct(\Traversable $namespaces, CacheBackendInterface $cache_backend, ModuleHandlerInterface $module_handler) {
+-    parent::__construct('Plugin/BackupMigrateDestination', $namespaces, $module_handler, 'BackupMigrate\Drupal\EntityPlugins\DestinationPluginInterface', 'BackupMigrate\Drupal\EntityPlugins\Annotation\BackupMigrateDestinationPlugin');
++    parent::__construct('Plugin/BackupMigrateDestination', $namespaces, $module_handler, 'Drupal\backup_migrate\Drupal\EntityPlugins\DestinationPluginInterface', 'Drupal\backup_migrate\Drupal\EntityPlugins\Annotation\BackupMigrateDestinationPlugin');
+     $this->alterInfo('backup_migrate_destination_info');
+     $this->setCacheBackend($cache_backend, 'backup_migrate_destination_plugins');
+   }

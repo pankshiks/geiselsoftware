@@ -64,7 +64,7 @@ abstract class WebformSubmissionsDeleteFormBase extends WebformDeleteFormBase {
     $instance = parent::create($container);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->requestHandler = $container->get('webform.request');
-    list($instance->webform, $instance->sourceEntity) = $instance->requestHandler->getWebformEntities();
+    [$instance->webform, $instance->sourceEntity] = $instance->requestHandler->getWebformEntities();
     return $instance;
 
   }
@@ -118,9 +118,9 @@ abstract class WebformSubmissionsDeleteFormBase extends WebformDeleteFormBase {
     return $this->t('Webform submissions cleared.');
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Batch API.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Batch API; Initialize batch operations.
@@ -171,7 +171,7 @@ abstract class WebformSubmissionsDeleteFormBase extends WebformDeleteFormBase {
    * @param mixed|array $context
    *   The batch current context.
    */
-  public function batchProcess(WebformInterface $webform = NULL, EntityInterface $entity = NULL, $max_sid, &$context) {
+  public function batchProcess(WebformInterface $webform = NULL, EntityInterface $entity = NULL, $max_sid = NULL, &$context = []) {
     if (empty($context['sandbox'])) {
       $context['sandbox']['progress'] = 0;
       $context['sandbox']['max'] = $this->getSubmissionStorage()->getTotal($webform, $entity, NULL, ['in_draft' => NULL]);

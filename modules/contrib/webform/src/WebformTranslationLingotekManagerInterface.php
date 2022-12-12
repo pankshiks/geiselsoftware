@@ -20,7 +20,7 @@ interface WebformTranslationLingotekManagerInterface {
    * @param string &$url
    *   The url which will be associated to this document, e.g. for context review.
    *
-   * @see hook_lingotek_config_entity_document_upload().
+   * @see hook_lingotek_config_entity_document_upload()
    */
   public function configEntityDocumentUpload(array &$source_data, ConfigEntityInterface &$entity, &$url);
 
@@ -34,9 +34,9 @@ interface WebformTranslationLingotekManagerInterface {
    * @param array &$data
    *   Data returned from the Lingotek service when asking for the translation.
    *
-   * @see hook_lingotek_config_entity_translation_presave().
+   * @see hook_lingotek_config_entity_translation_presave()
    */
-  public function configEntityTranslationPresave(ConfigEntityInterface &$translation, $langcode, &$data);
+  public function configEntityTranslationPresave(ConfigEntityInterface &$translation, $langcode, array &$data);
 
   /**
    * Implements hook_lingotek_config_object_document_upload().
@@ -46,7 +46,7 @@ interface WebformTranslationLingotekManagerInterface {
    * @param string $config_name
    *   The simple configuration name.
    *
-   * @see hook_lingotek_config_object_document_upload().
+   * @see hook_lingotek_config_object_document_upload()
    */
   public function configObjectDocumentUpload(array &$data, $config_name);
 
@@ -58,7 +58,7 @@ interface WebformTranslationLingotekManagerInterface {
    * @param string $config_name
    *   The simple configuration name.
    *
-   * @see hook_lingotek_config_object_translation_presave().
+   * @see hook_lingotek_config_object_translation_presave()
    */
   public function configObjectTranslationPresave(array &$data, $config_name);
 

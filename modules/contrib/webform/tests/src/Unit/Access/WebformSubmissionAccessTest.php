@@ -83,7 +83,7 @@ class WebformSubmissionAccessTest extends WebformAccessTestBase {
       ->method('getWebform')
       ->will($this->returnValue($webform_wizard));
 
-    /**************************************************************************/
+    /* ********************************************************************** */
 
     // Check resend (email) message access.
     $this->assertEquals(AccessResult::forbidden(), WebformSubmissionAccess::checkResendAccess($webform_submission, $anonymous_account));

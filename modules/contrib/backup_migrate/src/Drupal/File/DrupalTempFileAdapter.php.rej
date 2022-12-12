@@ -1,0 +1,22 @@
+--- src/File/DrupalTempFileAdapter.php
++++ src/Drupal/File/DrupalTempFileAdapter.php
+@@ -1,15 +1,15 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\File;
++namespace Drupal\backup_migrate\Drupal\File;
+ 
+-use \BackupMigrate\Core\File\TempFileAdapter;
+-use \BackupMigrate\Core\File\TempFileAdapterInterface;
++use \Drupal\backup_migrate\Core\File\TempFileAdapter;
++use \Drupal\backup_migrate\Core\File\TempFileAdapterInterface;
+ use \Drupal\Core\File\FileSystem;
+ 
+ /**
+  * Class DrupalTempFileAdapter.
+  *
+- * @package BackupMigrate\Drupal\File
++ * @package Drupal\backup_migrate\Drupal\File
+  */
+ class DrupalTempFileAdapter extends TempFileAdapter implements TempFileAdapterInterface {
+ 

@@ -26,12 +26,12 @@ elements: |
       {{ children }}
       <div>{{ 'Submitted by'|t }}: <em>[webform_submission:user]</em></div>
       <hr/>
-  
+      
     '#format_text': |
       {{ children }}
       {{ 'Submitted by'|t }} [webform_submission:user]
       ------------------------------------------------------------
-  
+      
     rating:
       '#type': webform_rating
       '#title': Rating
@@ -81,6 +81,9 @@ settings:
   form_access_denied_message: ''
   form_access_denied_attributes: {  }
   form_file_limit: ''
+  form_method: ''
+  form_action: ''
+  form_attributes: {  }
   share: false
   share_node: false
   share_theme_name: ''

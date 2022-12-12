@@ -1,0 +1,23 @@
+--- lib/backup_migrate_core/src/Source/SourceBase.php
++++ src/Core/Source/SourceBase.php
+@@ -1,15 +1,15 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Source;
++namespace Drupal\backup_migrate\Core\Source;
+ 
+-use BackupMigrate\Core\Plugin\FileProcessorInterface;
+-use BackupMigrate\Core\Plugin\FileProcessorTrait;
+-use BackupMigrate\Core\Plugin\PluginBase;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorInterface;
++use Drupal\backup_migrate\Core\Plugin\FileProcessorTrait;
++use Drupal\backup_migrate\Core\Plugin\PluginBase;
+ 
+ /**
+  * Class SourceBase.
+  *
+- * @package BackupMigrate\Core\Source
++ * @package Drupal\backup_migrate\Core\Source
+  */
+ abstract class SourceBase extends PluginBase implements SourceInterface, FileProcessorInterface {
+   use FileProcessorTrait;

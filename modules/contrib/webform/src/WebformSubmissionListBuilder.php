@@ -301,7 +301,7 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     $this->state = $this->request->query->get('state');
     $this->sourceEntityTypeId = $this->request->query->get('entity');
 
-    list($this->webform, $this->sourceEntity) = $this->requestHandler->getWebformEntities();
+    [$this->webform, $this->sourceEntity] = $this->requestHandler->getWebformEntities();
 
     $this->messageManager->setWebform($this->webform);
     $this->messageManager->setSourceEntity($this->sourceEntity);
@@ -469,7 +469,7 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     $settings = $this->submissionViews[$this->submissionView];
 
     // Get view name and display id.
-    list($name, $display_id) = explode(':', $settings['view']);
+    [$name, $display_id] = explode(':', $settings['view']);
 
     // Load the view and set custom property used to fix the exposed
     // filter action.
@@ -547,7 +547,7 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
 
     // Customize buttons.
     if ($this->customize) {
-      $build['custom_top'] = $this->buildCustomizeButton();
+      $build['customize'] = $this->buildCustomizeButton();
     }
 
     // Display info.
@@ -560,15 +560,16 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     $build['table']['#sticky'] = TRUE;
     $build['table']['#attributes']['class'][] = 'webform-results-table';
 
-    // Customize.
-    // Only displayed when more than 20 submissions are being displayed.
-    if ($this->customize && isset($build['table']['#rows']) && count($build['table']['#rows']) >= 20) {
-      $build['custom_bottom'] = $this->buildCustomizeButton();
-      if (isset($build['pager'])) {
-        $build['pager']['#weight'] = 10;
-      }
+    // Bulk operations only visible on webform submissions pages.
+    $webform_submission_bulk_form = $this->configFactory->get('webform.settings')->get('settings.webform_submission_bulk_form');
+    if ($webform_submission_bulk_form
+      && !$this->account
+      && $this->webform
+      && $this->webform->access('submission_update_any')) {
+      $build['table'] = \Drupal::formBuilder()->getForm('\Drupal\webform\Form\WebformSubmissionBulkForm', $build['table'], $this->webform->access('submission_delete_any'));
     }
 
+    // Must preload libraries required by (modal) dialogs.
     // Must preload libraries required by (modal) dialogs.
     WebformDialogHelper::attachLibraries($build);
 
@@ -659,7 +660,7 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
       elseif ($this->sourceEntityTypeId && strpos($this->sourceEntityTypeId, ':') !== FALSE) {
         $source_entity_options = $this->webform;
         try {
-          list($source_entity_type, $source_entity_id) = explode(':', $this->sourceEntityTypeId);
+          [$source_entity_type, $source_entity_id] = explode(':', $this->sourceEntityTypeId);
           $source_entity = $this->entityTypeManager->getStorage($source_entity_type)->load($source_entity_id);
           $source_entity_default_value = $source_entity->label() . " ($source_entity_type:$source_entity_id)";
         }
@@ -732,9 +733,9 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     ];
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Header functions.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -785,7 +786,7 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
   protected function buildHeaderColumn(array $column) {
     $name = $column['name'];
     if ($this->format['header_format'] === 'key') {
-      $title = isset($column['key']) ? $column['key'] : $column['name'];
+      $title = $column['key'] ?? $column['name'];
     }
     else {
       $title = $column['title'];
@@ -816,9 +817,9 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     }
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Row functions.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -973,7 +974,7 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
         ];
 
       case 'uid':
-        return ($is_raw) ? $entity->getOwner()->id() : ($entity->getOwner()->getAccountName() ?: t('Anonymous'));
+        return ($is_raw) ? $entity->getOwner()->id() : ($entity->getOwner()->getAccountName() ?: $this->t('Anonymous'));
 
       case 'uuid':
         return $entity->uuid();
@@ -997,9 +998,9 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     }
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Operations.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -1123,9 +1124,9 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     return $operations;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Route functions.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get submission route name based on the current route.
@@ -1165,9 +1166,9 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     return $route_parameters;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Submission views functions.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get the submission view type for the current route.
@@ -1260,7 +1261,7 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
         continue;
       }
 
-      list($view_name, $view_display_id) = explode(':', $submission_view['view']);
+      [$view_name, $view_display_id] = explode(':', $submission_view['view']);
       $view = Views::getView($view_name);
       if (!$view || !$view->access($view_display_id)) {
         unset($submission_views[$name]);
@@ -1271,9 +1272,9 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     return $submission_views;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Query functions.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -1362,6 +1363,14 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
     $query = $submission_storage->getQuery();
     $submission_storage->addQueryConditions($query, $this->webform, $this->sourceEntity, $this->account);
 
+    // If we are viewing all submissions, we want to exclude
+    // any orphaned submissions.
+    if (empty($this->webform)) {
+      /** @var \Drupal\webform\WebformEntityStorageInterface $webform_storage */
+      $webform_storage = $this->entityTypeManager->getStorage('webform');
+      $query->condition('webform_id', $webform_storage->getWebformIds(), 'IN');
+    }
+
     // Filter by key(word).
     if ($keys) {
       // Search values.
@@ -1414,7 +1423,7 @@ class WebformSubmissionListBuilder extends EntityListBuilder {
 
     // Filter by source entity.
     if ($source_entity && strpos($source_entity, ':') !== FALSE) {
-      list($entity_type, $entity_id) = explode(':', $source_entity);
+      [$entity_type, $entity_id] = explode(':', $source_entity);
       $query->condition('entity_type', $entity_type);
       $query->condition('entity_id', $entity_id);
     }

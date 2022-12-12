@@ -569,6 +569,11 @@ class WebformEntitySettingsGeneralForm extends WebformEntitySettingsBaseForm {
     // Set settings.
     $webform->setSettings($values);
 
+    // Reset webform categories cache.
+    /** @var \Drupal\webform\WebformEntityStorageInterface $webform_storage */
+    $webform_storage = $this->entityTypeManager->getStorage('webform');
+    $webform_storage->resetCategoriesCache();
+
     parent::save($form, $form_state);
   }
 

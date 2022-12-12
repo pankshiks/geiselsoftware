@@ -1,0 +1,19 @@
+--- lib/backup_migrate_core/src/Service/StashLogger.php
++++ src/Core/Service/StashLogger.php
+@@ -1,6 +1,6 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Service;
++namespace Drupal\backup_migrate\Core\Service;
+ 
+ use Psr\Log\AbstractLogger;
+ 
+@@ -11,7 +11,7 @@
+  *
+  * Class StashLogger.
+  *
+- * @package BackupMigrate\Core\Service
++ * @package Drupal\backup_migrate\Core\Service
+  */
+ class StashLogger extends AbstractLogger {
+   /**

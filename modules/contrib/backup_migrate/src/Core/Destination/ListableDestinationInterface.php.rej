@@ -1,0 +1,44 @@
+--- lib/backup_migrate_core/src/Destination/ListableDestinationInterface.php
++++ src/Core/Destination/ListableDestinationInterface.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Destination;
++namespace Drupal\backup_migrate\Core\Destination;
+ 
+-use BackupMigrate\Core\File\BackupFileInterface;
++use Drupal\backup_migrate\Core\File\BackupFileInterface;
+ 
+ /**
+  * Interface ListableDestinationInterface.
+  *
+- * @package BackupMigrate\Core\Destination
++ * @package Drupal\backup_migrate\Core\Destination
+  */
+ interface ListableDestinationInterface extends DestinationInterface {
+ 
+@@ -29,15 +29,20 @@ public function listFiles();
+   /**
+    * Run a basic query with sort on the list of files.
+    *
+-   * @param array $filters An array of of metadata fields to filter by.
+-   * @param string $sort A metadata field to sort bby
+-   * @param int $sort_direction The direction to sort by. SORT_ASC or SORT_DESC
++   * @param array $filters
++   *   An array of of metadata fields to filter by.
++   * @param string $sort
++   *   A metadata field to sort by, defaults to 'datestamp'.
++   * @param int $sort_direction
++   *   The direction to sort by, either SORT_ASC or SORT_DESC.
+    * @param int $count
++   *   The number of records to obtain.
+    * @param int $start
++   *   The first item to start the result set from.
+    *
+    * @return mixed
+    */
+-  public function queryFiles($filters = [], $sort = NULL, $sort_direction = NULL, $count = 100, $start = 0);
++  public function queryFiles(array $filters = [], $sort = 'datestamp', $sort_direction = SORT_DESC, $count = 100, $start = 0);
+ 
+   /**
+    * @return int The number of files in the destination.

@@ -162,7 +162,7 @@ class WebformGroupManager implements WebformGroupManagerInterface {
 
     // Get group content id for the source entity.
     $group_content_ids = $group_content_storage->getQuery()
-      ->condition('entity_id', $source_entity->id())
+      ->condition('entity_id', (int) $source_entity->id())
       ->execute();
     /** @var \Drupal\group\Entity\GroupContentInterface[] $group_contents */
     $group_contents = $group_content_storage->loadMultiple($group_content_ids);
@@ -250,9 +250,9 @@ class WebformGroupManager implements WebformGroupManagerInterface {
     return $access_rules;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Helper methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get current user group roles for group content.

@@ -21,10 +21,6 @@
 }
 
 /*****************************************************************************   */
-/* Fields */
-/*****************************************************************************   */
-
-/*****************************************************************************   */
 /* Messages */
 /*****************************************************************************   */
 
@@ -147,12 +143,6 @@ table td > .form-item:only-child,
 table td > .button:only-child {
   margin-top: 0;
   margin-bottom: 0;
-}
-/**
- * Results table.
- */
-th.webform-results-table__icon.sortable-heading {
-  padding: 0 1rem;
 }
 
 /**
@@ -279,6 +269,13 @@ div.webform-form-filter input.webform-form-filter-text {
 }
 
 /**
+ * jQuery UI content.
+ */
+.ui-widget-content a.button--primary {
+  color: #fff;
+}
+
+/**
  * System tray divider.
  */
 .ui-dialog.ui-dialog-off-canvas .ui-resizable-w {
@@ -312,4 +309,8 @@ div.webform-form-filter input.webform-form-filter-text {
 
 .webform-off-canvas .fieldset__wrapper--group {
   margin: 0;
+}
+
+.webform-off-canvas #drupal-off-canvas .form-type--boolean {
+  margin-left: 1.6875rem;
 }

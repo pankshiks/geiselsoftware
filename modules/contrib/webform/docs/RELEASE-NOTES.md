@@ -18,73 +18,53 @@ Steps for creating a new release
 
 [PHP](https://www.drupal.org/node/1587138)
 
-    # Check Drupal PHP coding standards
-    cd /var/www/sites/d8_webform/web
-    phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile,theme,css,info modules/sandbox/webform > ~/webform-php-coding-standards.txt
-    cat ~/webform-php-coding-standards.txt
+    # Check Drupal PHP coding standards and best practices.
+    phpcs .
 
-    # Check Drupal PHP best practices
-    cd /var/www/sites/d8_webform/web
-    phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile,theme,js,css,info modules/sandbox/webform > ~/webform-php-best-practice.txt
-    cat ~/webform-php-best-practice.txt
+    # Show sniff codes in all reports.
+    phpcs -s .
+
+    # Install PHP version compatibility (One-time)
+    cd ~/Sites/drupal_webform
+    composer require --dev phpcompatibility/php-compatibility
+
+    # Check PHP version compatibility
+    cd ~/Sites/drupal_webform/web
+    phpcs --runtime-set testVersion 8.0 --standard=../vendor/phpcompatibility/php-compatibility/PHPCompatibility --extensions=php,module,inc,install,test,profile,theme modules/sandbox/webform > ~/webform-php-compatibility.txt
+    cat ~/webform-php-compatibility.txt
 
 [JavaScript](https://www.drupal.org/node/2873849)
 
     # Install Eslint. (One-time)
-    cd /var/www/sites/d8_webform/web/core
+    cd ~/Sites/drupal_webform/web/core
     yarn install
 
     # Check Drupal JavaScript (ES5) legacy coding standards.
-    cd /var/www/sites/d8_webform/web
+    cd ~/Sites/drupal_webform/web
     core/node_modules/.bin/eslint --no-eslintrc -c=core/.eslintrc.legacy.json --ext=.js modules/sandbox/webform > ~/webform-javascript-coding-standards.txt
     cat ~/webform-javascript-coding-standards.txt
 
 [CSS](https://www.drupal.org/node/3041002)
 
     # Install Eslint. (One-time)
-    cd /var/www/sites/d8_webform/web/core
+    cd ~/Sites/drupal_webform/web/core
     yarn install
 
-    cd /var/www/sites/d8_webform/web/core
+    cd ~/Sites/drupal_webform/web/core
     yarn run lint:css ../modules/sandbox/webform/css --fix
 
 [Spell Check](https://www.drupal.org/node/3122084) for Drupal 9.1+
 
     # Install Pspell. (One-time)
-    cd /var/www/sites/d8_webform/web/core
+    cd ~/Sites/drupal_webform/web/core
     yarn install
 
     # Update dictionary. (core/misc/cspell/dictionary.txt)
-    algolia
-    Algolia
-    Antibot
-    ANTIBOT
-    codemirror
-    CodeMirror
-    imce
-    IMCE
-    inputmask
-    Inputmask
-    likert
-    Likert
-    lingotek
-    Lingotek
-    maillog
-    Maillog
-    Rockowitz
-    screencast
-    Screencast
-    unstarred
-    UNSTARRED
-    webform
-    Webform
-    webforms
-    Webforms
-    webform's
-    Webform's
-    wkhtmltopdf
 
-    cd /var/www/sites/d8_webform/web/core
+    cd ~/Sites/drupal_webform/web/
+    cat modules/sandbox/webform/cspell/dictionary.txt >> core/misc/cspell/dictionary.txt
+
+    cd ~/Sites/drupal_webform/web/core
     yarn run spellcheck ../modules/sandbox/webform/**/* > ~/webform-spell-check.txt
     cat ~/webform-spell-check.txt
 
@@ -106,7 +86,7 @@ Steps for creating a new release
 
 @see [Redirect output to a file #137](https://github.com/mglaman/drupal-check/issues/137)
 
-    cd /var/www/sites/d8_webform/
+    cd ~/Sites/drupal_webform
     composer require mglaman/drupal-check
     # Deprecations.
     vendor/mglaman/drupal-check/drupal-check --no-progress -d web/modules/sandbox/webform
@@ -117,11 +97,11 @@ Steps for creating a new release
 [phpstan-drupal](https://github.com/mglaman/phpstan-drupal)
 [phpstan-drupal-deprecations](https://github.com/mglaman/phpstan-drupal-deprecations)
 
-    cd /var/www/sites/d8_webform/
+    cd ~/Sites/drupal_webform
     composer require mglaman/phpstan-drupal
     composer require phpstan/phpstan-deprecation-rules
 
-Create `/var/www/sites/d8_webform/phpstan.neon`
+Create `~/Sites/drupal_webformphpstan.neon`
 
     parameters:
       customRulesetUsed: true
@@ -138,7 +118,7 @@ Create `/var/www/sites/d8_webform/phpstan.neon`
 
 Run PHPStan with memory limit increased
 
-    cd /var/www/sites/d8_webform/
+    cd ~/Sites/drupal_webform
     ./vendor/bin/phpstan --memory-limit=1024M analyse web/modules/sandbox/webform > ~/webform-deprecated.txt
     cat ~/webform-deprecated.txt
 
@@ -149,16 +129,12 @@ Run PHPStan with memory limit increased
 
 Pa11y is your automated accessibility testing pal.
 
-Notes
-- Requires node 8.x+
-
-
     # Enable accessibility examples.
     drush en -y webform_examples_accessibility
 
     # Text.
-    mkdir -p /var/www/sites/d8_webform/web/modules/sandbox/webform/reports/accessiblity/text
-    cd /var/www/sites/d8_webform/web/modules/sandbox/webform/reports/accessiblity/text
+    mkdir -p ~/Sites/drupal_webform/web/modules/sandbox/webform/reports/accessiblity/text
+    cd ~/Sites/drupal_webform/web/modules/sandbox/webform/reports/accessiblity/text
     pa11y http://localhost/wf/webform/example_accessibility_basic > example_accessibility_basic.txt
     pa11y http://localhost/wf/webform/example_accessibility_advanced > example_accessibility_advanced.txt
     pa11y http://localhost/wf/webform/example_accessibility_containers > example_accessibility_containers.txt
@@ -166,8 +142,8 @@ Notes
     pa11y http://localhost/wf/webform/example_accessibility_labels > example_accessibility_labels.txt
 
     # HTML.
-    mkdir -p /var/www/sites/d8_webform/web/modules/sandbox/webform/reports/accessiblity/html
-    cd /var/www/sites/d8_webform/web/modules/sandbox/webform/reports/accessiblity/html
+    mkdir -p ~/Sites/drupal_webform/web/modules/sandbox/webform/reports/accessiblity/html
+    cd ~/Sites/drupal_webform/web/modules/sandbox/webform/reports/accessiblity/html
     pa11y --reporter html http://localhost/wf/webform/example_accessibility_basic > example_accessibility_basic.html
     pa11y --reporter html http://localhost/wf/webform/example_accessibility_advanced > example_accessibility_advanced.html
     pa11y --reporter html http://localhost/wf/webform/example_accessibility_containers > example_accessibility_containers.html
@@ -175,12 +151,12 @@ Notes
     pa11y --reporter html http://localhost/wf/webform/example_accessibility_labels > example_accessibility_labels.html
 
     # Remove localhost from reports.
-    cd /var/www/sites/d8_webform/web/modules/sandbox/webform/reports/accessiblity
+    cd ~/Sites/drupal_webform/web/modules/sandbox/webform/reports/accessiblity
     find . -name '*.html' -exec sed -i '' -e  's|http://localhost/wf/webform/|http://localhost/webform/|g' {} \;
 
     # PDF.
-    mkdir -p /var/www/sites/d8_webform/web/modules/sandbox/webform/reports/accessiblity/pdf
-    cd /var/www/sites/d8_webform/web/modules/sandbox/webform/reports/accessiblity/pdf
+    mkdir -p ~/Sites/drupal_webform/web/modules/sandbox/webform/reports/accessiblity/pdf
+    cd ~/Sites/drupal_webform/web/modules/sandbox/webform/reports/accessiblity/pdf
     wkhtmltopdf --dpi 384 ../html/example_accessibility_basic.html example_accessibility_basic.pdf
     wkhtmltopdf --dpi 384 ../html/example_accessibility_advanced.html example_accessibility_advanced.pdf
     wkhtmltopdf --dpi 384 ../html/example_accessibility_containers.html example_accessibility_containers.pdf
@@ -194,11 +170,11 @@ Notes
 [SimpleTest](https://www.drupal.org/node/645286)
 
     # Run all tests
-    cd /var/www/sites/d8_webform
+    cd ~/Sites/drupal_webform
     php core/scripts/run-tests.sh --suppress-deprecations --url http://localhost/wf --module webform --dburl mysql://drupal_d8_webform:drupal.@dm1n@localhost/drupal_d8_webform
 
     # Run single tests
-    cd /var/www/sites/d8_webform
+    cd ~/Sites/drupal_webform
     php core/scripts/run-tests.sh --suppress-deprecations --url http://localhost/wf --verbose --class "Drupal\Tests\webform\Functional\WebformListBuilderTest"
 
 [PHPUnit](https://www.drupal.org/node/2116263)
@@ -215,11 +191,11 @@ References
     export SIMPLETEST_BASE_URL='http://localhost/wf';
 
     # Execute all Webform PHPUnit tests.
-    cd /var/www/sites/d8_webform/web/core
+    cd ~/Sites/drupal_webform/web/core
     php ../../vendor/phpunit/phpunit/phpunit --printer="\Drupal\Tests\Listeners\HtmlOutputPrinter" --group webform
 
     # Execute individual PHPUnit tests.
-    cd /var/www/sites/d8_webform/web/core
+    cd ~/Sites/drupal_webform/web/core
 
     # Functional test.
     php ../../vendor/phpunit/phpunit/phpunit --printer="\Drupal\Tests\Listeners\HtmlOutputPrinter" ../modules/sandbox/webform/tests/src/Functional/WebformExampleFunctionalTest.php

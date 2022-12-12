@@ -12,21 +12,21 @@ interface WebformTranslationConfigManagerInterface {
   /**
    * Alter config translation form.
    *
-   * @param $form
+   * @param array $form
    *   Nested array of form elements that comprise the form.
-   * @param $form_state
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    */
-  public function alterForm(&$form, FormStateInterface $form_state);
+  public function alterForm(array &$form, FormStateInterface $form_state);
 
   /**
    * Validate the webform config translation form.
    *
-   * @param $form
+   * @param array $form
    *   Nested array of form elements that comprise the form.
-   * @param $form_state
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
    *   The current state of the form.
    */
-  public static function validateWebformForm(&$form, FormStateInterface $form_state);
+  public static function validateWebformForm(array &$form, FormStateInterface $form_state);
 
 }

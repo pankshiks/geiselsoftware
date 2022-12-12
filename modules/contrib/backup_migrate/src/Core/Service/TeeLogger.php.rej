@@ -1,0 +1,19 @@
+--- lib/backup_migrate_core/src/Service/TeeLogger.php
++++ src/Core/Service/TeeLogger.php
+@@ -1,6 +1,6 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Service;
++namespace Drupal\backup_migrate\Core\Service;
+ 
+ use Psr\Log\AbstractLogger;
+ use Psr\Log\LoggerInterface;
+@@ -8,7 +8,7 @@
+ /**
+  * Class TeeLogger.
+  *
+- * @package BackupMigrate\Core\Tests\Service
++ * @package Drupal\backup_migrate\Core\Tests\Service
+  */
+ class TeeLogger extends AbstractLogger {
+ 

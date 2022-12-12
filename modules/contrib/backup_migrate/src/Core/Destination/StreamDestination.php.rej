@@ -1,0 +1,27 @@
+--- lib/backup_migrate_core/src/Destination/StreamDestination.php
++++ src/Core/Destination/StreamDestination.php
+@@ -1,17 +1,17 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Destination;
++namespace Drupal\backup_migrate\Core\Destination;
+ 
+-use BackupMigrate\Core\Config\ConfigurableInterface;
+-use BackupMigrate\Core\Exception\DestinationNotWritableException;
+-use BackupMigrate\Core\File\BackupFileInterface;
+-use BackupMigrate\Core\File\BackupFileReadableInterface;
+-use BackupMigrate\Core\Plugin\PluginBase;
++use Drupal\backup_migrate\Core\Config\ConfigurableInterface;
++use Drupal\backup_migrate\Core\Exception\DestinationNotWritableException;
++use Drupal\backup_migrate\Core\File\BackupFileInterface;
++use Drupal\backup_migrate\Core\File\BackupFileReadableInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginBase;
+ 
+ /**
+  * Class StreamDestination.
+  *
+- * @package BackupMigrate\Core\Destination
++ * @package Drupal\backup_migrate\Core\Destination
+  */
+ class StreamDestination extends PluginBase implements WritableDestinationInterface, ConfigurableInterface {
+ 

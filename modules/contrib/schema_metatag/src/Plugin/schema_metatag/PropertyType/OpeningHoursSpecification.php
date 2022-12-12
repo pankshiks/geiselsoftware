@@ -33,7 +33,7 @@ use Drupal\schema_metatag\Plugin\schema_metatag\PropertyTypeBase;
  *     },
  *     "closes" = {
  *       "id" = "text",
- *       "label" = @Translation("dayOfWeek"),
+ *       "label" = @Translation("closes"),
  *       "description" = @Translation("Matching comma-separated list of the time the business location closes each day, in hh:mm:ss format."),
  *     },
  *     "validFrom" = {

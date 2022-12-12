@@ -1,0 +1,49 @@
+--- src/Destination/DrupalBrowserUploadDestination.php
++++ src/Drupal/Destination/DrupalBrowserUploadDestination.php
+@@ -1,16 +1,16 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\Destination;
++namespace Drupal\backup_migrate\Drupal\Destination;
+ 
+-use BackupMigrate\Core\Destination\ReadableDestinationInterface;
+-use BackupMigrate\Core\File\BackupFileInterface;
+-use BackupMigrate\Core\File\ReadableStreamBackupFile;
+-use BackupMigrate\Core\Plugin\PluginBase;
++use Drupal\backup_migrate\Core\Destination\ReadableDestinationInterface;
++use Drupal\backup_migrate\Core\File\BackupFileInterface;
++use Drupal\backup_migrate\Core\File\ReadableStreamBackupFile;
++use Drupal\backup_migrate\Core\Plugin\PluginBase;
+ 
+ /**
+  * Class BrowserUploadDestination.
+  *
+- * @package BackupMigrate\Core\Destination
++ * @package Drupal\backup_migrate\Core\Destination
+  */
+ class DrupalBrowserUploadDestination extends PluginBase implements ReadableDestinationInterface {
+ 
+@@ -30,9 +30,9 @@ public function getFile($id) {
+   /**
+    * Load the metadata for the given file however it may be stored.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileInterface $file
+    *
+-   * @return \BackupMigrate\Core\File\BackupFileInterface
++   * @return \Drupal\backup_migrate\Core\File\BackupFileInterface
+    */
+   public function loadFileMetadata(BackupFileInterface $file) {
+     return $file;
+@@ -41,9 +41,9 @@ public function loadFileMetadata(BackupFileInterface $file) {
+   /**
+    * Load the file with the given ID from the destination.
+    *
+-   * @param \BackupMigrate\Core\File\BackupFileInterface $file
++   * @param \Drupal\backup_migrate\Core\File\BackupFileInterface $file
+    *
+-   * @return \BackupMigrate\Core\File\BackupFileReadableInterface The file if it exists or NULL if it doesn't
++   * @return \Drupal\backup_migrate\Core\File\BackupFileReadableInterface The file if it exists or NULL if it doesn't
+    */
+   public function loadFileForReading(BackupFileInterface $file) {
+     return $file;

@@ -1,0 +1,20 @@
+--- src/Entity/Destination.php
++++ src/Entity/Destination.php
+@@ -29,9 +29,15 @@
+  *   links = {
+  *     "edit-form" = "/admin/config/development/backup_migrate/settings/destination/edit/{backup_migrate_destination}",
+  *     "delete-form" = "/admin/config/development/backup_migrate/settings/destination/delete/{backup_migrate_destination}",
+- *     "collection" =
+- *            "/admin/config/development/backup_migrate/settings/destination",
++ *     "collection" = "/admin/config/development/backup_migrate/settings/destination",
+  *     "backups" = "/admin/config/development/backup_migrate/settings/destination/backups/{backup_migrate_destination}",
++ *   },
++ *   config_export = {
++ *     "id",
++ *     "label",
++ *     "uuid",
++ *     "type",
++ *     "config"
+  *   }
+  * )
+  */

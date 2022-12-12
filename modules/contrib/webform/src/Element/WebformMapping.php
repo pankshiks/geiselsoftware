@@ -67,7 +67,7 @@ class WebformMapping extends FormElement {
       }
       else {
         $source_description_property_name = ($element['#source__description_display'] === 'help') ? 'help' : 'description';
-        list($source_title, $source_description) = WebformOptionsHelper::splitOption($source);
+        [$source_title, $source_description] = WebformOptionsHelper::splitOption($source);
       }
       $sources[$source_key] = [
         'description_property_name' => $source_description_property_name,
@@ -104,7 +104,7 @@ class WebformMapping extends FormElement {
     // Build rows.
     $rows = [];
     foreach ($sources as $source_key => $source) {
-      $default_value = (isset($element['#default_value'][$source_key])) ? $element['#default_value'][$source_key] : NULL;
+      $default_value = $element['#default_value'][$source_key] ?? NULL;
 
       // Source element.
       $source_element = ['data' => []];

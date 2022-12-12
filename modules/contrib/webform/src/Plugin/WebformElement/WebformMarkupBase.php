@@ -36,7 +36,7 @@ abstract class WebformMarkupBase extends WebformElementBase implements WebformEl
     return $properties;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}

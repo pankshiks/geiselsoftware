@@ -1,0 +1,13 @@
+--- lib/backup_migrate_core/src/Destination/DestinationInterface.php
++++ src/Core/Destination/DestinationInterface.php
+@@ -1,8 +1,8 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Destination;
++namespace Drupal\backup_migrate\Core\Destination;
+ 
+-use BackupMigrate\Core\Plugin\PluginInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginInterface;
+ 
+ /**
+  * Provides an interface defining a backup destination.

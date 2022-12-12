@@ -69,7 +69,7 @@ class ProcessedText extends WebformMarkupBase {
     return array_merge(parent::defineTranslatableProperties(), ['text']);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}

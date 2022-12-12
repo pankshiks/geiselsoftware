@@ -30,7 +30,7 @@ class WebformMore extends WebformMarkupBase {
     ] + $this->defineDefaultBaseProperties();
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}

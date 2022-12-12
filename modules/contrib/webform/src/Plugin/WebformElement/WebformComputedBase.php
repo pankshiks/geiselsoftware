@@ -67,7 +67,7 @@ abstract class WebformComputedBase extends WebformElementBase implements Webform
     ] + $this->defineDefaultBaseProperties();
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}

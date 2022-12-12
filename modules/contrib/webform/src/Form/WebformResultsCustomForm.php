@@ -91,7 +91,7 @@ class WebformResultsCustomForm extends FormBase {
     $instance = parent::create($container);
     $instance->entityTypeManager = $container->get('entity_type.manager');
     $instance->requestHandler = $container->get('webform.request');
-    list($instance->webform, $instance->sourceEntity) = $instance->requestHandler->getWebformEntities();
+    [$instance->webform, $instance->sourceEntity] = $instance->requestHandler->getWebformEntities();
     return $instance;
   }
 
@@ -190,7 +190,7 @@ class WebformResultsCustomForm extends FormBase {
     foreach ($sort_columns as $column_name => $column) {
       if (!isset($column['sort']) || $column['sort'] === TRUE) {
         $sort_options[$column_name] = (string) $column['title'];
-      };
+      }
     }
     asort($sort_options);
 
@@ -239,9 +239,9 @@ class WebformResultsCustomForm extends FormBase {
       '#default_value' => ($limit !== NULL) ? $limit : 20,
     ];
 
-    /**************************************************************************/
+    /* ********************************************************************** */
     // Default settings only.
-    /**************************************************************************/
+    /* ********************************************************************** */
 
     if ($this->type === static::CUSTOMIZE_DEFAULT) {
       // Default configuration.
@@ -372,7 +372,7 @@ class WebformResultsCustomForm extends FormBase {
         '#markup' => $column['title'],
       ],
       'key' => [
-        '#markup' => (isset($column['key'])) ? $column['key'] : $column['name'],
+        '#markup' => $column['key'] ?? $column['name'],
       ],
       'weight' => [
         '#type' => 'weight',
@@ -472,9 +472,9 @@ class WebformResultsCustomForm extends FormBase {
     $form_state->setRedirectUrl($redirect_url);
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Customize data methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * Get the data method name depending of the custom type.

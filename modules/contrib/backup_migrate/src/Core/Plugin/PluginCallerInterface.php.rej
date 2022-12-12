@@ -1,0 +1,35 @@
+--- lib/backup_migrate_core/src/Plugin/PluginCallerInterface.php
++++ src/Core/Plugin/PluginCallerInterface.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Plugin;
++namespace Drupal\backup_migrate\Core\Plugin;
+ 
+-use BackupMigrate\Core\Plugin\PluginManagerInterface;
++use Drupal\backup_migrate\Core\Plugin\PluginManagerInterface;
+ 
+ /**
+  * Interface PluginCallerPluginInterface.
+  *
+- * @package BackupMigrate\Core\Plugin
++ * @package Drupal\backup_migrate\Core\Plugin
+  *
+  * An interface for plugins which need to access other plugins and therefore
+  * must have access to a plugin manager.
+@@ -17,13 +17,13 @@ interface PluginCallerInterface {
+   /**
+    * Inject the plugin manager.
+    *
+-   * @param \BackupMigrate\Core\Plugin\PluginManagerInterface $plugins
++   * @param \Drupal\backup_migrate\Core\Plugin\PluginManagerInterface $plugins
+    */
+   public function setPluginManager(PluginManagerInterface $plugins);
+ 
+   /**
+    * Get the plugin manager.
+-   *    * @return \BackupMigrate\Core\Plugin\PluginManagerInterface.
++   *    * @return \Drupal\backup_migrate\Core\Plugin\PluginManagerInterface.
+    */
+   public function plugins();
+ 

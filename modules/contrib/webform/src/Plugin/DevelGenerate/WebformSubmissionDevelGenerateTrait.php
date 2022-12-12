@@ -7,8 +7,6 @@ use Drupal\Core\Serialization\Yaml;
 use Drupal\webform\EntityStorage\WebformEntityStorageTrait;
 use Drupal\webform\Utility\WebformArrayHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Drupal\Component\Datetime\TimeInterface;
 
 /**
  * Provides a WebformSubmissionDevelGenerate plugin.
@@ -237,13 +235,14 @@ trait WebformSubmissionDevelGenerateTrait {
       $start = $this->time->getRequestTime();
       for ($i = 1; $i <= $values['num']; $i++) {
         $this->generateSubmission($values);
-        if (function_exists('drush_log') && $i % drush_get_option('feedback', 1000) === 0) {
-          $now = $this->time->getRequestTime();
+        $feedback = isset($values['feedback']) && is_int($values['feedback']) ? $values['feedback'] : 1000;
+        if ($i % $feedback === 0) {
+          $now = $this->time->getCurrentTime();
           $dt_args = [
-            '@feedback' => drush_get_option('feedback', 1000),
-            '@rate' => (drush_get_option('feedback', 1000) * 60) / ($now - $start),
+            '@feedback' => $feedback,
+            '@rate' => ($feedback * 60) / ($now - $start),
           ];
-          drush_log(dt('Completed @feedback submissions (@rate submissions/min)', $dt_args), 'ok');
+          \Drupal::logger('webform')->notice($this->t('Completed @feedback submissions (@rate submissions/min)', $dt_args));
           $start = $now;
         }
       }
@@ -333,32 +332,32 @@ trait WebformSubmissionDevelGenerateTrait {
   /**
    * {@inheritdoc}
    */
-  public function _validateDrushParams($args) {
+  public function _validateDrushParams($args) { // phpcs:ignore
     $webform_id = array_shift($args);
     $webform_ids = [$webform_id => $webform_id];
     $values = [
       'webform_ids' => $webform_ids,
       'num' => array_shift($args) ?: 50,
-      'kill' => drush_get_option('kill') ?: FALSE,
+      'kill' => empty($args['kill']) ? FALSE : TRUE,
     ];
 
     if (empty($webform_id)) {
-      return drush_set_error('DEVEL_GENERATE_INVALID_INPUT', dt('Webform id required'));
+      throw new \Exception(dt('Webform ida required'));
     }
 
     if (!$this->getWebformStorage()->load($webform_id)) {
-      return drush_set_error('DEVEL_GENERATE_INVALID_INPUT', dt('Invalid webform name: @name', ['@name' => $webform_id]));
+      throw new \Exception(dt('Invalid webform name: @name', ['@name' => $webform_id]));
     }
 
     if ($this->isNumber($values['num']) === FALSE) {
-      return drush_set_error('DEVEL_GENERATE_INVALID_INPUT', dt('Invalid number of submissions: @num', ['@num' => $values['num']]));
+      throw new \Exception(dt('Invalid number of submissions: @num', ['@num' => $values['num']]));
     }
 
-    $entity_type = drush_get_option('entity-type');
-    $entity_id = drush_get_option('entity-id');
+    $entity_type = $args['entity-type'];
+    $entity_id = $args['entity-id'];
     if ($entity_type || $entity_id) {
       if ($error = $this->validateEntity($webform_ids, $entity_type, $entity_id)) {
-        return drush_set_error('DEVEL_GENERATE_INVALID_INPUT', $error);
+        throw new \Exception($error);
       }
       else {
         $values['entity-type'] = $entity_type;

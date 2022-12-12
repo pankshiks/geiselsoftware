@@ -2,6 +2,7 @@
 
 namespace Drupal\webform\Plugin\WebformElement;
 
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\webform\WebformSubmissionInterface;
 
@@ -33,7 +34,7 @@ class WebformCustomComposite extends WebformCompositeBase {
     return $properties;
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -72,7 +73,7 @@ class WebformCustomComposite extends WebformCompositeBase {
     foreach ($multiple_properties as $multiple_property => $multiple_value) {
       if (strpos($multiple_property, 'multiple__') === 0) {
         $property_name = str_replace('multiple__', '', $multiple_property);
-        $element["#$property_name"] = (isset($element["#$multiple_property"])) ? $element["#$multiple_property"] : $multiple_value;
+        $element["#$property_name"] = $element["#$multiple_property"] ?? $multiple_value;
       }
     }
 
@@ -87,6 +88,35 @@ class WebformCustomComposite extends WebformCompositeBase {
           $composite_property_key = str_replace('#' . $composite_key . '__', '#', $property_key);
           $element['#element'][$composite_key][$composite_property_key] = $property_value;
         }
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function prepareElementPreRenderCallbacks(array &$element, WebformSubmissionInterface $webform_submission = NULL) {
+    parent::prepareElementPreRenderCallbacks($element, $webform_submission);
+
+    // Set custom wrapper type to theme wrappers.
+    // @see \Drupal\webform\Element\WebformMultiple::getInfo
+    // @see \Drupal\webform\Element\WebformCompositeFormElementTrait::preRenderWebformCompositeFormElement
+    if (isset($element['#wrapper_type'])) {
+      $element['#theme_wrappers'] = [$element['#wrapper_type']];
+
+      $element += ['#attributes' => []];
+      switch ($element['#wrapper_type']) {
+        case 'fieldset':
+          $element['#attributes']['class'][] = 'fieldgroup';
+          $element['#attributes']['class'][] = 'form-composite';
+          break;
+
+        case 'container':
+          // Apply wrapper attributes to attributes.
+          if (isset($element['#wrapper_attributes'])) {
+            $element['#attributes'] = NestedArray::mergeDeep($element['#attributes'], $element['#wrapper_attributes']);
+          }
+          break;
       }
     }
   }
@@ -122,9 +152,9 @@ class WebformCustomComposite extends WebformCompositeBase {
     ];
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Preview method.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}
@@ -152,9 +182,9 @@ class WebformCustomComposite extends WebformCompositeBase {
     ];
   }
 
-  /****************************************************************************/
+  /* ************************************************************************ */
   // Composite element methods.
-  /****************************************************************************/
+  /* ************************************************************************ */
 
   /**
    * {@inheritdoc}

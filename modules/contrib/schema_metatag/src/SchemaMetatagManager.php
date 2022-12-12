@@ -3,6 +3,7 @@
 namespace Drupal\schema_metatag;
 
 use Drupal\Component\Utility\Random;
+use Drupal\Core\Entity\ContentEntityInterface;
 
 /**
  * The SchemaMetatag Manager.
@@ -33,14 +34,19 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     $items = [];
     $group_key = 0;
     foreach ($schema_metatags as $data) {
-      if (empty($items)) {
-        $items['@context'] = 'https://schema.org';
+      // Skip data if @type is the only value set.
+      if (count($data) === 1 && isset($data['@type'])) {
+        continue;
       }
-      if (!empty($data)) {
-        $items['@graph'][$group_key] = $data;
-      }
+      $items['@graph'][$group_key] = $data;
       $group_key++;
     }
+
+    // If items were added, add the @context entry.
+    if (!empty($items)) {
+      $items = ['@context' => 'https://schema.org'] + $items;
+    }
+
     return $items;
   }
 
@@ -82,7 +88,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     // Get all the metatags for this entity.
     $metatag_manager = \Drupal::service('metatag.manager');
     if (!empty($entity) && $entity instanceof ContentEntityInterface) {
-      foreach ($metatag_manager->tagsFromEntity($entity) as $tag => $data) {
+      foreach ($metatag_manager->tagsFromEntityWithDefaults($entity) as $tag => $data) {
         $metatags[$tag] = $data;
       }
     }
@@ -92,12 +98,18 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
     \Drupal::service('module_handler')->alter('metatags', $metatags, $context);
     $elements = $metatag_manager->generateElements($metatags, $entity);
 
+    // The jsonld array structure 'parseJsonld' requires is nested within the
+    // 'html_head' array. However, if this doesn't exist we'll continue to
+    // use the $elements array as it is.
+    $elements = $elements['#attached']['html_head'] ?? $elements;
+
     // Parse the Schema.org metatags out of the array.
     if ($items = self::parseJsonld($elements)) {
       // Encode the Schema.org metatags as JSON LD.
       if ($jsonld = self::encodeJsonld($items)) {
         // Pass back the rendered result.
-        return \Drupal::service('renderer')->render(self::renderArrayJsonLd($jsonld));
+        $jsonld_render_array = self::renderArrayJsonLd($jsonld);
+        return \Drupal::service('renderer')->render($jsonld_render_array);
       }
     }
   }
@@ -204,7 +216,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
    * {@inheritdoc}
    */
   public static function unserialize($value) {
-    // Make sure the the value is not just a plain string and that
+    // Make sure the value is not just a plain string and that
     // the same value isn't unserialized more than once if this is called
     // multiple times.
     if (self::isSerialized($value)) {
@@ -215,7 +227,7 @@ class SchemaMetatagManager implements SchemaMetatagManagerInterface {
       // than the original tokens.
       $value = self::recomputeSerializedLength($value);
       // Keep broken unserialization from throwing errors on the page.
-      if ($value = @unserialize($value)) {
+      if ($value = @unserialize($value, ['allowed_classes' => FALSE])) {
         $value = self::arrayTrim($value);
       }
       else {

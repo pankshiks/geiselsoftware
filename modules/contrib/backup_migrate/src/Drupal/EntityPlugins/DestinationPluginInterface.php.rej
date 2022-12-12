@@ -1,0 +1,15 @@
+--- src/EntityPlugins/DestinationPluginInterface.php
++++ src/Drupal/EntityPlugins/DestinationPluginInterface.php
+@@ -1,10 +1,10 @@
+ <?php
+ 
+-namespace BackupMigrate\Drupal\EntityPlugins;
++namespace Drupal\backup_migrate\Drupal\EntityPlugins;
+ 
+ /**
+  * Wraps a Backup and Migrate source with a Drupal plugin.
+  *
+- * @package BackupMigrate\Drupal\EntityPlugins
++ * @package Drupal\backup_migrate\Drupal\EntityPlugins
+  */
+ interface DestinationPluginInterface extends WrapperPluginInterface {}

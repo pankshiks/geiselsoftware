@@ -151,8 +151,8 @@ class WebformEntityAccessControlHandler extends EntityAccessControlHandler imple
 
     // Check submission_* operation.
     if (strpos($operation, 'submission_') === 0) {
-      // Grant user with administer webform submission access to do whatever he
-      // likes on the submission operations.
+      // Grant user with administer webform submission access to do whatever they
+      // like on the submission operations.
       if ($account->hasPermission('administer webform submission')) {
         return WebformAccessResult::allowed();
       }

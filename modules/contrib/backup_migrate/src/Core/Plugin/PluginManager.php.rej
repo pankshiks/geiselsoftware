@@ -1,0 +1,83 @@
+--- lib/backup_migrate_core/src/Plugin/PluginManager.php
++++ src/Core/Plugin/PluginManager.php
+@@ -1,40 +1,40 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Plugin;
++namespace Drupal\backup_migrate\Core\Plugin;
+ 
+-use BackupMigrate\Core\Config\Config;
+-use BackupMigrate\Core\Config\ConfigInterface;
+-use BackupMigrate\Core\Config\ConfigurableInterface;
+-use BackupMigrate\Core\Config\ConfigurableTrait;
+-use BackupMigrate\Core\Service\ServiceManager;
+-use BackupMigrate\Core\Service\ServiceManagerInterface;
++use Drupal\backup_migrate\Core\Config\Config;
++use Drupal\backup_migrate\Core\Config\ConfigInterface;
++use Drupal\backup_migrate\Core\Config\ConfigurableInterface;
++use Drupal\backup_migrate\Core\Config\ConfigurableTrait;
++use Drupal\backup_migrate\Core\Service\ServiceManager;
++use Drupal\backup_migrate\Core\Service\ServiceManagerInterface;
+ 
+ /**
+  * Class PluginManager.
+  *
+- * @package BackupMigrate\Core\Plugin
++ * @package Drupal\backup_migrate\Core\Plugin
+  */
+ class PluginManager implements PluginManagerInterface, ConfigurableInterface {
+   use ConfigurableTrait;
+ 
+   /**
+-   * @var \BackupMigrate\Core\Plugin\PluginInterface[]
++   * @var \Drupal\backup_migrate\Core\Plugin\PluginInterface[]
+    */
+   protected $items;
+ 
+   /**
+-   * @var \BackupMigrate\Core\Service\ServiceManagerInterface
++   * @var \Drupal\backup_migrate\Core\Service\ServiceManagerInterface
+    */
+   protected $services;
+ 
+   /**
+-   * @var \BackupMigrate\Core\File\TempFileManagerInterface
++   * @var \Drupal\backup_migrate\Core\File\TempFileManagerInterface
+    */
+   protected $tempFileManager;
+ 
+   /**
+-   * @param \BackupMigrate\Core\Service\ServiceManagerInterface $services
+-   * @param \BackupMigrate\Core\Config\ConfigInterface $config
++   * @param \Drupal\backup_migrate\Core\Service\ServiceManagerInterface $services
++   * @param \Drupal\backup_migrate\Core\Config\ConfigInterface $config
+    */
+   public function __construct(ServiceManagerInterface $services = NULL, ConfigInterface $config = NULL) {
+     // Add the injected service locator for dependency injection into plugins.
+@@ -51,7 +51,7 @@ public function __construct(ServiceManagerInterface $services = NULL, ConfigInte
+   /**
+    * Set the configuration. Reconfigure all of the installed plugins.
+    *
+-   * @param \BackupMigrate\Core\Config\ConfigInterface $config
++   * @param \Drupal\backup_migrate\Core\Config\ConfigInterface $config
+    */
+   public function setConfig(ConfigInterface $config) {
+     // Set the configuration object to the one passed in.
+@@ -90,7 +90,7 @@ public function getAll() {
+    *
+    * @param string $op The name of the operation.
+    *
+-   * @return \BackupMigrate\Core\Plugin\PluginInterface[]
++   * @return \Drupal\backup_migrate\Core\Plugin\PluginInterface[]
+    */
+   public function getAllByOp($op) {
+     $out = [];
+@@ -139,7 +139,7 @@ public function map($op, $params = []) {
+    * manager and it configures the plugin according to the config object
+    * injected into the manager. It also injects other dependencies as needed.
+    *
+-   * @param \BackupMigrate\Core\Plugin\PluginInterface $plugin
++   * @param \Drupal\backup_migrate\Core\Plugin\PluginInterface $plugin
+    *   The plugin to prepare for use.
+    * @param string $id
+    *   The id of the plugin (to extract the correct settings).

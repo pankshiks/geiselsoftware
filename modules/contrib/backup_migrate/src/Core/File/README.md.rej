@@ -1,0 +1,23 @@
+--- lib/backup_migrate_core/src/File/README.md
++++ src/Core/File/README.md
+@@ -2,9 +2,9 @@
+ 
+ Backup files are objects that represent a single backup. They are what is created during a backup operation and restored from during a restore. They do not need to necessarily represent an actual file on disk on the local system as long as they implement one or more of the following interfaces:
+ 
+-	\BackupMigrate\Core\File\BackupFileInterface
+-	\BackupMigrate\Core\File\BackupFileReadableInterface
+-	\BackupMigrate\Core\File\BackupFileWritableInterface
++	\Drupal\backup_migrate\Core\File\BackupFileInterface
++	\Drupal\backup_migrate\Core\File\BackupFileReadableInterface
++	\Drupal\backup_migrate\Core\File\BackupFileWritableInterface
+ 	
+ The latter 2 interfaces extend the `BackupFileInterface`.
+ 
+@@ -58,6 +58,6 @@ Similarly `$this->getTempFileManager()->popExt()` will pull the last item from t
+ See [Plugins](https://github.com/backupmigrate/backup_migrate_core/tree/master/src/Plugin) for details on how to make the Temporary File Manager accessible within a plugin.
+ 
+ ### The Temporary File Adapter ###
+-While the file manager takes care of the metadata of temporary files, it cannot provision actual on-disk files to write to. That is because that operation will be different depending on where the code is run and is therefore the responsibility of the [Environment](https://github.com/backupmigrate/backup_migrate_core/tree/master/src/Environment) object. The environment provides a service called called the Temporary File Adaptor (an object whose class which implements `\BackupMigrate\Core\Services\TempFileAdapterInterface`). The job of this class is to provision actual temporary files in the host operating system that can be written to and read from. That service is also responsible for tracking all of the files that have been created during the running of an operation and deleting those files when the operation completes. Backup and Migrate core comes with a basic adapter which accepts any writable directory as an argument and creates new temporary files within that directory. This implementation should suffice for most consuming software but can be replaced with another adapter if needed.
++While the file manager takes care of the metadata of temporary files, it cannot provision actual on-disk files to write to. That is because that operation will be different depending on where the code is run and is therefore the responsibility of the [Environment](https://github.com/backupmigrate/backup_migrate_core/tree/master/src/Environment) object. The environment provides a service called called the Temporary File Adaptor (an object whose class which implements `\Drupal\backup_migrate\Core\Services\TempFileAdapterInterface`). The job of this class is to provision actual temporary files in the host operating system that can be written to and read from. That service is also responsible for tracking all of the files that have been created during the running of an operation and deleting those files when the operation completes. Backup and Migrate core comes with a basic adapter which accepts any writable directory as an argument and creates new temporary files within that directory. This implementation should suffice for most consuming software but can be replaced with another adapter if needed.
+ 
+ See: [Environment](https://github.com/backupmigrate/backup_migrate_core/tree/master/src/Environment)

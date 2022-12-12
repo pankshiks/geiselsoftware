@@ -30,4 +30,15 @@ use Drupal\schema_metatag\Plugin\metatag\Tag\SchemaNameBase;
  */
 class SchemaRecipeAggregateRating extends SchemaNameBase {
 
+  /**
+   * {@inheritdoc}
+   */
+  public function output() {
+    $return = parent::output();
+    if (empty($return['#attributes']['content']['ratingValue']) || empty($return['#attributes']['content']['ratingCount'])) {
+      return [];
+    }
+    return $return;
+  }
+
 }

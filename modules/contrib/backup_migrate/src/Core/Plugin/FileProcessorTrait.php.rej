@@ -1,0 +1,37 @@
+--- lib/backup_migrate_core/src/Plugin/FileProcessorTrait.php
++++ src/Core/Plugin/FileProcessorTrait.php
+@@ -1,13 +1,13 @@
+ <?php
+ 
+-namespace BackupMigrate\Core\Plugin;
++namespace Drupal\backup_migrate\Core\Plugin;
+ 
+-use BackupMigrate\Core\File\TempFileManagerInterface;
++use Drupal\backup_migrate\Core\File\TempFileManagerInterface;
+ 
+ /**
+  * Class FileProcessorPluginTrait.
+  *
+- * @package BackupMigrate\Core\Plugin
++ * @package Drupal\backup_migrate\Core\Plugin
+  *
+  * Implement the injection functionality of a file processor.
+  */
+@@ -20,7 +20,7 @@ trait FileProcessorTrait {
+   /**
+    * Inject the temp file manager.
+    *
+-   * @param \BackupMigrate\Core\File\TempFileManagerInterface $tempfilemanager
++   * @param \Drupal\backup_migrate\Core\File\TempFileManagerInterface $tempfilemanager
+    *
+    * @return mixed
+    */
+@@ -31,7 +31,7 @@ public function setTempFileManager(TempFileManagerInterface $tempfilemanager) {
+   /**
+    * Get the temp file manager.
+    *
+-   * @return \BackupMigrate\Core\File\TempFileManagerInterface
++   * @return \Drupal\backup_migrate\Core\File\TempFileManagerInterface
+    */
+   public function getTempFileManager() {
+     return $this->tempfilemanager;

@@ -75,7 +75,7 @@ class WebformVariantManager extends DefaultPluginManager implements WebformVaria
    * {@inheritdoc}
    */
   public function removeExcludeDefinitions(array $definitions) {
-    $definitions = isset($definitions) ? $definitions : $this->getDefinitions();
+    $definitions = $definitions ?? $this->getDefinitions();
 
     // Exclude 'broken' variant.
     unset($definitions['broken']);
